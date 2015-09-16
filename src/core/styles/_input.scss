@@ -1,0 +1,242 @@
+@mixin input-color($color, $color-shadow) {
+  border-color: $color;
+  color: $color;
+
+  &:hover:not(:focus) {
+    border-color: $color-shadow !important;
+  }
+}
+
+
+%input,
+.#{$ns}input {
+  @extend %p;
+  @extend %light;
+  //  @extend .#{$ns}input--md;
+  font-family: 'Open Sans', sans-serif;
+  background: $white;
+  outline: 0;
+  border: 2px solid $mono-light;
+  width: 75%;
+  height: $bordered-dimensions-md;
+  padding: $pad-md;
+
+  //  &:focus:not([readonly="readonly"]) {
+  //    border: 2px solid $brand-primary;
+  //    height: $bordered-dimensions-md;
+  //    padding: $pad-md;
+  //    color: $mono-darker;
+  //    @include box-shadow(inset 0 0 1.5px rgba(0, 0, 0, 0.16));
+  //  }
+
+
+  &:focus:not([readonly="readonly"]) {
+    border-color: $brand-primary;
+    background: $white;
+  }
+
+  &:hover:not(:focus) {
+    border: 2px solid darken($mono-light, 5%);
+    @include box-shadow(inset 0 0 1.5px rgba(0, 0, 0, 0.16));
+  }
+
+  &.#{$ns}hover-input {
+    @extend %normal;
+    height: $dimensions-sm + 1;
+    color: $mono-darker;
+    border-color: transparent;
+    background: transparent;
+    padding-left: $base-spacing-unit*2 - $base-border-width;
+    padding-right: $base-spacing-unit*2 - $base-border-width;
+    width: 350px;
+
+    &:hover:not(:focus) {
+      border-color: darken($mono-light, 5%);
+      background: $white;
+    }
+  }
+}
+
+
+input {
+  &[readonly="readonly"] {
+    background: $mono-lighter;
+    color: $mono;
+    cursor: no-drop;
+  }
+}
+
+.#{$ns}display-invalid.ng-invalid {
+  border-color: $brand-danger !important;
+}
+
+
+.#{$ns}display-valid.ng-valid {
+  border-color: $brand-success !important;
+}
+
+.#{$ns}input--short {
+  width: 50%;
+}
+
+.#{$ns}input-sm {
+  @extend .#{$ns}input;
+  height: $bordered-dimensions-sm;
+  padding: $pad-sm;
+
+  //  &:focus {
+  //    height: $bordered-dimensions-sm !important;
+  //    padding: $pad-sm !important;
+  //  }
+}
+
+.#{$ns}input-md {
+  @extend .#{$ns}input;
+}
+
+.#{$ns}input-lg {
+  @extend .#{$ns}input;
+  height: $bordered-dimensions-lg;
+  padding: $pad-lg;
+
+  //  &:focus {
+  //    height: $bordered-dimensions-lg !important;
+  //    padding: $pad-lg !important;
+  //  }
+}
+
+.#{$ns}input--success {
+  @include input-color($brand-success, $brand-success-shadow);
+}
+
+.#{$ns}input--danger {
+  @include input-color($brand-danger, $brand-danger-shadow);
+}
+
+.#{$ns}input--stretch {
+  display: block;
+  width: 100%;
+
+  &:focus {
+    width: 100%;
+  }
+}
+
+.#{$ns}input-group {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+  & > i {
+    position: absolute;
+    top: 0;
+    color: $mono-light;
+  }
+
+  &.#{$ns}has-prepend {
+    & > input,
+    & > .#{$ns}input-md {
+      padding-left: $bordered-dimensions-md + $pad-x-md + $base-font-size;
+    }
+
+    & > .#{$ns}input-sm {
+      padding-left: $bordered-dimensions-sm + $pad-x-sm + $base-font-size;
+    }
+
+    & > .#{$ns}input-lg {
+      padding-left: $bordered-dimensions-lg + $pad-x-lg + $base-font-size;
+    }
+  }
+
+  &.#{$ns}has-postpend {
+    & > input,
+    & > .#{$ns}input-md {
+      padding-right: $bordered-dimensions-md + $pad-x-md + $base-font-size;
+    }
+
+    & > .#{$ns}input-sm {
+      padding-right: $bordered-dimensions-sm + $pad-x-sm + $base-font-size;
+    }
+
+    & > .#{$ns}input-lg {
+      padding-right: $bordered-dimensions-lg + $pad-x-lg + $base-font-size;
+    }
+  }
+
+  &.#{$ns}has-icon {
+    & > input,
+    & > .#{$ns}input-md {
+      padding-left: $pad-x-md + $base-font-size;
+
+      & ~ i {
+        line-height: $bordered-dimensions-md;
+        left: $pad-x-md / 1.5;
+      }
+    }
+
+    & > .#{$ns}input-sm {
+      padding-left: $pad-x-sm + $base-font-size;
+      & ~ i {
+        line-height: $bordered-dimensions-sm;
+        left: $pad-x-sm / 1.5;
+      }
+    }
+
+    & > .#{$ns}input-lg {
+      padding-left: $pad-x-lg + $base-font-size;
+
+      & ~ i {
+        line-height: $bordered-dimensions-lg;
+        left: $pad-x-lg/1.5;
+      }
+    }
+  }
+}
+
+.#{$ns}input-group__prepend--btn {
+  border: 2px solid $mono-lighter;
+}
+
+.#{$ns}input-group__prepend,
+.#{$ns}input-group__postpend {
+  position: absolute;
+  top: 0;
+}
+
+.#{$ns}input-group__prepend {
+  left: 0;
+}
+
+.#{$ns}input-group__postpend {
+  right: 0;
+}
+
+.#{$ns}input-label-group {
+  position: relative;
+  display: table;
+  border-collapse: collapse;
+  width: 100%;
+
+  & > input {
+    width: 100%;
+  }
+
+  & > label {
+    display: table-cell;
+    padding: $pad-md;
+    vertical-align: middle;
+    text-align: center;
+    background: $mono-lighter;
+    color: $mono;
+  }
+}
+
+.#{$ns}textarea {
+  @extend %input;
+  height: auto;
+  width: 100%;
+
+  &:focus:not([readonly="readonly"]) {
+    height: auto;
+  }
+}

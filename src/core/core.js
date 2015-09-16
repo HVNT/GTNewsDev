@@ -1,0 +1,1 @@
+angular.module('nd.core', ['nd.services', 'nd.directives', 'nd.animations', 'nd.filters']);

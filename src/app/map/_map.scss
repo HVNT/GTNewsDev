@@ -1,0 +1,28 @@
+@import 'core/styles/variables.scss';
+
+.nd-dialogue-container {
+  position: absolute;
+  top: 0;
+  bottom: 100px;
+  left: 300px;
+  right: 150px;
+  overflow-y: auto;
+  background: WHITE;
+
+  box-shadow: $z1-shadow;
+  -webkit-box-shadow: $z1-shadow;
+  -moz-box-shadow: $z1-shadow;
+}
+
+
+.nd-label-interact {
+  color: $brand-primary-shadow !important;
+}
+
+.nd-label-interact:hover {
+  text-decoration: underline;
+}
+
+.nd-date-stamp {
+  color: $mono-light;
+}

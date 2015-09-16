@@ -1,0 +1,399 @@
+@mixin btn-color($color, $color-shadow: adjust_hue(darken($color, 7%), 8%), $text-color: $white) {
+  background: $color;
+  color: $text-color;
+  border: 2px solid $color-shadow;
+  text-shadow: 0 -1px 0 $color;
+  //  @include btn-shadow($color-shadow);
+  @include box-shadow(#{0 1px $color-shadow, $raised-button-normal-shadow});
+
+  &:hover:not([disabled="disabled"]) {
+    background: lighten($color, 3%);
+    //    box-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.16), 0 1px 1px $color-shadow;
+    text-shadow: 0 -1px 0 $color-shadow;
+    @include box-shadow(#{ 0 1px $color-shadow, $raised-button-hover-shadow});
+  }
+
+  &:active:not([disabled="disabled"]) {
+    background: $color;
+    text-shadow: 0 0 0.5px $color;
+    @include box-shadow(#{0 0 $color-shadow, $z0-shadow});
+  }
+
+  &[disabled="disabled"] {
+    background: $mono-light;
+    color: $mono;
+    border-color: $mono;
+    cursor: default;
+    text-shadow: none;
+    opacity: .6;
+    box-shadow: none !important;
+    @include translate3d(0, 0, 0);
+  }
+}
+
+%btn {
+  @extend .noselect;
+  cursor: pointer;
+  outline: 0;
+  text-align: center;
+  display: inline-block;
+  @include translate3d(0, -1px, 0);
+
+  &:hover, &:active {
+    //    @include transition(all 0.1s ease-in-out);
+  }
+
+  &:active {
+    @include translate3d(0, 0, 0);
+  }
+
+  & > i + a,
+  & > i + span {
+    margin-left: $base-spacing-unit;
+  }
+
+  & > a + i,
+  & > span + i {
+    margin-left: $base-spacing-unit;
+  }
+}
+
+.#{$ns}btn-primary {
+  @extend %btn;
+  @include btn-color($brand-primary, $brand-primary-shadow);
+}
+
+.#{$ns}btn-accent {
+  @extend %btn;
+  @include btn-color($brand-accent, $brand-accent-shadow);
+}
+
+.#{$ns}btn-success {
+  @extend %btn;
+  @include btn-color($brand-success, $brand-success-shadow);
+}
+
+.#{$ns}btn-warning {
+  @extend %btn;
+  @include btn-color($brand-warning, $brand-warning-shadow);
+}
+
+.#{$ns}btn-danger {
+  @extend %btn;
+  @include btn-color($brand-danger, $brand-danger-shadow);
+}
+
+.#{$ns}btn-mono {
+  @extend %btn;
+  @include btn-color($mono-dark);
+}
+
+.#{$ns}btn-white {
+  @extend %btn;
+  @include btn-color($white, $mono, $mono);
+}
+
+/**
+*
+*  Outlined Buttons
+*
+**/
+
+$btn-outlined-namespace: "o";
+
+@mixin btn-outlined-color($color, $color-shadow: adjust_hue(darken($color, 7%), 8%)) {
+  border: 2px solid $color;
+  color: $color;
+
+  &:hover:not([disabled="disabled"]):not(.#{$ns}btn--active):not(:active) {
+    border-color: $color-shadow;
+    color: $color-shadow;
+  }
+
+  &:active:not([disabled="disabled"]),
+  &.#{$ns}btn--active {
+    color: $white;
+    background: $color;
+  }
+}
+
+%btn-outlined {
+  @extend .noselect;
+  text-align: center;
+  background: transparent;
+  cursor: pointer;
+  outline: 0;
+  display: inline-block;
+
+  &:hover, &:active {
+    @include transition(all 0.07s ease-in-out);
+  }
+
+  &[disabled="disabled"] {
+    border: 2px solid rgba($mono-light, .60);
+    color: rgba($mono-light, .60);
+    cursor: default;
+  }
+
+  & > i + a,
+  & > i + span {
+    margin-left: $base-spacing-unit;
+  }
+
+  & > a + i,
+  & > span + i {
+    margin-left: $base-spacing-unit;
+  }
+}
+
+.#{$ns}btn-#{$btn-outlined-namespace}-primary {
+  @extend %btn-outlined;
+  @include btn-outlined-color($brand-primary, $brand-primary-shadow);
+}
+
+.#{$ns}btn-#{$btn-outlined-namespace}-accent {
+  @extend %btn-outlined;
+  @include btn-outlined-color($brand-accent, $brand-accent-shadow);
+}
+
+.#{$ns}btn-#{$btn-outlined-namespace}-success {
+  @extend %btn-outlined;
+  @include btn-outlined-color($brand-success, $brand-success-shadow);
+}
+
+.#{$ns}btn-#{$btn-outlined-namespace}-warning {
+  @extend %btn-outlined;
+  @include btn-outlined-color($brand-warning, $brand-warning-shadow);
+}
+
+.#{$ns}btn-#{$btn-outlined-namespace}-danger {
+  @extend %btn-outlined;
+  @include btn-outlined-color($brand-danger-shadow);
+}
+
+.#{$ns}btn-#{$btn-outlined-namespace}-mono {
+  @extend %btn-outlined;
+  @include btn-outlined-color($mono);
+}
+
+.#{$ns}btn-#{$btn-outlined-namespace}-white {
+  @extend %btn-outlined;
+  @include btn-outlined-color($white);
+
+  &:active:not([disabled="disabled"]),
+  &.#{$ns}btn--active {
+    color: $mono-dark;
+  }
+}
+
+/**
+*
+* Naked Button
+*
+**/
+
+$btn-naked-namespace: "n";
+
+@mixin btn-naked-color($color, $color-shadow: adjust_hue(darken($color, 7%), 8%), $background-color: rgba(0,0,0,0)) {
+  color: $color;
+  background: $background-color;
+
+  &:hover:not([disabled="disabled"]):not(.#{$ns}btn--active):not(:active) {
+    //    background-color: rgba(0,0,0,0.15);
+    color: $color-shadow;
+    @include translate3d(0, -1px, 0);
+    @include box-shadow(#{$z1-shadow, 0 1px darken($background-color, 5%)});
+  }
+
+  &:active:not([disabled="disabled"]),
+  &.#{$ns}btn--active {
+    color: $color-shadow;
+    @include translate3d(0, 0, 0);
+  }
+}
+
+%btn-naked {
+  @extend .noselect;
+  text-align: center;
+  cursor: pointer;
+  outline: 0;
+  display: inline-block;
+  border: 0;
+
+  &[disabled="disabled"] {
+    color: rgba($mono-light, .60);
+    cursor: default;
+  }
+
+  & > i + a,
+  & > i + span {
+    margin-left: $base-spacing-unit;
+  }
+
+  & > a + i,
+  & > span + i {
+    margin-left: $base-spacing-unit;
+  }
+
+  &.#{$ns}btn--xs {
+    padding: 0 $pad-x-xs;
+  }
+
+  &.#{$ns}btn--sm {
+    padding: 0 $pad-x-sm;
+  }
+
+  &.#{$ns}btn--md {
+    padding: 0 $pad-x-md;
+  }
+
+  &.#{$ns}btn--lg {
+    padding: 0 $pad-x-lg;
+  }
+}
+
+
+.#{$ns}btn-#{$btn-naked-namespace}-primary {
+  @extend %btn-naked;
+  @include btn-naked-color($brand-primary, $brand-primary-shadow);
+}
+
+.#{$ns}btn-#{$btn-naked-namespace}-accent {
+  @extend %btn-naked;
+  @include btn-naked-color($brand-accent, $brand-accent-shadow);
+}
+
+.#{$ns}btn-#{$btn-naked-namespace}-success {
+  @extend %btn-naked;
+  @include btn-naked-color($brand-success, $brand-success-shadow);
+}
+
+.#{$ns}btn-#{$btn-naked-namespace}-warning {
+  @extend %btn-naked;
+  @include btn-naked-color($brand-warning, $brand-warning-shadow);
+}
+
+.#{$ns}btn-#{$btn-naked-namespace}-danger {
+  @extend %btn-naked;
+  @include btn-naked-color($brand-warning-shadow);
+}
+
+.#{$ns}btn-#{$btn-naked-namespace}-mono {
+  @extend %btn-naked;
+  @include btn-naked-color($mono, $mono-dark);
+}
+
+.#{$ns}btn-#{$btn-naked-namespace}-inverse {
+  @extend %btn-naked;
+  @include btn-naked-color($white, $mono-lighter, $mono-darker);
+}
+
+.#{$ns}btn-#{$btn-naked-namespace}-white {
+  @extend %btn-naked;
+  @include btn-naked-color($white);
+}
+
+
+/**
+*
+*  Button Modifiers
+*
+**/
+
+.#{$ns}btn--circle {
+  border-radius: 50%;
+  padding: 0 !important;
+}
+
+.#{$ns}btn--rounded {
+  @include border-radius($base-border-radius);
+}
+
+.#{$ns}btn--pill {
+  @include border-radius(500px);
+}
+
+.#{$ns}btn--xs {
+  @extend %sm-heading-caps;
+  padding: $pad-xs;
+  min-height: $bordered-dimensions-xs;
+
+  &.#{$ns}btn--circle {
+    width: $bordered-dimensions-xs;
+    height: $bordered-dimensions-xs;
+  }
+}
+
+.#{$ns}btn--sm {
+  @extend %sm-heading-caps;
+  padding: $pad-sm;
+  min-height: $bordered-dimensions-sm;
+
+  &.#{$ns}btn--circle {
+    width: $bordered-dimensions-sm;
+    height: $bordered-dimensions-sm;
+  }
+}
+
+.#{$ns}btn--md {
+  @extend %md-heading-caps;
+  padding: $pad-md;
+  min-height: $bordered-dimensions-md;
+
+  &.#{$ns}btn--circle {
+    width: $bordered-dimensions-md;
+    height: $bordered-dimensions-md;
+  }
+}
+
+.#{$ns}btn--lg {
+  @extend %lg-heading-caps;
+  padding: $pad-lg;
+  min-height: $bordered-dimensions-lg;
+
+  &.#{$ns}btn--circle {
+    width: $bordered-dimensions-lg;
+    height: $bordered-dimensions-lg;
+  }
+}
+
+.#{$ns}btn--block,
+%btn--block {
+  width: 100%;
+  display: block;
+}
+
+.#{$ns}btn-group {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+
+  & > [class*="#{$ns}btn-"] {
+    display: inline-block;
+    @include border-radius(0);
+
+    & + [class*="#{$ns}btn-"] {
+      margin-left: -4px;
+      border-left: none;
+    }
+  }
+}
+
+.#{$ns}btn-group--rounded {
+  & > [class*="#{$ns}btn-"] {
+
+    &:first-of-type {
+      @include border-top-left-radius($base-border-radius);
+      @include border-bottom-left-radius($base-border-radius);
+      @include border-top-right-radius(0);
+      @include border-bottom-right-radius(0);
+    }
+
+    &:last-of-type {
+      @include border-top-right-radius($base-border-radius);
+      @include border-bottom-right-radius($base-border-radius);
+      @include border-top-left-radius(0);
+      @include border-bottom-left-radius(0);
+    }
+  }
+}

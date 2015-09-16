@@ -1,0 +1,264 @@
+@import 'variables.scss';
+
+/**
+* Base Typography
+**/
+
+html {
+  font-size: $base-font-size;
+  font-weight: 400;
+}
+
+[#{$ns}t-font~="p"],
+%p, .p {
+  font-size: $paragraph;
+  font-weight: normal;
+  line-height: $base-line-height;
+}
+
+[#{$ns}t-font~="small"],
+.small, %small {
+  font-size: $small;
+  line-height: $small-line-height;
+}
+
+[#{$ns}t-font~="lead"],
+%lead, .lead {
+  font-weight: 300;
+  font-size: $paragraph-lead;
+  line-height: $paragraph-lead * 1.5;
+}
+
+[#{$ns}t-font~="a"],
+.a, %a {
+  font-weight: inherit;
+  text-decoration: none;
+  color: inherit;
+  font-family: $base-font-family;
+
+  &:active {
+    text-decoration: none;
+  }
+}
+
+[#{$ns}t-font~="link"],
+.link, %link {
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+[#{$ns}t-font~="h1"],
+.h1, %h1 {
+  font-size: $h1;
+  line-height: $h1-line-height;
+  font-family: $base-font-family;
+}
+
+[#{$ns}t-font~="h2"],
+.h2, %h2{
+  font-size: $h2;
+  line-height: $h2-line-height;
+  font-family: $base-font-family;
+
+  &[#{$ns}t-font~="small-caps"],
+  &.small-caps {
+    font-size: $h2-small-caps;
+    line-height: $h2-small-caps-line-height;
+  }
+}
+
+[#{$ns}t-font~="h3"],
+.h3, %h3 {
+  font-size: $h3;
+  line-height: $h3-line-height;
+  font-family: $base-font-family;
+
+  &[#{$ns}t-font~="small-caps"],
+  &.small-caps {
+    font-size: $h3-small-caps;
+    line-height: $h3-small-caps-line-height;
+  }
+}
+
+[#{$ns}t-font~="h4"],
+.h4, %h4 {
+  font-size: $h4;
+  line-height: $h4-line-height;
+  font-family: $base-font-family;
+
+  &[#{$ns}t-font~="small-caps"],
+  &.small-caps {
+    font-size: $h4-small-caps;
+    line-height: $h4-small-caps-line-height;
+  }
+}
+
+[#{$ns}t-font~="h5"],
+.h5, %h5 {
+  font-size: $h5;
+  line-height: $h5-line-height;
+  font-family: $base-font-family;
+
+  &[#{$ns}t-font~="small-caps"],
+  &.small-caps {
+    font-size: $h5-small-caps;
+    line-height: $h5-small-caps-line-height;
+  }
+}
+
+[#{$ns}t-font~="h6"],
+.h6, %h6 {
+  font-size: $h6;
+  line-height: $h6-line-height;
+  font-family: $base-font-family;
+
+  &[#{$ns}t-font~="small-caps"],
+  &.small-caps {
+    font-size: $h6-small-caps;
+    line-height: $h6-small-caps-line-height;
+  }
+}
+
+
+[#{$ns}t-font~="h1"],
+.h1, %h1,
+[#{$ns}t-font~="h2"],
+.h2, %h2,
+[#{$ns}t-font~="h3"],
+.h3, %h3,
+[#{$ns}t-font~="h4"],
+.h4, %h4,
+[#{$ns}t-font~="h5"],
+.h5, %h5,
+[#{$ns}t-font~="h6"],
+.h6, %h6 {
+
+  &[#{$ns}t-font~="small-caps"],
+  &.small-caps {
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+}
+
+[#{$ns}t-font~="extra-bold"],
+.extra-bold, %extra-bold {
+  font-weight: 800 !important;
+}
+
+[#{$ns}t-font~="bold"],
+strong, .bold, %bold {
+  font-weight: 700 !important;
+}
+
+[#{$ns}t-font~="semi-bold"],
+.semi-bold, %semi-bold {
+  font-weight: 600 !important;
+}
+
+[#{$ns}t-font~="light"],
+.light, %light {
+  font-weight: 300 !important;
+}
+
+[#{$ns}t-font~="normal"],
+.normal, %normal {
+  font-weight: 400 !important;
+}
+
+[#{$ns}t-font~="sm-heading-caps"],
+%sm-heading-caps,
+.sm-heading-caps {
+  @extend .h6.small-caps;
+  @extend .bold;
+}
+
+[#{$ns}t-font~="md-heading-caps"],
+%md-heading-caps,
+.md-heading-caps {
+  @extend .h5.small-caps;
+  @extend .bold;
+}
+
+[#{$ns}t-font~="lg-heading-caps"],
+%lg-heading-caps,
+.lg-heading-caps {
+  @extend .h4.small-caps;
+  @extend .bold;
+}
+
+[#{$ns}t-font~="sm-heading"],
+%sm-heading,
+.sm-heading {
+  @extend .h6;
+  @extend .bold;
+}
+
+[#{$ns}t-font~="md-heading"],
+%md-heading,
+.md-heading {
+  @extend .h5;
+  @extend .bold;
+}
+
+[#{$ns}t-font~="lg-heading"],
+%lg-heading,
+.lg-heading {
+  @extend .h4;
+  @extend .bold;
+}
+
+[#{$ns}t-font~="sm-paragraph"],
+%sm-paragraph,
+.sm-paragraph  {
+  font-size: $paragraph;
+  font-weight: 300;
+  line-height: $base-line-height;
+}
+
+[#{$ns}t-font~="md-paragraph"],
+%md-paragraph,
+.md-paragraph {
+  font-size: $paragraph * 1.25;
+  font-weight: 300;
+  line-height: $paragraph * 1.25 * 1.5;
+}
+
+[#{$ns}t-font~="lg-paragraph"],
+%lg-paragraph,
+.lg-paragraph {
+  font-size: $paragraph * 1.5;
+  font-weight: 300;
+  line-height: $paragraph * 1.5 * 1.5;
+}
+
+[#{$ns}t-font~="center"],
+%text-center, .text-center {
+  text-align: center;
+}
+
+[#{$ns}t-font~="right"],
+%text-right, .text-right {
+  text-align: right;
+}
+
+[#{$ns}t-font~="left"],
+%text-right, .text-right {
+  text-align: left;
+}
+
+[#{$ns}t-font~="interact"],
+%text-interact, .text-interact {
+  cursor: pointer;
+
+  &:hover {
+    color: darken($mono-dark, 10%);
+  }
+}
+
+[#{$ns}t-font~="base"],
+.#{$ns}t-font-base {
+  font-family: $base-font-family;
+}

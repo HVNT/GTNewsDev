@@ -1,0 +1,16 @@
+# Created by .ignore support plugin (hsz.mobi)
+.DS_STORE
+.idea
+.sass-cache
+.tmp
+
+log
+node_modules
+bower_components
+tmp
+
+src/index.html
+src/core/styles/main.css
+src/vendor/
+src/app/app.templates.js
+

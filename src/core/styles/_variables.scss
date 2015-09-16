@@ -1,0 +1,173 @@
+$ns: 'nd-';
+
+$gutter-base: 8px;
+
+
+$white: #F7F9F9;
+
+// Brand colors
+// -------------------------
+$brand-primary: #62a9b3 !default;
+$brand-accent: #4d577b !default;
+$brand-success: #9ccc65 !default;
+$brand-warning: #edcc3e !default;
+$brand-danger: #ef5c48 !default;
+$brand-info: #B0DDF2 !default;
+$link-color: #0c5e86 !default;
+
+$brand-fallback: #7d5c45;
+// brown
+$mono-darker: #302b27;
+$mono-dark: #5c5854;
+$mono: #7d7a78;
+$mono-light: #cfccca;
+$mono-lighter: #e8e7e6;
+
+$text-primary: rgba(0,0,0,0.87);
+$text-secondary: rgba(0,0,0,0.54);
+$text-disabled: rgba(0,0,0,0.26);
+$text-dividers: rgba(0,0,0,0.12);
+
+$inverse-text-primary: rgba(255,255,255, 1);
+$inverse-text-secondary: rgba(255,255,255, 0.7);
+$inverse-text-disabled: rgba(255,255,255, 0.3);
+$inverse-text-dividers: rgba(255,255,255, 0.12);
+
+$brand-primary-shadow: darken(adjust_hue($brand-primary, 6%), 15%) !default;
+$brand-accent-shadow: darken(adjust_hue($brand-accent, 6%), 15%) !default;
+$brand-success-shadow: darken(adjust_hue($brand-success, 6%), 15%) !default;
+$brand-warning-shadow: darken(adjust_hue($brand-warning, 6%), 15%) !default;
+$brand-danger-shadow: darken(adjust_hue($brand-danger, 6%), 15%) !default;
+$brand-info-shadow: darken(adjust_hue($brand-info, 6%), 15%) !default;
+
+$brand-primary-200: lighten(saturate(adjust_hue($brand-primary, -6%), 10%), 40%);
+
+/**
+*
+* Typography
+*
+**/
+
+$base-font-family:  'Open Sans', sans-serif !important;
+$small-caps-multiplier: .75;
+
+// Font Sizes
+
+$h1: 35px;
+$h2: 28px;
+$h3: 24px;
+$h4: 21px;
+$h5: 18px;
+$h6: 14px;
+
+$h2-small-caps: floor($h2 * $small-caps-multiplier);
+$h3-small-caps: floor($h3 * $small-caps-multiplier);
+$h4-small-caps: floor($h4 * $small-caps-multiplier);
+$h5-small-caps: floor($h5 * $small-caps-multiplier);
+$h6-small-caps: floor($h6 * $small-caps-multiplier);
+
+$paragraph: 14px;
+$paragraph-lead: 18px;
+
+$base-font-size: $paragraph;
+$base-type-unit: $base-font-size / 2;
+
+$small: floor($paragraph * .75);
+
+// Line Heights
+
+$base-line-height: floor($paragraph * 1.5);
+
+$h1-line-height: floor($h1 * 1.5);
+$h2-line-height: floor($h2 * 1.5);
+$h3-line-height: floor($h3 * 1.5);
+$h4-line-height: floor($h4 * 1.5);
+$h5-line-height: floor($h5 * 1.5);
+$h6-line-height: floor($h6 * 1.5);
+
+$h2-small-caps-line-height: floor($h2-small-caps * 1.5);
+$h3-small-caps-line-height: floor($h3-small-caps * 1.5);
+$h4-small-caps-line-height: floor($h4-small-caps * 1.5);
+$h5-small-caps-line-height: floor($h5-small-caps * 1.5);
+$h6-small-caps-line-height: floor($h6-small-caps * 1.5);
+
+$small-line-height: floor($base-line-height * .75);
+
+
+// Standard Shadows
+$z0-shadow: 0 0 1px rgba(0, 0, 0, 0.12), 0 0 1px rgba(0, 0, 0, 0.24);
+$z1-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+$z2-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+$z3-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+$z4-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+$z5-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+
+// Top shadows (for "bottom" positioned elements)
+$top-z1-shadow: 0  -1px 3px rgba(0, 0, 0, 0.12), 0  -1px 2px rgba(0, 0, 0, 0.24);
+$top-z2-shadow: 0  -3px 6px rgba(0, 0, 0, 0.16), 0  -3px 6px rgba(0, 0, 0, 0.23);
+$top-z3-shadow: 0 -10px 20px rgba(0, 0, 0, 0.19), 0  -6px 6px rgba(0, 0, 0, 0.23);
+$top-z4-shadow: 0 -14px 28px rgba(0, 0, 0, 0.25), 0 -10px 10px rgba(0, 0, 0, 0.22);
+$top-z5-shadow: 0 -19px 38px rgba(0, 0, 0, 0.30), 0 -15px 12px rgba(0, 0, 0, 0.22);
+
+// Shadows for full size "side" elements (using spread to make corners look right)
+$side-z1-shadow: 0 0 3px 0.75px rgba(0, 0, 0, 0.12), 0 0 2px 0.5px rgba(0, 0, 0, 0.24);
+$side-z2-shadow: 0 0 6px 1.5px rgba(0, 0, 0, 0.16), 0 0 6px 1.5px rgba(0, 0, 0, 0.23);
+$side-z3-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.19), 0 0 6px 1.5px rgba(0, 0, 0, 0.23);
+$side-z4-shadow: 0 0 28px 7px rgba(0, 0, 0, 0.25), 0 0 10px 2.5px rgba(0, 0, 0, 0.22);
+$side-z5-shadow: 0 0 38px 9.5px rgba(0, 0, 0, 0.30), 0 0 12px 3px rgba(0, 0, 0, 0.22);
+
+// Raised button shadow (this in an approximation from  http://material-design.storage.googleapis.com/images/components-buttons-states-for-mocks-2a_large_mdpi.png)
+$raised-button-normal-shadow: 1px 2px 3px rgba(0, 0, 0, 0.17), 0 1px 4px rgba(0, 0, 0, 0.16);
+$raised-button-hover-shadow: 0 1px 3px rgba(0, 0, 0, 0.13), 0 1px 4px rgba(0, 0, 0, 0.16);
+$raised-button-focused-shadow: 0 5px 6px rgba(0, 0, 0, 0.15), 0 2px 5px rgba(0, 0, 0, 0.16);
+$raised-button-pressed-shadow: 0 6px 5px rgba(0, 0, 0, 0.09), 0 7px 6px rgba(0, 0, 0, 0.16);
+
+
+$inset-z1-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12), inset 0 1px 2px rgba(0, 0, 0, 0.24);
+$inset-z2-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.16), inset 0 3px 6px rgba(0, 0, 0, 0.23);
+
+
+// Spacing Units
+
+$base-spacing-unit: 5px;
+$base-border-width: 2px;
+$base-border-radius: 6px;
+
+$pad-y-xs: $base-type-unit*1;
+$pad-x-xs: $pad-y-xs*1.5;
+
+$pad-y-sm: $base-type-unit*1.5;
+$pad-x-sm: $pad-y-sm*2;
+
+$pad-y-md: $base-type-unit*2;
+$pad-x-md: $pad-y-md*2;
+
+$pad-y-lg: $base-type-unit*2.5;
+$pad-x-lg: $pad-y-lg*2;
+
+$pad-xs: $pad-y-xs $pad-x-xs;
+$pad-sm: $pad-y-sm $pad-x-sm;
+$pad-md: $pad-y-md $pad-x-md;
+$pad-lg: $pad-y-lg $pad-x-lg;
+
+
+// Browsers take floor of line-height, as opposed to round for width / height
+$dimensions-xs: ($pad-y-xs*2) + $small-line-height;
+$dimensions-sm: ($pad-y-sm*2) + $h6-small-caps-line-height;
+$dimensions-md: ($pad-y-md*2) + $h5-small-caps-line-height;
+$dimensions-lg: ($pad-y-lg*2) + $h4-small-caps-line-height;
+
+$bordered-dimensions-xs: $dimensions-xs + ($base-border-width*2);
+$bordered-dimensions-sm: $dimensions-sm + ($base-border-width*2);
+$bordered-dimensions-md: $dimensions-md + ($base-border-width*2);
+$bordered-dimensions-lg: $dimensions-lg + ($base-border-width*2);
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
