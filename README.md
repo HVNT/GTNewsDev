@@ -1,4 +1,4 @@
-# GTNewsDev - Web App for GT Senior Design project
+# GTNewsDev - Web App for GT Sr. Design project
 
 The mock backend can be found in mock.js if you want to see some specifics on implementation and how we are supporting the API to the best of our ability.
 
