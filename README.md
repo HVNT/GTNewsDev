@@ -6,7 +6,8 @@ The mock backend can be found in mock.js if you want to see some specifics on im
 You need to have node, npm, bower, sass, ruby installed.
 
 Then enter the following commands:  
-mkdir GTNewsDev
+mkdir GTNewsDev  
+cd GTNewsDev  
 git clone  
 gem install animation --pre  
 npm install  
