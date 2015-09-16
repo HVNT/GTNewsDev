@@ -8,7 +8,7 @@ You need to have node, npm, bower, sass, ruby installed.
 Then enter the following commands:  
 mkdir GTNewsDev  
 cd GTNewsDev  
-git clone  
+git clone git@github.com:HVNT/GTNewsDev.git  
 gem install animation --pre  
 npm install  
 bower install  
