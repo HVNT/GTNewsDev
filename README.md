@@ -8,8 +8,8 @@ You need to have node, npm, bower, sass, ruby installed.
 
 Then enter the following commands:
 mkdir GTNewsDev
-git clone
-gem install animation --pre
-npm install
-bower install
-grunt develop.mock
+git clone  
+gem install animation --pre  
+npm install  
+bower install  
+grunt develop.mock  
