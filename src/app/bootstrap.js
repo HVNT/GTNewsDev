@@ -6,5 +6,5 @@
  * File:
  */
 
-
+//    angular.bootstrap(document.getElementById("map"), ['app.ui-map']);
 angular.bootstrap(document, ['nd.app']);

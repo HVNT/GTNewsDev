@@ -1,5 +1,17 @@
 @import 'core/styles/variables.scss';
 
+#map {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+//  height: 450px;
+//  width: 450px;
+}
+
+
 .nd-dialogue-container {
   position: absolute;
   top: 0;
@@ -26,3 +38,4 @@
 .nd-date-stamp {
   color: $mono-light;
 }
+
