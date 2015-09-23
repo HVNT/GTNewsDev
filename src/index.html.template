@@ -33,6 +33,7 @@
 <!-- build:js(src) /assets/js/build.js -->
 <script src="/vendor/angular/angular.js"></script>
 <script src="/vendor/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="/vendor/google-maps/lib/google.min.js"></script>
 
 <!--CORE SERVICES-->
 <script src="/core/core.js"></script>

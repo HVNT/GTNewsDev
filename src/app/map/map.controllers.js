@@ -5,8 +5,10 @@
  * Time: 1:13 PM
  * File:
  */
+//Data
+
 angular.module('nd.map')
-    .controller('MapCtrl', function () {
+    .controller('MapCtrl', function ($scope) {
 
         //TODO query pins in here
     })
