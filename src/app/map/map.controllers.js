@@ -42,7 +42,8 @@ angular.module('nd.map')
 
             $scope.markers.push({
                 lat: leafEvent.latlng.lat,
-                lng: leafEvent.latlng.lng
+                lng: leafEvent.latlng.lng,
+                iconSize: [, 100]
             });
         });
     })

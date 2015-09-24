@@ -14,6 +14,9 @@
     <meta http-equiv="pragma" content="no-cache" /><!-- Latest compiled and minified CSS -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,300,700,600,800,400' rel='stylesheet' type='text/css'>
 
+    <!--favicon-->
+    <link rel="icon" type="image/png" href="/assets/img/favicons/favicon.ico">
+
     <!--TODO: remove the cdn include-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">

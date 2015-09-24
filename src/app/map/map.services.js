@@ -5,3 +5,8 @@
  * Time: 1:13 PM
  * File:
  */
+angular.module('nd.map')
+    .service('MapStyles', function () {
+        
+
+    });
