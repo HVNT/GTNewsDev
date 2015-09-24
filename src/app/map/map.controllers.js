@@ -11,16 +11,16 @@ angular.module('nd.map')
     .controller('MapCtrl', function ($scope) {
 //      init map
         angular.extend($scope, {
-            san_fran: {
-                lat: 37.78,
-                lng: -122.42,
-                zoom: 13
+            usa_center: {
+                lat: 39.82,
+                lng: -100,
+                zoom: 4
             },
             events: {},
             layers: {
                 baselayers: {
                     osm: {
-                        name: 'OpenStreetMap',
+                        name: 'GTNewsDev',
                         url: 'https://{s}.tiles.mapbox.com/v3/examples.map-i875mjb7/{z}/{x}/{y}.png',
                         type: 'xyz'
                     }
@@ -32,12 +32,17 @@ angular.module('nd.map')
         });
 
         $scope.markers = [];
+        $scope.markers.push({
+            lat: 42.34,
+            lng: -75.18
+        });
+
         $scope.$on("leafletDirectiveMap.click", function(event, args){
             var leafEvent = args.leafletEvent;
+
             $scope.markers.push({
                 lat: leafEvent.latlng.lat,
-                lng: leafEvent.latlng.lng,
-                draggable: true
+                lng: leafEvent.latlng.lng
             });
         });
     })
