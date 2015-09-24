@@ -50,18 +50,31 @@
 }
 
 .article-card {
-  padding: 10px;
   margin-bottom: 10px;
+  opacity: .9;
 
-  background: $white;
-  opacity: 0.8;
-
-  box-shadow: $z1-shadow;
-  -webkit-box-shadow: $z1-shadow;
-  -moz-box-shadow: $z1-shadow;
+  box-shadow: $z2-shadow;
+  -webkit-box-shadow: $z2-shadow;
+  -moz-box-shadow: $z2-shadow;
 
   .article-card__header {
-    padding-bottom: 5px;
+    padding: 10px;
+    background: $mono-lighter;
+    color: $mono-darker;
+
+    box-shadow: $z1-shadow;
+    -webkit-box-shadow: $z1-shadow;
+    -moz-box-shadow: $z1-shadow;
+  }
+
+  .article-card__body {
+    padding: 10px;
+    background: $white;
+    color: $mono-dark;
+
+    >div:not(:last-child) {
+      padding-bottom: 10px;
+    }
   }
 }
 

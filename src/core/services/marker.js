@@ -13,15 +13,15 @@ angular.module('nd.services')
             this.icon = {
                 iconUrl: MapStyles.icons.default.iconUrl,
                 shadowUrl: MapStyles.icons.default.shadowUrl,
-                iconSize: [38, 95],
-                shadowSize: [50, 64],
-                iconAnchor: [22, 94],
-                shadowAnchor: [4, 62],
+//                iconSize: [38, 95],
+//                shadowSize: [50, 64],
+//                iconAnchor: [22, 94],
+//                shadowAnchor: [4, 62],
                 popupAnchor: [0, 0]
             };
 
             this.lat = data.lat || null;  //null?
-            this.lng = data.lng || null;  //null?
+            this.lng = -data.lng || null;  //null?
         }
 
         // takes in size 1-10
@@ -34,8 +34,8 @@ angular.module('nd.services')
                 lat: this.lat,
                 lng: -this.lng,
                 message: this.article.title,
-                draggable: false
-//                icon: this.icon
+                draggable: false,
+                icon: this.icon
             }
         };
 
