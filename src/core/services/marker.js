@@ -31,10 +31,11 @@ angular.module('nd.services')
 
         Marker.prototype.getMarker = function () {
             return {
-                lat: 38.716,
-                lng: -9.13,
+                lat: this.lat,
+                lng: -this.lng,
                 message: this.article.title,
-                icon: this.icon
+                draggable: false
+//                icon: this.icon
             }
         };
 

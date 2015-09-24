@@ -52,16 +52,6 @@ angular.module('nd.mock', ['nd.app', 'ngMockE2E'])
                 lng: 4.35
             },
             {
-                title: 'Divided European leaders meet to devise plan to tackle refugee crisis',
-                author: 'Ian Traynor',
-                dateCreated: '2015-09-23',
-                articleUrl: 'http://www.theguardian.com/world/2015/sep/23/divided-european-leaders-meet-to-devise-plan-to-tackle-refugee-crisis',
-                twitterCount: 5210,
-                pinSize: 5,
-                lat: 50.85,
-                lng: 4.35
-            },
-            {
                 title: 'First of 20,000 Syrian refugees arrive in UK',
                 author: 'Nadia Khomami',
                 dateCreated: '2015-09-23',

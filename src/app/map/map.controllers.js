@@ -9,22 +9,22 @@
 
 angular.module('nd.map')
     .controller('MapCtrl', function ($scope, $log, MapStyles, Article, Marker) {
-        $scope.markers = [];
+        $scope.$$markers = {};
         angular.extend($scope, MapStyles.defaultConfig); // init map
 
 
         $scope.query = function () {
             Article.query().then(function (response) {
-                var markers = [];
+                var markers = {};
                 if (response && response.length > 0) {
                     for (var i = 0; i < response.length; i++) {
                         var marker = new Marker(response[i]);
-                        markers.push(marker.getMarker());
+                        markers[i] = marker.getMarker();
                     }
                 }
                 
-                $log.debug(markers);
-                $scope.markers = markers;
+                $scope.$$markers = markers;
+                $scope.markers = _.toArray(markers);
                 $scope.queried = true;
             });
         };
