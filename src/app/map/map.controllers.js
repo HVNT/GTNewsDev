@@ -8,7 +8,9 @@
 //Data
 
 angular.module('nd.map')
-    .controller('MapCtrl', function ($scope) {
+    .controller('MapCtrl', function ($scope, MapStyles) {
+        $scope.markers = [];
+
 //      init map
         angular.extend($scope, {
             usa_center: {
@@ -31,21 +33,17 @@ angular.module('nd.map')
             }
         });
 
-        $scope.markers = [];
-        $scope.markers.push({
-            lat: 42.34,
-            lng: -75.18
-        });
 
-        $scope.$on("leafletDirectiveMap.click", function(event, args){
-            var leafEvent = args.leafletEvent;
 
-            $scope.markers.push({
-                lat: leafEvent.latlng.lat,
-                lng: leafEvent.latlng.lng,
-                iconSize: [, 100]
-            });
-        });
+//        $scope.$on("leafletDirectiveMap.click", function(event, args){
+//            var leafEvent = args.leafletEvent;
+//
+//            $scope.markers.push({
+//                lat: leafEvent.latlng.lat,
+//                lng: leafEvent.latlng.lng,
+//                iconSize: [, 100]
+//            });
+//        });
     })
     .controller('MapListCtrl', function () {
     })
