@@ -12,6 +12,7 @@ angular.module('nd.mock', ['nd.app', 'ngMockE2E'])
 
         var articles = [
             {
+                id: 1,
                 title: 'Russia reopens Romanov case',
                 author: 'Alec Luhn',
                 dateCreated: '2015-09-23',
@@ -22,6 +23,7 @@ angular.module('nd.mock', ['nd.app', 'ngMockE2E'])
                 lng: 37.61
             },
             {
+                id: 2,
                 title: 'Egypt pardons and releases jailed al-Jazeera journalists',
                 author: 'Emma Graham-Harrison',
                 dateCreated: '2015-09-23',
@@ -32,6 +34,7 @@ angular.module('nd.mock', ['nd.app', 'ngMockE2E'])
                 lng: 31.23
             },
             {
+                id: 3,
                 title: 'Scott Morrison: Australia has a spending problem, not a revenue problem',
                 author: 'Katharine Murphy',
                 dateCreated: '2015-09-23',
@@ -42,6 +45,7 @@ angular.module('nd.mock', ['nd.app', 'ngMockE2E'])
                 lng: 149.12
             },
             {
+                id: 4,
                 title: 'Divided European leaders meet to devise plan to tackle refugee crisis',
                 author: 'Ian Traynor',
                 dateCreated: '2015-09-23',
@@ -52,6 +56,7 @@ angular.module('nd.mock', ['nd.app', 'ngMockE2E'])
                 lng: 4.35
             },
             {
+                id: 5,
                 title: 'First of 20,000 Syrian refugees arrive in UK',
                 author: 'Nadia Khomami',
                 dateCreated: '2015-09-23',
@@ -62,6 +67,7 @@ angular.module('nd.mock', ['nd.app', 'ngMockE2E'])
                 lng: 0.12
             },
             {
+                id: 6,
                 title: 'Syria confirms receipt of Russian jets to target Isis',
                 author: 'Ian Black',
                 dateCreated: '2015-09-22',
@@ -72,6 +78,7 @@ angular.module('nd.mock', ['nd.app', 'ngMockE2E'])
                 lng: 36.30
             },
             {
+                id: 7,
                 title: 'Pope Francis declares Junípero Serra a saint on surprisingly political visit to DC – live',
                 author: 'Adam Brereton',
                 dateCreated: '2015-09-23',
@@ -82,6 +89,7 @@ angular.module('nd.mock', ['nd.app', 'ngMockE2E'])
                 lng: -77.01
             },
             {
+                id: 8,
                 title: 'Brazil threatens to withhold licence for Belo Monte dam over mitigation worries',
                 author: 'Bruce Douglas',
                 dateCreated: '2015-09-23',
@@ -92,6 +100,7 @@ angular.module('nd.mock', ['nd.app', 'ngMockE2E'])
                 lng: -43.17
             },
             {
+                id: 9,
                 title: 'North Korea\'s space race: Satellite launch imminent, official says',
                 author: 'Will Ripley',
                 dateCreated: '2015-09-23',
@@ -102,6 +111,7 @@ angular.module('nd.mock', ['nd.app', 'ngMockE2E'])
                 lng: 125.74
             },
             {
+                id: 10,
                 title: 'Chinese jet performs \'unsafe\' maneuver near U.S. plane, Pentagon says',
                 author: 'Jamie Crawford',
                 dateCreated: '2015-09-23',
@@ -112,6 +122,7 @@ angular.module('nd.mock', ['nd.app', 'ngMockE2E'])
                 lng: 121.00
             },
             {
+                id: 11,
                 title: 'Indian man buried alive by road workers after falling into hole',
                 author: 'Harmeet Shah Singh',
                 dateCreated: '2015-09-22',
@@ -122,6 +133,7 @@ angular.module('nd.mock', ['nd.app', 'ngMockE2E'])
                 lng: 77.87
             },
             {
+                id: 12,
                 title: 'Volkswagen CEO quits over grave crisis',
                 author: 'Mark Thompson',
                 dateCreated: '2015-09-23',
@@ -132,6 +144,7 @@ angular.module('nd.mock', ['nd.app', 'ngMockE2E'])
                 lng: 13.38
             },
             {
+                id: 13,
                 title: 'More hurdles for Iran nuclear deal',
                 author: 'Sophie Tatum',
                 dateCreated: '2015-06-24',

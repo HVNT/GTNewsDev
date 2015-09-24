@@ -9,6 +9,7 @@ angular.module('nd.services')
     .factory('Marker', function (MapStyles) {
         function Marker(data) {
             this.article = data || {};
+            this.id = data.id || null; // namespacing?
 
             this.icon = {
                 iconUrl: MapStyles.icons.default.iconUrl,
@@ -16,12 +17,14 @@ angular.module('nd.services')
 //                iconSize: [38, 95],
 //                shadowSize: [50, 64],
 //                iconAnchor: [22, 94],
-//                shadowAnchor: [4, 62],
+//                shadowAnchor: [4, 62]
                 popupAnchor: [0, 0]
             };
 
             this.lat = data.lat || null;  //null?
             this.lng = -data.lng || null;  //null?
+
+            this.pinSize = data.pinSize || 0;
         }
 
         // takes in size 1-10

@@ -1,14 +1,16 @@
 <div class="article-list-container">
     <div ng-repeat="article in Article.articles | orderBy:'-twitterCount'"
          class="article-card">
-        <div class="article-card__header"
-                nd-t-font="h6 link">{{::article.title}}</div>
+        <div class="article-card__header">
+            <span ng-click="centerMap(article)"
+                  nd-t-font="h6 link">{{::article.title}}</span></div>
         <div class="article-card__body">
             <div><span nd-t-font="h6 small-caps">By: </span>
-                {{::article.author}} on {{::article.dateCreated | date:'MMM d, y'}}</div>
+                {{::article.author}} on {{::article.dateCreated | date:'MMM d, y'}}
+            </div>
             <div>{{::article.twitterCount}} retweets</div>
             <span nd-t-font="right"><a href="javascript:;"
-                    ng-click="goArticleSource(article.articleUrl)">Source</a></span>
+                                       ng-click="goArticleSource(article.articleUrl)">Source</a></span>
         </div>
     </div>
 </div>

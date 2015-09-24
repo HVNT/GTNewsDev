@@ -8,7 +8,7 @@
 angular.module('nd.services')
     .factory('Article', function ($http, $q, Environment) {
         function Article(data) {
-            this.articleId = data.articleId || null;
+            this.id = data.id || null;
 
             this.author = data.author || '';
             this.title = data.title || '';

@@ -8,7 +8,7 @@
 //Data
 
 angular.module('nd.map')
-    .controller('MapCtrl', function ($scope, $window, $log, MapStyles, Article, Marker) {
+    .controller('MapCtrl', function ($scope, $window, $log, MapStyles, Article, Marker, CenterMarker) {
         $scope.Article = Article;
         $scope.markers = [];
         $scope.$$markers = {};
@@ -21,7 +21,21 @@ angular.module('nd.map')
             } else {
                 $log.debug('Need source url to nav.');
             }
-        }
+        };
+
+        $scope.centerMap = function (article) {
+            if (article) {
+                var targetMarker = $scope.$$markers[article.id];
+                $scope.centerMarker = angular.extend({}, {
+                    lat: targetMarker.lat,
+                    lng: targetMarker.lng,
+                    zoom: 6
+                });
+//                CenterMarker.focus(targetMarker);
+            } else {
+                $log.debug('Need source url to nav.');
+            }
+        };
 
 
         $scope.query = function () {
