@@ -11,11 +11,32 @@ angular.module('nd.map')
             defaultIcon: {
                 iconUrl: 'assets/img/markers/leaflet-default-marker.png',
                 shadowUrl: 'examples/img/leaflet-default-marker-shadow.png',
-                iconSize:     [38, 95], // size of the icon
-                shadowSize:   [50, 64], // size of the shadow
-                iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                iconSize: [38, 95], // size of the icon
+                shadowSize: [50, 64], // size of the shadow
+                iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
                 shadowAnchor: [4, 62],  // the same for the shadow
-                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+            }
+        }
+
+        this.defaultConfig = {
+            usa_center: {
+                lat: 39.82,
+                lng: -100,
+                zoom: 4
+            },
+            events: {},
+            layers: {
+                baselayers: {
+                    osm: {
+                        name: 'GTNewsDev',
+                        url: 'https://{s}.tiles.mapbox.com/v3/examples.map-i875mjb7/{z}/{x}/{y}.png',
+                        type: 'xyz'
+                    }
+                }
+            },
+            defaults: {
+                scrollWheelZoom: true
             }
         }
     });

@@ -26,7 +26,6 @@ angular.module('nd.map', ['nd.services'])
             .state('app.map.list.articles', { //articles details view (so user can refresh page and still keep article active)
                 url: '/:articleId',
                 templateUrl: '/app/map/views/map.list.articles.html',
-                controller: 'MapListArticlesCtrl',
-                resolve: {} //TODO resolve articles
+                controller: 'MapListArticlesCtrl'
             });
     });

@@ -8,30 +8,9 @@
 //Data
 
 angular.module('nd.map')
-    .controller('MapCtrl', function ($scope, MapStyles) {
+    .controller('MapCtrl', function ($scope, MapStyles, Article) {
         $scope.markers = [];
-
-//      init map
-        angular.extend($scope, {
-            usa_center: {
-                lat: 39.82,
-                lng: -100,
-                zoom: 4
-            },
-            events: {},
-            layers: {
-                baselayers: {
-                    osm: {
-                        name: 'GTNewsDev',
-                        url: 'https://{s}.tiles.mapbox.com/v3/examples.map-i875mjb7/{z}/{x}/{y}.png',
-                        type: 'xyz'
-                    }
-                }
-            },
-            defaults: {
-                scrollWheelZoom: true
-            }
-        });
+        angular.extend($scope, MapStyles.defaultConfig); // init map
 
 
 
@@ -44,6 +23,19 @@ angular.module('nd.map')
 //                iconSize: [, 100]
 //            });
 //        });
+
+        $scope.query = function () {
+
+            Article.query().then(function (response) {
+                debugger;
+                $scope.queried = true;
+            });
+        };
+
+
+        if (!$scope.queried) {
+            $scope.query();
+        }
     })
     .controller('MapListCtrl', function () {
     })

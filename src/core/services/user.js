@@ -6,7 +6,7 @@
  * File:
  */
 angular.module('nd.services')
-    .factory('User', function ($http, $q, Environment, Group) {
+    .factory('User', function ($http, $q, Environment) {
 
         function User(data) {
             this.userId = data.userId || null;

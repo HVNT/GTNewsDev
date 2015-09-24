@@ -169,6 +169,12 @@ angular.module('nd.mock', ['nd.app', 'ngMockE2E'])
             return ((Math.random() * (high - low)) + low).toFixed(round || 0);
         }
 
+
+        $httpBackend.whenGET('/articles/all').respond(
+            function (method, url, data, headers) {
+                return [200, articles, {}];
+            });
+
         $httpBackend.whenGET(/views\//).passThrough();
         $httpBackend.whenGET(/\.html/).passThrough();
     }]);

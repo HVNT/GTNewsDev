@@ -6,8 +6,7 @@
  * File:
  */
 angular.module('nd.services')
-    .factory('Article', function ($http, $q, Environment, Group) {
-
+    .factory('Article', function ($http, $q, Environment) {
         function Article(data) {
             this.articleId = data.articleId || null;
 
@@ -15,6 +14,13 @@ angular.module('nd.services')
             this.title = data.title || '';
             this.subtitle = data.subtitle || '';
             this.abstract = data.abstract || '';
+
+            this.articleUrl = data.articleUrl || '';
+            this.dateCreated = data.dateCreated || null;
+            this.twitterCount = data.twitterCount || 0;
+            this.pinSize = data.pinSize || 0;
+            this.lat = data.lat || null;  //null?
+            this.lng = data.lng || null;  //null?
 
             this.$$text = data.$text || '';
         }
@@ -69,6 +75,8 @@ angular.module('nd.services')
 
             return defer.promise;
         };
+
+        //TODO proxy web server request
 
         return Article;
     });
