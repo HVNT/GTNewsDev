@@ -17,25 +17,31 @@ angular.module('nd.services')
 //                iconSize: [38, 95],
 //                shadowSize: [50, 64],
 //                iconAnchor: [22, 94],
-//                shadowAnchor: [4, 62]
-                popupAnchor: [0, 0]
+//                shadowAnchor: [4, 62],
+//                popupAnchor: [0, -95]
             };
 
             this.lat = data.lat || null;  //null?
-            this.lng = -data.lng || null;  //null?
+            this.lng = data.lng || null;  //null?
 
             this.pinSize = data.pinSize || 0;
         }
 
-        // takes in size 1-10
-        Marker.prototype.setSize = function (uSize) {
+        Marker.iconSizes = [[], [], [], [], [], [], [], [], []];
+        Marker.shadowSizes = [[], [], [], [], [], [], [], [], []];
+        Marker.iconAnchors = [[], [], [], [], [], [], [], [], []];
+        Marker.shadowAnchors = [[], [], [], [], [], [], [], [], []];
 
+        Marker.setSize = function (marker) {
+            if (marker && !_.isEmpty(marker.icon)) {
+
+            }
         };
 
         Marker.prototype.getMarker = function () {
             return {
                 lat: this.lat,
-                lng: -this.lng,
+                lng: this.lng,
                 message: this.article.title,
                 draggable: false,
                 icon: this.icon

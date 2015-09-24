@@ -31,6 +31,12 @@ angular.module('nd.map')
                     lng: targetMarker.lng,
                     zoom: 6
                 });
+
+                setTimeout(function () {
+                    targetMarker.focus = true;
+                    $scope.$apply();
+                }, 350);
+
 //                CenterMarker.focus(targetMarker);
             } else {
                 $log.debug('Need source url to nav.');
@@ -43,10 +49,12 @@ angular.module('nd.map')
                 var markers = {};
                 if (response && response.length > 0) {
                     for (var i = 0; i < response.length; i++) {
+                        console.log(response[i].pinSize);
                         var marker = new Marker(response[i]);
-                        markers[i] = marker.getMarker();
+                        markers[i + 1] = marker.getMarker(); //TODO update when API ready
                     }
                 }
+                console.log(markers);
                 
                 $scope.$$markers = markers;
                 $scope.markers = _.toArray(markers);
