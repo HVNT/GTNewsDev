@@ -14,20 +14,13 @@ angular.module('nd.map')
 
 
 
-//        $scope.$on("leafletDirectiveMap.click", function(event, args){
-//            var leafEvent = args.leafletEvent;
-//
-//            $scope.markers.push({
-//                lat: leafEvent.latlng.lat,
-//                lng: leafEvent.latlng.lng,
-//                iconSize: [, 100]
-//            });
-//        });
-
         $scope.query = function () {
-
             Article.query().then(function (response) {
-                debugger;
+                if (response && response.length > 0) {
+                    for (var i = 0; i < response.length; i++) {
+                        var marker = angular.extend({}, response[i]);
+                    }
+                }
                 $scope.queried = true;
             });
         };
