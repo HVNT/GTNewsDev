@@ -15,8 +15,7 @@ angular.module('nd.map', ['nd.services'])
                 url: '/map',
                 templateUrl: '/app/map/views/map.html',
                 controller: 'MapCtrl',
-                abstract: true,
-                resolve: {}
+                abstract: true
             })
             .state('app.map.list', { //list of articles
                 url: '',

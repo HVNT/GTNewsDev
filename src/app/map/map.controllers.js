@@ -8,19 +8,23 @@
 //Data
 
 angular.module('nd.map')
-    .controller('MapCtrl', function ($scope, MapStyles, Article) {
+    .controller('MapCtrl', function ($scope, $log, MapStyles, Article, Marker) {
         $scope.markers = [];
         angular.extend($scope, MapStyles.defaultConfig); // init map
 
 
-
         $scope.query = function () {
             Article.query().then(function (response) {
+                var markers = [];
                 if (response && response.length > 0) {
                     for (var i = 0; i < response.length; i++) {
-                        var marker = angular.extend({}, response[i]);
+                        var marker = new Marker(response[i]);
+                        markers.push(marker.getMarker());
                     }
                 }
+                
+                $log.debug(markers);
+                $scope.markers = markers;
                 $scope.queried = true;
             });
         };

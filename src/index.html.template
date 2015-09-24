@@ -47,6 +47,7 @@
 <script src="/core/services/services.js"></script>
 <script src="/core/services/user.js"></script>
 <script src="/core/services/article.js"></script>
+<script src="/core/services/marker.js"></script>
 
 <script src="/core/directives/directives.js"></script>
 <script src="/core/filters/filters.js"></script>

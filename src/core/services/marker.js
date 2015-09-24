@@ -6,11 +6,37 @@
  * File:
  */
 angular.module('nd.services')
-    .factory('Marker', function ($http, $q, Environment) {
+    .factory('Marker', function (MapStyles) {
         function Marker(data) {
-            this.article = data.article || {};
+            this.article = data || {};
 
+            this.icon = {
+                iconUrl: MapStyles.icons.default.iconUrl,
+                shadowUrl: MapStyles.icons.default.shadowUrl,
+                iconSize: [38, 95],
+                shadowSize: [50, 64],
+                iconAnchor: [22, 94],
+                shadowAnchor: [4, 62],
+                popupAnchor: [0, 0]
+            };
+
+            this.lat = data.lat || null;  //null?
+            this.lng = data.lng || null;  //null?
         }
+
+        // takes in size 1-10
+        Marker.prototype.setSize = function (uSize) {
+
+        };
+
+        Marker.prototype.getMarker = function () {
+            return {
+                lat: 38.716,
+                lng: -9.13,
+                message: this.article.title,
+                icon: this.icon
+            }
+        };
 
         Marker.markers = [];
         Marker.$$markers = {};
