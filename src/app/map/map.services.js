@@ -18,7 +18,7 @@ angular.module('nd.map')
             usa_center: {
                 lat: 39.82,
                 lng: -100,
-                zoom: 4
+                zoom: 2
             },
             events: {},
             layers: {

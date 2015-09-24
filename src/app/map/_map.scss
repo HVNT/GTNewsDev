@@ -39,3 +39,29 @@
   color: $mono-light;
 }
 
+.article-list-container {
+  position: fixed;
+  top: 15px;
+  right: 0;
+  bottom: 0;
+
+  width: 300px;
+  overflow-y: scroll;
+}
+
+.article-card {
+  padding: 10px;
+  margin-bottom: 10px;
+
+  background: $white;
+  opacity: 0.8;
+
+  box-shadow: $z1-shadow;
+  -webkit-box-shadow: $z1-shadow;
+  -moz-box-shadow: $z1-shadow;
+
+  .article-card__header {
+    padding-bottom: 5px;
+  }
+}
+

@@ -9,7 +9,10 @@
 
 angular.module('nd.map')
     .controller('MapCtrl', function ($scope, $log, MapStyles, Article, Marker) {
+        $scope.Article = Article;
+        $scope.markers = [];
         $scope.$$markers = {};
+
         angular.extend($scope, MapStyles.defaultConfig); // init map
 
 
