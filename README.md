@@ -9,6 +9,9 @@ Then run the following commands:
 git clone git@github.com:HVNT/GTNewsDev.git  
 gem install animation --pre  
 npm install  
-bower install  
+bower install 
+npm install -g grunt-cli   
+npm update  
+bower update  
 grunt develop.mock  
 
