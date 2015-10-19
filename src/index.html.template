@@ -17,15 +17,12 @@
     <!--favicon-->
     <link rel="icon" type="image/png" href="/assets/img/favicons/favicon.ico">
 
-    <!--TODO: remove the cdn include-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
 
     <!-- build:css(src) /assets/css/build.css -->
     <link rel="stylesheet" href="/vendor/angular-loading-bar/build/loading-bar.css"/>
+    <link rel="stylesheet" href="/vendor/leaflet/dist/leaflet.css">
     <link rel="stylesheet" href="/core/styles/styles.css"/>
-
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css">
 
     <!-- endbuild -->
 
@@ -39,8 +36,9 @@
 <script src="/vendor/angular/angular.js"></script>
 <script src="/vendor/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="/vendor/underscore/underscore.js"></script>
-<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
-<script src="http://tombatossals.github.io/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
+<script src="/vendor/leaflet/dist/leaflet.js"></script>
+<script src="/vendor/angular-simple-logger/dist/angular-simple-logger.js"></script>
+<script src="/vendor/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
 
 <!--CORE SERVICES-->
 <script src="/core/core.js"></script>
