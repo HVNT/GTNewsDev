@@ -8,12 +8,13 @@
 //Data
 
 angular.module('nd.map')
-    .controller('MapCtrl', function ($scope, $window, $log, MapStyles, Article, Marker, CenterMarker) {
+    .controller('MapCtrl', function ($scope, $timeout, $window, $log, MapStyles, Article, Marker, CenterMarker) {
+        console.log(MapStyles.defaultConfig);
+        angular.extend($scope, MapStyles.defaultConfig); // init map
+
         $scope.Article = Article;
         $scope.markers = [];
         $scope.$$markers = {};
-
-        angular.extend($scope, MapStyles.defaultConfig); // init map
 
         $scope.goArticleSource = function (articleUrl) {
             if (articleUrl && articleUrl.length > 0) {
@@ -23,21 +24,26 @@ angular.module('nd.map')
             }
         };
 
+        $scope.centering = false;
         $scope.centerMap = function (article) {
-            if (article) {
+            if (article && !$scope.centering) {
+                $scope.centering = true;
+
                 var targetMarker = $scope.$$markers[article.id];
-                $scope.centerMarker = angular.extend({}, {
+                console.log(targetMarker);
+
+                $scope.centerMarker =  {
                     lat: targetMarker.lat,
                     lng: targetMarker.lng,
                     zoom: 6
-                });
-
-                setTimeout(function () {
-                    targetMarker.focus = true;
-                    $scope.$apply();
-                }, 350);
-
+                };
 //                CenterMarker.focus(targetMarker);
+
+                $timeout(function () {
+                    targetMarker.focus = true;
+                    $scope.centering = false;
+                }, 150);
+
             } else {
                 $log.debug('Need source url to nav.');
             }
@@ -49,16 +55,16 @@ angular.module('nd.map')
                 var markers = {};
                 if (response && response.length > 0) {
                     for (var i = 0; i < response.length; i++) {
-                        console.log(response[i].pinSize);
                         var marker = new Marker(response[i]);
                         markers[i + 1] = marker.getMarker(); //TODO update when API ready
                     }
                 }
-                console.log(markers);
-                
+
                 $scope.$$markers = markers;
                 $scope.markers = _.toArray(markers);
                 $scope.queried = true;
+                
+                $log.debug(markers);
             });
         };
 
@@ -67,7 +73,7 @@ angular.module('nd.map')
             $scope.query();
         }
     })
-    .controller('MapListCtrl', function () {
+    .controller('MapListCtrl', function ($scope, MapStyles) {
     })
     .controller('MapListArticlesCtrl', function () {
     });

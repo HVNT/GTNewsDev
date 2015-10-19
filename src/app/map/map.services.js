@@ -36,7 +36,7 @@ angular.module('nd.map')
             if (marker) {
                 this.lat = marker.lat;
                 this.lng = marker.lng;
-                this.zoom = 8;
+                this.zoom = 6;
             } else {
                 $log.debug('Need marker');
             }
@@ -55,18 +55,11 @@ angular.module('nd.map')
 
         this.defaultConfig = {
             centerMarker: this.centerMarker,
-            events: {},
-            layers: {
-                baselayers: {
-                    osm: {
-                        name: 'GTNewsDev',
-                        url: 'https://{s}.tiles.mapbox.com/v3/examples.map-i875mjb7/{z}/{x}/{y}.png',
-                        type: 'xyz'
-                    }
-                }
-            },
             defaults: {
+                minZoom: 2,
+                maxZoom: 9,
                 scrollWheelZoom: true
-            }
+            },
+            events: {}
         }
     });

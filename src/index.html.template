@@ -17,13 +17,12 @@
     <!--favicon-->
     <link rel="icon" type="image/png" href="/assets/img/favicons/favicon.ico">
 
-    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
 
     <!-- build:css(src) /assets/css/build.css -->
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/angular-loading-bar/build/loading-bar.css"/>
     <link rel="stylesheet" href="/vendor/leaflet/dist/leaflet.css">
     <link rel="stylesheet" href="/core/styles/styles.css"/>
-
     <!-- endbuild -->
 
     <!-- ClickJacking Defense end -->
@@ -34,8 +33,8 @@
 
 <!-- build:js(src) /assets/js/build.js -->
 <script src="/vendor/angular/angular.js"></script>
-<script src="/vendor/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="/vendor/underscore/underscore.js"></script>
+<script src="/vendor/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="/vendor/leaflet/dist/leaflet.js"></script>
 <script src="/vendor/angular-simple-logger/dist/angular-simple-logger.js"></script>
 <script src="/vendor/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
