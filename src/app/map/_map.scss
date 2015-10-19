@@ -7,10 +7,22 @@
   bottom: 0;
   left: 0;
 
-//  height: 450px;
-//  width: 450px;
-}
+  //  height: 450px;
+  //  width: 450px;
 
+  .leaflet-popup {
+    @include border-radius(0);
+
+    .marker-popover {
+      color: $mono-dark;
+    }
+
+    .marker-popover--lead {
+      margin-bottom: 15px;
+    }
+  }
+
+}
 
 .nd-dialogue-container {
   position: absolute;
@@ -25,7 +37,6 @@
   -webkit-box-shadow: $z1-shadow;
   -moz-box-shadow: $z1-shadow;
 }
-
 
 .nd-label-interact {
   color: $brand-primary-shadow !important;
@@ -47,6 +58,17 @@
 
   width: 300px;
   overflow-y: scroll;
+}
+
+.article-list-controls {
+  > .nd-input-sm {
+    height: 20px;
+  }
+
+  #article-list-collapse-btn {
+    cursor: pointer;
+    color: $mono-darker;
+  }
 }
 
 .article-card {
@@ -72,9 +94,10 @@
     background: $white;
     color: $mono-dark;
 
-    >div:not(:last-child) {
+    > div:not(:last-child) {
       padding-bottom: 10px;
     }
   }
 }
+
 

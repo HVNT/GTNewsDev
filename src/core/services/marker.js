@@ -149,7 +149,9 @@ angular.module('nd.services')
             return {
                 lat: this.lat,
                 lng: this.lng,
-                message: this.article.title,
+                message: "<div class=\"marker-popover\">" +
+                            "<div nd-t-font=\"h6\" class=\"marker-popover--lead\">" + this.article.title + "</div>"
+                            + '<span nd-t-font="h6 small-caps">By </span>' + this.article.author + "</div>",
                 draggable: false,
                 icon: this.icon
             }

@@ -150,6 +150,9 @@ $pad-sm: $pad-y-sm $pad-x-sm;
 $pad-md: $pad-y-md $pad-x-md;
 $pad-lg: $pad-y-lg $pad-x-lg;
 
+$num-cols: 12;
+$num-rows: 6;
+$num-spacing-units: 12;
 
 // Browsers take floor of line-height, as opposed to round for width / height
 $dimensions-xs: ($pad-y-xs*2) + $small-line-height;

@@ -25,31 +25,39 @@ angular.module('nd.map')
         };
 
         $scope.centering = false;
+        $scope.activeMarker = {};
         $scope.centerMap = function (article) {
             if (article && !$scope.centering) {
-                $scope.centering = true;
+                if ($scope.activeMarker) {
+                    $scope.activeMarker.focus = false;
+                }
 
                 var targetMarker = $scope.$$markers[article.id];
-                console.log(targetMarker);
+                $scope.centering = true;
 
                 $scope.centerMarker =  {
                     lat: targetMarker.lat,
                     lng: targetMarker.lng,
-                    zoom: 6
+                    zoom: 8
                 };
-//                CenterMarker.focus(targetMarker);
 
+                $scope.activeMarker = targetMarker;
                 $timeout(function () {
                     targetMarker.focus = true;
                     $scope.centering = false;
-                }, 150);
+                }, 200);
 
             } else {
                 $log.debug('Need source url to nav.');
             }
         };
 
+        //TODO
+        $scope.$on('leafletDirectiveMap.click', function(event){
+            console.log('yoooo');
+        });
 
+        
         $scope.query = function () {
             Article.query().then(function (response) {
                 var markers = {};
@@ -74,6 +82,12 @@ angular.module('nd.map')
         }
     })
     .controller('MapListCtrl', function ($scope, MapStyles) {
+        $scope.articleSearch = "";
+
+        $scope.listCollapsed = false;
+        $scope.collapseList = function () {
+            $scope.listCollapsed = !$scope.listCollapsed;
+        };
     })
     .controller('MapListArticlesCtrl', function () {
     });

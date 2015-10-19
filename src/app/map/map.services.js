@@ -58,8 +58,14 @@ angular.module('nd.map')
             defaults: {
                 minZoom: 2,
                 maxZoom: 9,
+                zoomAnimation: true,
                 scrollWheelZoom: true
             },
-            events: {}
+            events: {
+                map: {
+                    enable: ['click', 'drag', 'blur', 'touchstart'],
+                    logic: 'broadcast'
+                }
+            }
         }
     });

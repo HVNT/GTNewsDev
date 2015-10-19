@@ -1,11 +1,18 @@
 <div class="article-list-container">
-    <div ng-repeat="article in Article.articles | orderBy:'-twitterCount'"
+    <div nd-s-row class="article-list-controls" nd-s-py="1">
+        <input ng-model="articleSearch"
+               class="nd-input-sm" placeholder="Search articles by title." type="text"/>
+        <span id="article-list-collapse-btn" nd-s-px="1"
+              ng-click="collapseList()" nd-t-font="right" class="fa fa-reorder"></span>
+    </div>
+    <div nd-s-row ng-repeat="article in Article.articles | filter:articleSearch | orderBy:'-twitterCount'"
+         ng-show="!listCollapsed"
          class="article-card">
         <div class="article-card__header">
             <span ng-click="centerMap(article)"
                   nd-t-font="h6 link">{{::article.title}}</span></div>
         <div class="article-card__body">
-            <div><span nd-t-font="h6 small-caps">By: </span>
+            <div><span nd-t-font="h6 small-caps">By </span>
                 {{::article.author}} on {{::article.dateCreated | date:'MMM d, y'}}
             </div>
             <div>{{::article.twitterCount}} retweets</div>

@@ -1,0 +1,221 @@
+@import 'variables';
+
+@mixin generate-spacing ($i) {
+  // Margins
+  [#{$ns}s-mxy~="#{$i}"] {
+    margin: $base-spacing-unit * $i;
+  }
+
+  [#{$ns}s-mx~="#{$i}"] {
+    margin-left: $base-spacing-unit * $i;
+    margin-right: $base-spacing-unit * $i;
+  }
+
+  [#{$ns}s-my~="#{$i}"] {
+    margin-top: $base-spacing-unit * $i;
+    margin-bottom: $base-spacing-unit * $i;
+  }
+
+  [#{$ns}s-ml~="#{$i}"] {
+    margin-left: $base-spacing-unit * $i;
+  }
+
+  [#{$ns}s-mr~="#{$i}"] {
+    margin-right: $base-spacing-unit * $i;
+  }
+
+  [#{$ns}s-mt~="#{$i}"] {
+    margin-top: $base-spacing-unit * $i;
+  }
+
+  [#{$ns}s-mb~="#{$i}"] {
+    margin-bottom: $base-spacing-unit * $i;
+  }
+
+  // Padding
+  [#{$ns}s-pxy~="#{$i}"] {
+    padding: $base-spacing-unit * $i;
+  }
+
+  [#{$ns}s-px~="#{$i}"] {
+    padding-left: $base-spacing-unit * $i;
+    padding-right: $base-spacing-unit * $i;
+  }
+
+  [#{$ns}s-py~="#{$i}"] {
+    padding-top: $base-spacing-unit * $i;
+    padding-bottom: $base-spacing-unit * $i;
+  }
+
+  [#{$ns}s-pl~="#{$i}"] {
+    padding-left: $base-spacing-unit * $i;
+  }
+
+  [#{$ns}s-pr~="#{$i}"] {
+    padding-right: $base-spacing-unit * $i;
+  }
+
+  [#{$ns}s-pt~="#{$i}"] {
+    padding-top: $base-spacing-unit * $i;
+  }
+
+  [#{$ns}s-pb~="#{$i}"] {
+    padding-bottom: $base-spacing-unit * $i;
+  }
+
+  // Gutters
+  [#{$ns}s-row-gutter~="#{$i}"] {
+    margin-left: -($base-spacing-unit * $i) / 2;
+    margin-right: -($base-spacing-unit * $i) / 2;
+
+    & > [#{$ns}s-col] {
+      padding-left: ($base-spacing-unit * $i) / 2;
+      padding-right: ($base-spacing-unit * $i) / 2
+    }
+  }
+
+  [#{$ns}s-width~="#{$i}"] {
+    width: $base-spacing-unit * 10 * $i !important;
+  }
+}
+
+[#{$ns}s-px~="xs"] {
+  padding-left: $pad-x-xs;
+  padding-right: $pad-x-xs;
+}
+
+[#{$ns}s-py~="xs"] {
+  padding-top: $pad-y-xs;
+  padding-bottom: $pad-y-xs;
+}
+
+[#{$ns}s-pt~="xs"] {
+  padding-top: $pad-y-xs;
+}
+
+[#{$ns}s-pb~="xs"] {
+  padding-bottom: $pad-y-xs;
+}
+
+[#{$ns}s-pxy~="xs"] {
+  padding: $pad-xs;
+}
+
+[#{$ns}s-py~="sm"] {
+  padding-top: $pad-y-xs;
+  padding-bottom: $pad-y-xs;
+}
+
+[#{$ns}s-pxy~="sm"] {
+  padding: $pad-sm;
+}
+
+[#{$ns}s-px~="sm"] {
+  padding-left: $pad-x-sm;
+  padding-right: $pad-x-sm;
+}
+
+[#{$ns}s-py~="sm"] {
+  padding-top: $pad-y-sm;
+  padding-bottom: $pad-y-sm;
+}
+
+[#{$ns}s-pt~="sm"] {
+  padding-top: $pad-y-sm;
+}
+
+[#{$ns}s-pb~="sm"] {
+  padding-bottom: $pad-y-sm;
+}
+
+[#{$ns}s-pxy~="md"] {
+  padding: $pad-md;
+}
+
+[#{$ns}s-px~="md"] {
+  padding-left: $pad-x-md;
+  padding-right: $pad-x-md;
+}
+
+[#{$ns}s-py~="md"] {
+  padding-top: $pad-y-md;
+  padding-bottom: $pad-y-md;
+}
+
+[#{$ns}s-pxy~="lg"] {
+  padding: $pad-md;
+}
+
+[#{$ns}s-px~="lg"] {
+  padding-left: $pad-x-lg;
+  padding-right: $pad-x-lg;
+}
+
+[#{$ns}s-py~="lg"] {
+  padding-top: $pad-y-lg;
+  padding-bottom: $pad-y-lg;
+}
+
+.contain {
+  position: relative;
+}
+
+.center,
+[#{$ns}s-center] {
+  position: relative;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.block,
+[#{$ns}s-block] {
+  display: block !important;
+}
+
+.inline-block,
+[#{$ns}s-inline-block] {
+  display: inline-block !important;
+}
+
+[#{$ns}s-row],
+.#{$ns}s-row {
+  @include clearfix();
+}
+
+[#{$ns}s-pull~="right"] {
+  float: right;
+}
+
+[#{$ns}s-pull~="left"] {
+  float: left;
+}
+
+[#{$ns}s-col],
+[class*="#{$ns}s-col-"] {
+  float: left;
+}
+
+@for $i from -$num-spacing-units through $num-spacing-units {
+  @include generate-spacing($i);
+  @include generate-spacing($i + .5);
+}
+
+@for $i from 1 through $num-cols {
+  [#{$ns}s-col~="#{$i}"],
+  .#{$ns}s-col-#{$i} {
+    width: (100% / $num-cols) * $i;
+  }
+
+  [#{$ns}s-col-offset~="#{$i}"],
+  .#{$ns}s-col-offset-#{$i} {
+    margin-left: (100% / $num-cols) * $i;
+  }
+}
+
+@for $i from 1 through $num-rows {
+  [#{$ns}s-row~="#{$i}"],
+  .#{$ns}s-row-#{$i} {
+    height: ($base-spacing-unit*4) * $i;
+  }
+}
