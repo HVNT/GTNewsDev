@@ -13,7 +13,7 @@ angular.module('nd.services')
 
             this.icon = {
                 iconUrl: MapStyles.icons.default.iconUrl,
-                shadowUrl: MapStyles.icons.default.shadowUrl,
+                shadowUrl: MapStyles.icons.default.shadowUrl
 //                iconSize: [38, 95],
 //                shadowSize: [50, 64],
 //                iconAnchor: [22, 94],
@@ -25,14 +25,77 @@ angular.module('nd.services')
             this.lng = data.lng || null;  //null?
 
             this.pinSize = data.pinSize || 0;
+
+            this.setIconStyles(this.pinSize)
         }
 
-        Marker.iconSizes = [[], [], [], [], [], [], [], [], []];
-        Marker.shadowSizes = [[], [], [], [], [], [], [], [], []];
-        Marker.iconAnchors = [[], [], [], [], [], [], [], [], []];
-        Marker.shadowAnchors = [[], [], [], [], [], [], [], [], []];
+        Marker.prototype.setIconStyles = function (pinSize) {
+            if (pinSize) {
+                switch (pinSize) {
+                    case 1:
+                        break;
+                    case 2:
+                        this.icon.shadowSize = Marker.iconSizes[pinSize];
+                        this.icon.iconAnchor = Marker.shadowSizes[pinSize];
+                        this.icon.shadowAnchor = Marker.iconAnchors[pinSize];
+                        this.icon.popupAnchor = Marker.shadowAnchors[pinSize];
+                        break;
+//                ...
+                    case 10:
+                        break;
+                    default:
+                        break;
 
-        Marker.setSize = function (marker) {
+                }
+            }
+        };
+
+        Marker.iconSizes = [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+        ];
+        Marker.shadowSizes = [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+        ];
+        Marker.iconAnchors = [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+        ];
+        Marker.shadowAnchors = [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+        ];
+
+        Marker.prototype.setSize = function (marker) {
             if (marker && !_.isEmpty(marker.icon)) {
 
             }
