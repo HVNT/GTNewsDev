@@ -50,6 +50,12 @@
   color: $mono-light;
 }
 
+.article-filters-container {
+  position: fixed;
+  top: 15px;
+  left: 50px;
+}
+
 .article-list-container {
   position: fixed;
   top: 15px;

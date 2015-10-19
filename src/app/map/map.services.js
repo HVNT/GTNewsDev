@@ -43,6 +43,50 @@ angular.module('nd.map')
         }
 
     })
+    .service('MapFilters', function () {
+        this.categoryFilters = [
+            {
+                key: 'science',
+                title: 'Science',
+                toggled: true,
+                toggle: function () {
+                    this.toggled = !this.toggled;
+                }
+            },
+            {
+                key: 'health',
+                title: 'Health',
+                toggled: true,
+                toggle: function () {
+                    this.toggled = !this.toggled;
+                }
+            },
+            {
+                key: 'economy',
+                title: 'Economy',
+                toggled: true,
+                toggle: function () {
+                    this.toggled = !this.toggled;
+                }
+            },
+            {
+                key: 'world',
+                title: 'World',
+                toggled: true,
+                toggle: function () {
+                    this.toggled = !this.toggled;
+                }
+            },
+            {
+                key: 'conflict',
+                title: 'Conflict',
+                toggled: true,
+                toggle: function () {
+                    this.toggled = !this.toggled;
+                }
+            }
+        ]
+    })
     .service('MapStyles', function (CenterMarker) {
         this.icons = {
             default: {

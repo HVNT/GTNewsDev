@@ -1,3 +1,7 @@
+<div class="article-filters-container">
+    <span ng-repeat="filter in categoryFilters"><input type="checkbox" ng-click="toggleFilter(filter)"/>{{filter.title}}</span>
+</div>
+
 <div class="article-list-container">
     <div nd-s-row class="article-list-controls" nd-s-py="1">
         <input ng-model="articleSearch"

@@ -38,7 +38,7 @@ angular.module('nd.map')
                 $scope.centerMarker =  {
                     lat: targetMarker.lat,
                     lng: targetMarker.lng,
-                    zoom: 8
+                    zoom: 4
                 };
 
                 $scope.activeMarker = targetMarker;
@@ -81,13 +81,19 @@ angular.module('nd.map')
             $scope.query();
         }
     })
-    .controller('MapListCtrl', function ($scope, MapStyles) {
+    .controller('MapListCtrl', function ($scope, MapStyles, MapFilters) {
         $scope.articleSearch = "";
 
         $scope.listCollapsed = false;
         $scope.collapseList = function () {
             $scope.listCollapsed = !$scope.listCollapsed;
         };
+
+        $scope.toggleFilter = function (filter) {
+            debugger;
+        };
+
+        $scope.categoryFilters = MapFilters.categoryFilters;
     })
     .controller('MapListArticlesCtrl', function () {
     });
