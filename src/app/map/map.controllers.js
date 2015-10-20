@@ -8,11 +8,12 @@
 //Data
 
 angular.module('nd.map')
-    .controller('MapCtrl', function ($scope, $state, $timeout, $window, $log, leafletData,
-                                     MapStyles, MapEvents, Article, Marker, MapFilters) {
-        angular.extend($scope, MapStyles.defaultConfig); /* init map */
+    .controller('MapCtrl', function ($scope, $state, $timeout, $window, $log, leafletData, MapStyles, MapEvents, Article, Marker, MapFilters) {
+        angular.extend($scope, MapStyles.defaultConfig);
+        /* init map */
         $scope.Article = Article;
         $scope.map = {};
+
         $scope.markerModels = {};
         $scope.markers = [];
         $scope.$$markers = {};
@@ -21,6 +22,8 @@ angular.module('nd.map')
             //TODO debounce vs query blocking?
             if (toParams) {
                 Article.queryBBox(toParams.in_bbox).then(function (response) {
+                    Article.setPinSizes();
+
                     var markers = {};
                     if (response && response.length > 0) {
                         for (var i = 0; i < response.length; i++) {
@@ -34,7 +37,6 @@ angular.module('nd.map')
                 });
             }
         });
-
         /* for populating view */
         $scope.categoryFilters = _.toArray(MapFilters.categoryFilters);
         $scope.activeFilters = MapFilters.categoryFilters;
@@ -98,7 +100,7 @@ angular.module('nd.map')
         };
 
         $scope.queryMap = function () {
-            leafletData.getMap('map').then(function(map) {
+            leafletData.getMap('map').then(function (map) {
                 $scope.mapQueried = true;
                 MapEvents.register(map);
             }, function (err) {

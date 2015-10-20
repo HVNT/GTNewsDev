@@ -17,12 +17,14 @@ angular.module('nd.services')
 
             this.pinSize = data.pinSize || 1;
             var iconSizes = Marker.iconSizes[this.pinSize - 1];
-            this.icon = {
-                iconUrl: Marker.getIconUrl(this.category),
-                iconSize: iconSizes,
-                iconAnchor: [iconSizes[0] / 2, iconSizes[1] - 1],
-                popupAnchor: [0, -iconSizes[1] / 2]
-            };
+            if (iconSizes) {
+                this.icon = {
+                    iconUrl: Marker.getIconUrl(this.category),
+                    iconSize: iconSizes,
+                    iconAnchor: [iconSizes[0] / 2, iconSizes[1] - 1],
+                    popupAnchor: [0, -iconSizes[1] / 2]
+                };
+            } else {debugger;}
         }
 
         Marker.getIconUrl = function (category) {
@@ -42,7 +44,7 @@ angular.module('nd.services')
             }
         };
 
-        Marker.iconSizes = [[15,17], [17,19], [20,22], [23,26], [26,29], [32,35], [38,42], [45,50], [50,55]];
+        Marker.iconSizes = [[15,17], [17,19], [20,22], [23,26], [26,29], [32,35], [38,42], [45,50], [50,55], [55,61]];
         // Marker.shadowSizes = [[], [], [], [], [], [], [], [], []];
         // Marker.iconAnchors = [[], [], [], [], [], [], [], [], []];
         // Marker.shadowAnchors = [[], [], [], [], [], [], [], [], []];

@@ -15,7 +15,6 @@ angular.module('nd.services')
             this.abstract = data.abstract || '';
             this.category = data.category || 'world'; //world = misc
 
-
             this.authors = data.authors || [];
             if (this.authors.length > 0) {
                 this.author = this.authors[0].first + ' ' +
@@ -25,6 +24,11 @@ angular.module('nd.services')
 
             this.url = data.url || '';
             this.dateCreated = data.date || null;
+
+            Article.maxRetweetCount = data.retweetcount > Article.maxRetweetCount
+                ? data.retweetcount
+                : Article.maxRetweetCount;
+
             this.retweetCount = data.retweetcount || 0;
             this.pinSize = data.pinsize || 0;
 
@@ -41,6 +45,16 @@ angular.module('nd.services')
             }
         }
 
+        Article.setPinSizes = function () {
+            for (var i = 0; i < Article.articles.length; i++) {
+                var article = Article.articles[i];
+                if (article) {
+                    article.pinSize = +((article.retweetCount * 10) / Article.maxRetweetCount).toFixed(0);
+                }
+            }
+        };
+
+        Article.maxRetweetCount = 0;
         Article.articles = [];
         Article.$$articles = {};
 
@@ -78,6 +92,7 @@ angular.module('nd.services')
                 $http.get(path, config).then(
                     function (response) {
                         Article.resetArticles(); //reset articles
+
                         if (response.data.length > 0) {
                             for (var i = 0; i < response.data.length; i++) {
                                 if (response.data[i] && !!response.data[i].isgeolocated) {
