@@ -6,7 +6,16 @@
  * File:
  */
 angular.module('nd.services')
-    .factory('Marker', function (MapStyles) {
+    .service('MarkerCategories', function () {
+        this.colors = {
+            'science': 'PURPLE',
+            'health': 'BLUE',
+            'economy': 'GREEN',
+            'conflict': 'RED',
+            'world': 'GREY'
+        }
+    })
+    .factory('Marker', function (MapStyles, MarkerCategories) {
         function Marker(data) {
             this.id = data.id || null; // namespacing?
             this.article = data || {};
@@ -24,7 +33,9 @@ angular.module('nd.services')
                     iconAnchor: [iconSizes[0] / 2, iconSizes[1] - 1],
                     popupAnchor: [0, -iconSizes[1] / 2]
                 };
-            } else {debugger;}
+            }
+
+            this.$$categoryColor = MarkerCategories.colors[this.category];
         }
 
         Marker.getIconUrl = function (category) {

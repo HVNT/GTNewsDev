@@ -8,7 +8,8 @@
 //Data
 
 angular.module('nd.map')
-    .controller('MapCtrl', function ($scope, $state, $timeout, $window, $log, leafletData, MapStyles, MapEvents, Article, Marker, MapFilters) {
+    .controller('MapCtrl', function ($scope, $state, $timeout, $window, $log, leafletData,
+                                     MapStyles, MapEvents, MapFilters, Article, Marker) {
         angular.extend($scope, MapStyles.defaultConfig);
         /* init map */
         $scope.Article = Article;

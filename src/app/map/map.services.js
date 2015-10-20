@@ -8,8 +8,8 @@
 angular.module('nd.map')
     .service('CenterMarker', function ($log) {
         /* America centered by default */
-        this.lat = 0;
-        this.lng = -0;
+        this.lat = 30;
+        this.lng = 50;
         this.zoom = 2;
 
         this.get = function () {
