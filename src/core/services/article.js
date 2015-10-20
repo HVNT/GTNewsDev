@@ -8,26 +8,36 @@
 angular.module('nd.services')
     .factory('Article', function ($http, $q, Environment) {
         function Article(data) {
-            this.id = data.id || null;
+            this.id = data.pk || null;
 
-            this.author = data.author || '';
-            this.title = data.title || '';
+            this.headline = data.headline || '';
             this.subtitle = data.subtitle || '';
             this.abstract = data.abstract || '';
             this.category = data.category || 'world'; //world = misc
 
+
+            this.authors = data.authors || [];
+            if (this.authors.length > 0) {
+                this.author = this.authors[0].first + ' ' +
+                    this.authors[0].last.charAt(0) +
+                    this.authors[0].last.slice(1).toLowerCase();
+            }
+
             this.url = data.url || '';
             this.dateCreated = data.dateCreated || null;
-            this.twitterCount = data.twitterCount || 0;
+            this.retweetCount = data.retweetCount || 0;
             this.pinSize = data.pinSize || 0;
 
             this.isGeolocated = !!data.isgeolocated;
-            if (this.isGeolocated && !_.isEmpty(this.coords)) {
-                if (this.coords.coordinates && this.coords.coordinates.length == 2) {
-                    var coordinates = this.coords.coordinates;
+            if (this.isGeolocated && !_.isEmpty(data.coords)) {
+                if (data.coords.coordinates && data.coords.coordinates.length == 2) {
+                    var coordinates = data.coords.coordinates;
                     this.lat = coordinates[0];
                     this.lng = coordinates[1];
                 }
+            } else {
+                this.lat = null;
+                this.lng = null;
             }
         }
 

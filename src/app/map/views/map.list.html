@@ -15,18 +15,18 @@
 </div>
 
 <div class="article-list-container">
-    <div nd-s-row ng-repeat="article in Article.articles | filter:articleSearch | orderBy:'-twitterCount'"
+    <div nd-s-row ng-repeat="article in Article.articles | filter:articleSearch | orderBy:'-retweetCount'"
          ng-show="!listCollapsed"
          class="article-card">
         <div class="article-card__header">
             <span ng-click="centerMap(article)"
-                  nd-t-font="h6 link">{{::article.title}}</span></div>
+                  nd-t-font="h6 link">{{::article.headline}}</span></div>
         <div class="article-card__body">
             <div nd-s-row><span nd-t-font="h6 small-caps">By </span>
                 {{::article.author}}<span nd-t-font="h6 small-caps"
                                           nd-s-pull="right">{{::article.dateCreated | date:'MMM d, y'}}</span>
             </div>
-            <div nd-s-row><span nd-s-pull="right">{{::article.twitterCount}} retweets</span>
+            <div nd-s-row><span nd-s-pull="right">{{::article.retweetCount}} retweets</span>
                 <span ng-click="goArticleSource(article.url)"
                       nd-t-font="link small-caps right">Source</span></div>
         </div>

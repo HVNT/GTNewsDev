@@ -15,7 +15,7 @@ angular.module('nd.services')
             this.lat = data.lat || null;
             this.lng = data.lng || null;
 
-            this.pinSize = data.pinSize || 0;
+            this.pinSize = data.pinSize || 1;
             var iconSizes = Marker.iconSizes[this.pinSize - 1];
             this.icon = {
                 iconUrl: Marker.getIconUrl(this.category),
@@ -34,11 +34,10 @@ angular.module('nd.services')
                         return '/assets/img/markers/pin_blue.png';
                     case 'economy':
                         return '/assets/img/markers/pin_green.png';
-                    case 'world':
-                        return '/assets/img/markers/pin_grey.png';
                     case 'conflict':
                         return '/assets/img/markers/pin_red.png';
-                        return;
+                    case 'world':
+                        return '/assets/img/markers/pin_grey.png';
                 }
             }
         };
@@ -48,18 +47,12 @@ angular.module('nd.services')
         // Marker.iconAnchors = [[], [], [], [], [], [], [], [], []];
         // Marker.shadowAnchors = [[], [], [], [], [], [], [], [], []];
 
-        Marker.prototype.setSize = function (marker) {
-            if (marker && !_.isEmpty(marker.icon)) {
-
-            }
-        };
-
         Marker.prototype.getMarker = function () {
             return {
                 lat: this.lat,
                 lng: this.lng,
                 message: "<div class=\"marker-popover\">" +
-                            "<div nd-t-font=\"h6\" class=\"marker-popover--lead\">" + this.article.title + "</div>" +
+                            "<div nd-t-font=\"h6\" class=\"marker-popover--lead\">" + this.article.headline + "</div>" +
                             "<div>" +
                             '<span nd-t-font="h6 small-caps">By </span>' + this.article.author +
                             '<!--<span nd-t-font="h6 small-caps link" nd-s-pull="right">Source</span>-->' +
