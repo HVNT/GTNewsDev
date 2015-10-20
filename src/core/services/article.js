@@ -24,9 +24,9 @@ angular.module('nd.services')
             }
 
             this.url = data.url || '';
-            this.dateCreated = data.dateCreated || null;
-            this.retweetCount = data.retweetCount || 0;
-            this.pinSize = data.pinSize || 0;
+            this.dateCreated = data.date || null;
+            this.retweetCount = data.retweetcount || 0;
+            this.pinSize = data.pinsize || 0;
 
             this.isGeolocated = !!data.isgeolocated;
             if (this.isGeolocated && !_.isEmpty(data.coords)) {
