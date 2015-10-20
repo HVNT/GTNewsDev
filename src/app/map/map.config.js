@@ -18,7 +18,7 @@ angular.module('nd.map', ['nd.services'])
                 abstract: true
             })
             .state('app.map.list', { //list of articles
-                url: '?lat?lng',
+                url: '?bbox',
                 templateUrl: '/app/map/views/map.list.html',
                 controller: 'MapListCtrl',
                 resolve: {

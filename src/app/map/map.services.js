@@ -120,24 +120,19 @@ angular.module('nd.map')
         this.setMap = function (map) {
             if (map) {
                 this.map = map;
-                this.centerMap();
-                registerEvents(map);
+                this.boundMapState();
+                registerEvents(this.map);
             }
         };
 
-        this.centerMap = function (center) {
+        this.boundMapState = function (bounds) {
             if (this.map) {
-                var params = {};
+                bounds = bounds || this.map.getBounds();
 
-                if (center) {
-                    params = {lat: center.lat, lng: center.lng};
-                } else {
-                    var mapCenter = this.map.getCenter();
-                    params = {lat: mapCenter.lat, lng: mapCenter.lng};
-                }
-                console.log(params);
+                var _bbox = bounds._southWest.lat + ',' + bounds._southWest.lng +
+                    ',' + bounds._northEast.lat + ',' + bounds._northEast.lng;
 
-                $state.go('app.map.list', params);
+                $state.go('app.map.list', {bbox: _bbox});
             }
         };
 
@@ -151,12 +146,11 @@ angular.module('nd.map')
                 /* zooming events */
                 map.on('zoomstart', function () {
                     console.log('[zoomstart] event registered on map.');
-                    self.centerMap();
                 });
 
                 map.on('zoomend', function (event) {
                     console.log('[zoomend] event registered on map.');
-                    self.centerMap();
+                    self.boundMapState();
                     //TIMEOUT BEFORE REQUEST
                 });
 
