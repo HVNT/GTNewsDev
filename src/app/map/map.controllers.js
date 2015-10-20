@@ -8,18 +8,19 @@
 //Data
 
 angular.module('nd.map')
-    .controller('MapCtrl', function ($scope, $timeout, $window, $log,
-                                     MapStyles, Article, Marker, MapFilters) {
-        console.log(MapStyles.defaultConfig);
-        angular.extend($scope, MapStyles.defaultConfig); // init map
-
+    .controller('MapCtrl', function ($scope, $timeout, $window, $log, leafletData,
+                                     MapStyles, Article, Marker, MapFilters, MapEvents) {
         $scope.Article = Article;
+        $scope.map = {};
+        /* initialize map */
+        angular.extend($scope, MapStyles.defaultConfig);
+
+
+        $scope.markerModels = {};
         $scope.markers = [];
         $scope.$$markers = {};
 
-        $scope.markerModels = {};
-
-        /* for view */
+        /* for populating view */
         $scope.categoryFilters = _.toArray(MapFilters.categoryFilters);
 
         $scope.activeFilters = MapFilters.categoryFilters;
@@ -33,8 +34,8 @@ angular.module('nd.map')
             }
         };
 
-        $scope.centering = false;
         $scope.activeMarker = {};
+        $scope.centering = false;
         $scope.centerMap = function (article) {
             if (article && !$scope.centering) {
                 if ($scope.activeMarker) {
@@ -97,7 +98,11 @@ angular.module('nd.map')
                 $scope.$$markers = markers;
                 $scope.markers = _.toArray(markers);
                 $scope.queried = true;
-                
+
+                leafletData.getMap().then(function (map) {
+                    $scope.map = MapEvents.setMap(map);
+                });
+
                 $log.debug(markers);
             });
         };

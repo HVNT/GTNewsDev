@@ -18,13 +18,18 @@ angular.module('nd.map', ['nd.services'])
                 abstract: true
             })
             .state('app.map.list', { //list of articles
-                url: '',
+                url: '?lat?lng',
                 templateUrl: '/app/map/views/map.list.html',
-                controller: 'MapListCtrl'
-            })
-            .state('app.map.list.articles', { //articles details view (so user can refresh page and still keep article active)
-                url: '/:articleId',
-                templateUrl: '/app/map/views/map.list.articles.html',
-                controller: 'MapListArticlesCtrl'
+                controller: 'MapListCtrl',
+                resolve: {
+                    ActiveMap: function ($stateParams) {
+                        console.log($stateParams);
+                    }
+                }
             });
+//            .state('app.map.list.', { //articles details view (so user can refresh page and still keep article active)
+//                url: '/:articleId',
+//                templateUrl: '/app/map/views/map.list.articles.html',
+//                controller: 'MapListArticlesCtrl'
+//            });
     });

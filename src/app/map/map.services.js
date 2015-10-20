@@ -112,4 +112,63 @@ angular.module('nd.map')
                 }
             }
         }
+    })
+    .service('MapEvents', function ($state) {
+        var self = this;
+        this.map = {};
+
+        this.setMap = function (map) {
+            if (map) {
+                this.map = map;
+                this.centerMap();
+                registerEvents(map);
+            }
+        };
+
+        this.centerMap = function (center) {
+            if (this.map) {
+                var params = {};
+
+                if (center) {
+                    params = {lat: center.lat, lng: center.lng};
+                } else {
+                    var mapCenter = this.map.getCenter();
+                    params = {lat: mapCenter.lat, lng: mapCenter.lng};
+                }
+                console.log(params);
+
+                $state.go('app.map.list', params);
+            }
+        };
+
+        function registerEvents(map) {
+            if (map) {
+                map.on('click', function () {
+                    console.log('[click] event registered on map.');
+
+                });
+
+                /* zooming events */
+                map.on('zoomstart', function () {
+                    console.log('[zoomstart] event registered on map.');
+                    self.centerMap();
+                });
+
+                map.on('zoomend', function (event) {
+                    console.log('[zoomend] event registered on map.');
+                    self.centerMap();
+                    //TIMEOUT BEFORE REQUEST
+                });
+
+
+                /* popup events */
+                map.on('popupopen', function () {
+                    console.log('[popupopen] event registered on map.');
+                });
+
+                map.on('popupclose', function () {
+                    console.log('[popupclose] event registered on map.');
+                });
+            }
+        }
     });
