@@ -129,10 +129,10 @@ angular.module('nd.map')
             if (this.map) {
                 bounds = bounds || this.map.getBounds();
 
-                var _bbox = bounds._southWest.lat + ',' + bounds._southWest.lng +
+                var bbox = bounds._southWest.lat + ',' + bounds._southWest.lng +
                     ',' + bounds._northEast.lat + ',' + bounds._northEast.lng;
 
-                $state.go('app.map.list', {bbox: _bbox});
+                $state.go('app.map.list', {in_bbox: bbox});
             }
         };
 

@@ -18,7 +18,7 @@ angular.module('nd.map', ['nd.services'])
                 abstract: true
             })
             .state('app.map.list', { //list of articles
-                url: '?bbox',
+                url: '?in_bbox',
                 templateUrl: '/app/map/views/map.list.html',
                 controller: 'MapListCtrl',
                 resolve: {
@@ -27,9 +27,4 @@ angular.module('nd.map', ['nd.services'])
                     }
                 }
             });
-//            .state('app.map.list.', { //articles details view (so user can refresh page and still keep article active)
-//                url: '/:articleId',
-//                templateUrl: '/app/map/views/map.list.articles.html',
-//                controller: 'MapListArticlesCtrl'
-//            });
     });

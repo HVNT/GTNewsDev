@@ -60,7 +60,11 @@ angular.module('nd.services')
                 lng: this.lng,
                 message: "<div class=\"marker-popover\">" +
                             "<div nd-t-font=\"h6\" class=\"marker-popover--lead\">" + this.article.title + "</div>" +
-                            '<span nd-t-font="h6 small-caps">By </span>' + this.article.author + "</div>",
+                            "<div>" +
+                            '<span nd-t-font="h6 small-caps">By </span>' + this.article.author +
+                            '<!--<span nd-t-font="h6 small-caps link" nd-s-pull="right">Source</span>-->' +
+                            "</div>" +
+                        "</div>",
                 draggable: false,
                 icon: this.icon
             }

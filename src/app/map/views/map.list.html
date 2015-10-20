@@ -5,13 +5,16 @@
                ng-click="toggleFilter(filter)"/>{{filter.title}}</span>
 </div>
 
-<div class="article-list-container">
-    <div nd-s-row class="article-list-controls" nd-s-py="1">
+<div class="article-list-controls" nd-s-py="1">
+    <div nd-s-row>
         <input ng-model="articleSearch"
                class="nd-input-sm" placeholder="Search articles by title." type="text"/>
         <span id="article-list-collapse-btn" nd-s-px="1"
               ng-click="collapseList()" nd-t-font="right" class="fa fa-reorder"></span>
     </div>
+</div>
+
+<div class="article-list-container">
     <div nd-s-row ng-repeat="article in Article.articles | filter:articleSearch | orderBy:'-twitterCount'"
          ng-show="!listCollapsed"
          class="article-card">
@@ -19,12 +22,13 @@
             <span ng-click="centerMap(article)"
                   nd-t-font="h6 link">{{::article.title}}</span></div>
         <div class="article-card__body">
-            <div><span nd-t-font="h6 small-caps">By </span>
-                {{::article.author}} on {{::article.dateCreated | date:'MMM d, y'}}
+            <div nd-s-row><span nd-t-font="h6 small-caps">By </span>
+                {{::article.author}}<span nd-t-font="h6 small-caps"
+                                          nd-s-pull="right">{{::article.dateCreated | date:'MMM d, y'}}</span>
             </div>
-            <div>{{::article.twitterCount}} retweets</div>
-            <span nd-t-font="right"><a href="javascript:;"
-                                       ng-click="goArticleSource(article.articleUrl)">Source</a></span>
+            <div nd-s-row><span nd-s-pull="right">{{::article.twitterCount}} retweets</span>
+                <span ng-click="goArticleSource(article.articleUrl)"
+                      nd-t-font="link small-caps right">Source</span></div>
         </div>
     </div>
 </div>
