@@ -1,5 +1,8 @@
 <div class="article-filters-container">
-    <span ng-repeat="filter in categoryFilters"><input type="checkbox" ng-click="toggleFilter(filter)"/>{{filter.title}}</span>
+    <span ng-repeat="filter in categoryFilters">
+        <input type="checkbox"
+               ng-model="filter.toggled"
+               ng-click="toggleFilter(filter)"/>{{filter.title}}</span>
 </div>
 
 <div class="article-list-container">

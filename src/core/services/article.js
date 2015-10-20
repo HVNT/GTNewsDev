@@ -15,6 +15,8 @@ angular.module('nd.services')
             this.subtitle = data.subtitle || '';
             this.abstract = data.abstract || '';
 
+            this.category = data.category || 'world'; //world = misc
+
             this.articleUrl = data.articleUrl || '';
             this.dateCreated = data.dateCreated || null;
             this.twitterCount = data.twitterCount || 0;
@@ -39,8 +41,8 @@ angular.module('nd.services')
                     if (response.data.length > 0) {
                         for (var i = 0; i < response.data.length; i++) {
                             var newArticle = new Article(response.data[i]);
-                            Article.$$articles[newArticle.articleId] = newArticle;
-                            Article.articles.push(Article.$$articles[newArticle.articleId]);
+                            Article.$$articles[newArticle.id] = newArticle;
+                            Article.articles.push(Article.$$articles[newArticle.id]);
                         }
                     }
                     defer.resolve(Article.articles);

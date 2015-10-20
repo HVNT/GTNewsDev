@@ -44,32 +44,32 @@ angular.module('nd.map')
 
     })
     .service('MapFilters', function () {
-        this.categoryFilters = [
-            {
+        this.categoryFilters = {
+            'science': {
                 key: 'science',
                 title: 'Science',
                 toggled: true,
                 toggle: function () {
-                    this.toggled = !this.toggled;
+//                    this.toggled = !this.toggled;
                 }
             },
-            {
+            'health': {
                 key: 'health',
                 title: 'Health',
                 toggled: true,
                 toggle: function () {
-                    this.toggled = !this.toggled;
+//                    this.toggled = !this.toggled;
                 }
             },
-            {
+            'economy': {
                 key: 'economy',
                 title: 'Economy',
                 toggled: true,
                 toggle: function () {
-                    this.toggled = !this.toggled;
+//                    this.toggled = !this.toggled;
                 }
             },
-            {
+            'world': {
                 key: 'world',
                 title: 'World',
                 toggled: true,
@@ -77,15 +77,15 @@ angular.module('nd.map')
                     this.toggled = !this.toggled;
                 }
             },
-            {
+            'conflict': {
                 key: 'conflict',
                 title: 'Conflict',
                 toggled: true,
                 toggle: function () {
-                    this.toggled = !this.toggled;
+//                    this.toggled = !this.toggled;
                 }
             }
-        ]
+        };
     })
     .service('MapStyles', function (CenterMarker) {
         this.icons = {
