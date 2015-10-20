@@ -20,11 +20,6 @@ angular.module('nd.map', ['nd.services'])
             .state('app.map.list', { //list of articles
                 url: '?in_bbox',
                 templateUrl: '/app/map/views/map.list.html',
-                controller: 'MapListCtrl',
-                resolve: {
-                    ActiveMap: function ($stateParams) {
-                        console.log($stateParams);
-                    }
-                }
+                controller: 'MapListCtrl'
             });
     });

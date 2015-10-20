@@ -104,20 +104,14 @@ angular.module('nd.map')
                 maxZoom: 9,
                 zoomAnimation: true,
                 scrollWheelZoom: true
-            },
-            events: {
-                map: {
-                    enable: ['click', 'drag', 'blur', 'touchstart'],
-                    logic: 'broadcast'
-                }
             }
         }
     })
-    .service('MapEvents', function ($state) {
+    .service('MapEvents', function ($state, leafletData) {
         var self = this;
         this.map = {};
 
-        this.setMap = function (map) {
+        this.register = function (map) {
             if (map) {
                 this.map = map;
                 this.boundMapState();

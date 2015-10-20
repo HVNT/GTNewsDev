@@ -16,7 +16,7 @@ angular.module('nd.config', [])
         var url = {
             dev: '',
             remote: '',
-            test: 'http://cs3300.elasticbeanstalk.com'
+            test: 'http://cc-nebula.cc.gatech.edu/geonewsapi'
         };
 
         return {

@@ -14,17 +14,21 @@ angular.module('nd.services')
             this.title = data.title || '';
             this.subtitle = data.subtitle || '';
             this.abstract = data.abstract || '';
-
             this.category = data.category || 'world'; //world = misc
 
-            this.articleUrl = data.articleUrl || '';
+            this.url = data.url || '';
             this.dateCreated = data.dateCreated || null;
             this.twitterCount = data.twitterCount || 0;
             this.pinSize = data.pinSize || 0;
-            this.lat = data.lat || null;  //null?
-            this.lng = data.lng || null;  //null?
 
-            this.$$text = data.$text || '';
+            this.isGeolocated = !!data.isgeolocated;
+            if (this.isGeolocated && !_.isEmpty(this.coords)) {
+                if (this.coords.coordinates && this.coords.coordinates.length == 2) {
+                    var coordinates = this.coords.coordinates;
+                    this.lat = coordinates[0];
+                    this.lng = coordinates[1];
+                }
+            }
         }
 
         Article.articles = [];
@@ -32,7 +36,6 @@ angular.module('nd.services')
 
         Article.query = function () {
             var defer = $q.defer(),
-                self = this,
                 path = Environment.path + '/articles/all',
                 config = _.extend({}, Environment.config);
 
@@ -51,6 +54,39 @@ angular.module('nd.services')
                     defer.reject(response);
                 }
             );
+            return defer.promise;
+        };
+
+        //TODO add date
+        Article.queryBBox = function (bboxParam) {
+            var defer = $q.defer();
+
+            if (bboxParam) {
+                var path = Environment.path + '/pins/?in_bbox=' + bboxParam + '&format=json',
+                    config = _.extend({}, Environment.config);
+
+                $http.get(path, config).then(
+                    function (response) {
+                        Article.resetArticles(); //reset articles
+                        if (response.data.length > 0) {
+                            for (var i = 0; i < response.data.length; i++) {
+                                if (response.data[i] && !!response.data[i].isgeolocated) {
+                                    var newArticle = new Article(response.data[i]);
+                                    Article.$$articles[newArticle.id] = newArticle;
+                                    Article.articles.push(Article.$$articles[newArticle.id]);
+                                }
+                            }
+                        }
+                        defer.resolve(Article.articles);
+                    },
+                    function (response) {
+                        defer.reject(response);
+                    }
+                );
+            } else {
+                defer.reject('Need bounding box to [queryBBox]');
+            }
+
             return defer.promise;
         };
 
@@ -76,6 +112,11 @@ angular.module('nd.services')
             }
 
             return defer.promise;
+        };
+
+        Article.resetArticles = function () {
+            Article.$$articles = {};
+            Article.articles = [];
         };
 
         //TODO proxy web server request
