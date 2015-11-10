@@ -45,6 +45,19 @@ angular.module('nd.map')
     })
     .service('MapFilters', function () {
         this.categoryFilters = {
+            'world': {
+                key: 'world',
+                title: 'World',
+                toggled: true,
+                backgroundUrl: function () {
+                    return this.toggled
+                        ? '/assets/img/checkbox/world_on.png'
+                        : '/assets/img/checkbox/world_off.png';
+                },
+                toggle: function () {
+                    this.toggled = !this.toggled;
+                }
+            },
             'science': {
                 key: 'science',
                 title: 'Science',
@@ -79,19 +92,6 @@ angular.module('nd.map')
                     return this.toggled
                         ? '/assets/img/checkbox/economy_on.png'
                         : '/assets/img/checkbox/economy_off.png';
-                },
-                toggle: function () {
-                    this.toggled = !this.toggled;
-                }
-            },
-            'world': {
-                key: 'world',
-                title: 'World',
-                toggled: true,
-                backgroundUrl: function () {
-                    return this.toggled
-                        ? '/assets/img/checkbox/world_on.png'
-                        : '/assets/img/checkbox/world_off.png';
                 },
                 toggle: function () {
                     this.toggled = !this.toggled;

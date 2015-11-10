@@ -26,7 +26,7 @@ angular.module('nd.directives', [])
             link: function (scope, element, attrs) {
                 var url = scope.$eval(attrs.urlBackground);
 
-                function setBackgroundUrl() {
+                function setBackgroundUrl(url) {
                     if (url) {
                         element.css({
                             'background-image': 'url(' + url +')',
@@ -34,7 +34,12 @@ angular.module('nd.directives', [])
                         });
                     }
                 }
-                setBackgroundUrl();
+                setBackgroundUrl(url);
+
+                scope.$watch(attrs.urlBackground, function (newBG) {
+                    var url = scope.$eval(attrs.urlBackground);
+                    setBackgroundUrl(url);
+                });
             }
         }
     });

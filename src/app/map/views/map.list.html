@@ -1,8 +1,9 @@
 <div class="article-filters">
-    <div ng-repeat="filter in categoryFilters" nd-s-pr="2">
-        <div class="article-filter"
-             url-background="filter.backgroundUrl()"
-             ng-click="toggleFilter(filter)"></div>
+    <div ng-repeat="filter in categoryFilters"
+         nd-s-mb="1" nd-s-ml="1"
+         class="article-filter"
+         url-background="filter.backgroundUrl()"
+         ng-click="toggleFilter(filter)">
     </div>
 </div>
 

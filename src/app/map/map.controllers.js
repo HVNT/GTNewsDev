@@ -46,7 +46,7 @@ angular.module('nd.map')
                     $scope.$$markers = markers;
                     $scope.markers = _.toArray(markers);
 
-                    $scope.activeArticles = Article.articles;
+                    updateActiveMarkers();
                 });
             }
         });
@@ -113,15 +113,7 @@ angular.module('nd.map')
                 $scope.markers = _.toArray(markers);
 
                 /* now update activeArticles */
-//                $scope.activeArticles = _.filter($scope.activeArticles, function (article) {
-//                    var keep = false;
-//                    angular.forEach($scope.activeFilters, function (filter, key) {
-//                        if (article.category === key) {
-//                            keep = true;
-//                        }
-//                    });
-//                    return keep;
-//                });
+                updateActiveMarkers();
             }
         };
 
@@ -133,6 +125,18 @@ angular.module('nd.map')
                 $log.debug(err);
             });
         };
+
+        function updateActiveMarkers() {
+            $scope.activeArticles = _.filter(Article.articles, function (article) {
+                var keep = false;
+                angular.forEach($scope.activeFilters, function (filter, key) {
+                    if (article.category === key) {
+                        keep = true;
+                    }
+                });
+                return keep;
+            });
+        }
 
         if (!$scope.mapQueried) {
             $scope.queryMap();
