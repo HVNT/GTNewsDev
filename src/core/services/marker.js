@@ -61,13 +61,16 @@ angular.module('nd.services')
         };
 
 
-        //reduce available pin sizes
-        // 
-
-        Marker.iconSizes = [[15,17], [17,19], [20,22], [23,26], [26,29], [32,35], [38,42], [45,50], [50,55], [55,61]];
-        // Marker.shadowSizes = [[], [], [], [], [], [], [], [], []];
-        // Marker.iconAnchors = [[], [], [], [], [], [], [], [], []];
-        // Marker.shadowAnchors = [[], [], [], [], [], [], [], [], []];
+        Marker.iconSizes = [[15,17], // 1  smaller
+                            [17,19], // 2
+                            [20,22], // 3
+                            [23,26], // 4
+                            [26,29], // 5
+                            [32,35], // 6
+                            [38,42], // 7
+                            [45,50], // 8
+                            [50,55], // 9
+                            [55,61]];// 10 larger
 
         Marker.prototype.getMarker = function () {
             return {
@@ -82,6 +85,26 @@ angular.module('nd.services')
                         "</div>",
                 draggable: false,
                 icon: this.icon
+            }
+        };
+
+        Marker.prototype.setSize = function (zoom) {switch (zoom) {
+                case 2:
+                    this.icon.iconSize = Marker.iconSizes[Math.round(this.pinSize*(6/10))];
+                case 3:
+                    this.icon.iconSize = Marker.iconSizes[Math.round(this.pinSize*(7/10))];
+                case 4:
+                    this.icon.iconSize = Marker.iconSizes[Math.round(this.pinSize*(8/10))];
+                case 5:
+                    this.icon.iconSize = Marker.iconSizes[Math.round(this.pinSize*(8/10))];
+                case 6:
+                    this.icon.iconSize = Marker.iconSizes[Math.round(this.pinSize*(9/10))];
+                case 7:
+                    this.icon.iconSize = Marker.iconSizes[Math.round(this.pinSize*(9/10))];
+                case 8:
+                    this.icon.iconSize = Marker.iconSizes[Math.round(this.pinSize*(10/10))];
+                case 9:
+                    this.icon.iconSize = Marker.iconSizes[Math.round(this.pinSize*(10/10))];
             }
         };
 
