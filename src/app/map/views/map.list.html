@@ -47,9 +47,9 @@
                           fill-background="MarkerCategories.getColor(article.category)"
                           class="article-category-label">{{::article.category | capitalize}}</span>
                     <span nd-s-pull="right" nd-s-py="1">
-                        <span class="fa fa-twitter" nd-s-pr="1"></span>{{::article.retweetCount}} retweets</span>
+                        <span class="fa fa-twitter" nd-s-pr="1"></span>{{::article.retweetCount | number}} retweets</span>
                     <span nd-s-pull="right" nd-s-py="1" nd-s-pr="2">
-                        <span class="fa fa-facebook" nd-s-pr="1"></span>{{::article.shareCount}} shares</span>
+                        <span class="fa fa-facebook" nd-s-pr="1"></span>{{::article.shareCount | number}} shares</span>
                 </div>
             </div>
         </div>

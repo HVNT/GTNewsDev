@@ -30,7 +30,7 @@ angular.module('nd.map')
             //TODO debounce vs query blocking?
             if (toParams) {
                 Article.queryBBox(toParams.in_bbox).then(function (response) {
-                    Article.setPinSizes();
+                    Article.setPinSizes(); //TODO dylan will support by "next week" (11.9.15)
 
                     var mapRef = leafletData.getMap('map');
 
@@ -45,6 +45,10 @@ angular.module('nd.map')
                     }
                     $scope.$$markers = markers;
                     $scope.markers = _.toArray(markers);
+
+                    console.log($scope.activeMarker);
+                    console.log($scope.centerMarker);
+                    $scope.centerMarker = $scope.centerMarker;
 
                     updateActiveMarkers();
                 });
@@ -62,7 +66,6 @@ angular.module('nd.map')
             }
         };
 
-        $scope.activeMarker = {};
         $scope.centering = false;
         $scope.centerMap = function (article) {
             if (article && !$scope.centering) {
@@ -71,24 +74,30 @@ angular.module('nd.map')
                 }
 
                 var targetMarker = $scope.$$markers[article.id];
-                $scope.centering = true;
+                if (targetMarker) {
+                    $scope.centering = true;
+                    $scope.activeMarker = targetMarker;
 
-                $scope.centerMarker = {
-                    lat: targetMarker.lat,
-                    lng: targetMarker.lng,
-                    zoom: 4
-                };
+                    $scope.centerMarker = {
+                        lat: targetMarker.lat,
+                        lng: targetMarker.lng,
+                        zoom: 4
+                    };
 
-                $scope.activeMarker = targetMarker;
-                $timeout(function () {
-                    targetMarker.focus = true;
-                    $scope.centering = false;
-                }, 200);
+                    $timeout(function () {
+                        targetMarker.focus = true;
+                        $scope.centering = false;
+                    }, 200);
+                }
 
             } else {
                 $log.debug('Need source url to nav.');
             }
         };
+        
+//        $scope.$watch('activeMarker', function (newVal, oldVal) {
+//            console.log(newVal, oldVal);
+//        });
 
         $scope.applyFilter = function (filter) {
             if (filter) {
