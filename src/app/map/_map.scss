@@ -56,7 +56,7 @@
   left: 70px;
 }
 
-.article-list-container {
+.article-list {
   position: fixed;
   top: 75px;
   right: 0;
@@ -64,6 +64,13 @@
 
   width: 300px;
   overflow-y: scroll;
+
+  &.article-list--collapsed {
+    opacity: 0!important;
+    @include transition(opacity 0.5s ease);
+  }
+
+  @include transition(opacity 0.5s ease);
 }
 
 .article-list-controls {
@@ -110,10 +117,6 @@
     }
   }
 }
-
-
-
-
 
 input[type=checkbox] {
   opacity: 0;

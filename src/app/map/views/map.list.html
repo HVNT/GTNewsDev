@@ -18,9 +18,9 @@
     </div>
 </div>
 
-<div class="article-list-container">
+<div class="article-list"
+     ng-class="{'article-list--collapsed': listCollapsed}">
     <div nd-s-row ng-repeat="article in Article.articles | filter:articleSearch | orderBy:'-retweetCount'"
-         ng-show="!listCollapsed"
          class="article-card">
         <div class="article-card__header">
             <span ng-click="centerMap(article)"
