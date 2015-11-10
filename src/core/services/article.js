@@ -32,8 +32,7 @@ angular.module('nd.services')
             this.retweetCount = data.retweetcount || 0;
             this.pinSize = data.pinsize || 0;
 
-            this.isGeolocated = !!data.isgeolocated;
-            if (this.isGeolocated && !_.isEmpty(data.coords)) {
+            if (!_.isEmpty(data.coords)) {
                 if (data.coords.coordinates && data.coords.coordinates.length == 2) {
                     var coordinates = data.coords.coordinates;
                     this.lat = coordinates[0];
@@ -95,7 +94,7 @@ angular.module('nd.services')
 
                         if (response.data.length > 0) {
                             for (var i = 0; i < response.data.length; i++) {
-                                if (response.data[i] && !!response.data[i].isgeolocated) {
+                                if (response.data[i]) {
                                     var newArticle = new Article(response.data[i]);
                                     Article.$$articles[newArticle.id] = newArticle;
                                     Article.articles.push(Article.$$articles[newArticle.id]);

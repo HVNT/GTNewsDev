@@ -14,7 +14,8 @@
         <input ng-model="articleSearch"
                class="nd-input-sm" placeholder="Search articles by title." type="text"/>
         <span id="article-list-collapse-btn" nd-s-px="1"
-              ng-click="collapseList()" nd-t-font="right" class="fa fa-reorder"></span>
+              ng-click="collapseList()" nd-t-font="right" class="fa"
+              ng-class="{'fa-eye': !listCollapsed, 'fa-eye-slash': listCollapsed}"></span>
     </div>
 </div>
 
@@ -22,18 +23,25 @@
      ng-class="{'article-list--collapsed': listCollapsed}">
     <div nd-s-row ng-repeat="article in Article.articles | filter:articleSearch | orderBy:'-retweetCount'"
          class="article-card">
-        <div class="article-card__header">
+        <div class="article-card__header" nd-s-pxy="sm">
             <span ng-click="centerMap(article)"
-                  nd-t-font="h6 link">{{::article.headline}}</span></div>
-        <div class="article-card__body">
-            <div nd-s-row><span nd-t-font="h6 small-caps">By </span>
-                {{::article.author}}<span nd-t-font="h6 small-caps"
-                                          nd-s-pull="right">{{::article.dateCreated | date:'MMM d, y'}}</span>
-            </div>
-            <div nd-s-row><span nd-s-pull="right">{{::article.retweetCount}} retweets</span>
-                <span ng-click="goArticleSource(article.url)"
-                      nd-t-font="link small-caps right">Source</span></div>
+                  nd-t-font="{{$index < 3 ? 'h5 link' : 'h6 link'}}">{{::article.headline}}</span>
+            <span ng-click="goArticleSource(article.url)"
+                  class="article-link"
+                  nd-s-pl="2"
+                  nd-t-font="link small-caps right bold h6">(source)</span>
+        </div>
+
+        <div class="article-card__body" nd-s-px="sm" nd-s-pb="sm">
+            <!--TODO add dynamic article source-->
             <div nd-s-row>
+                <span nd-t-font="p small">New York Times - {{::article.dateCreated | date:'MMM d, y'}}</span>
+            </div>
+            <div nd-s-row>
+                <span nd-t-font="p">{{::article.abstract | ellipsis:60:'end'}}</span>
+            </div>
+            <div nd-s-row>
+                <span nd-s-pull="left">{{::article.retweetCount}} retweets</span>
                 <span nd-s-pull="right">{{::article.category}}</span>
             </div>
         </div>

@@ -1,5 +1,8 @@
 @import 'core/styles/variables.scss';
 
+$article-list-width: 400px;
+
+
 #map {
   position: fixed;
   top: 0;
@@ -21,8 +24,8 @@
       margin-bottom: 15px;
     }
   }
-
 }
+
 
 .nd-dialogue-container {
   position: absolute;
@@ -56,28 +59,29 @@
   left: 70px;
 }
 
+
 .article-list {
   position: fixed;
   top: 75px;
   right: 0;
   bottom: 0;
 
-  width: 300px;
+  width: $article-list-width;
   overflow-y: scroll;
+  opacity: 100%;
 
   &.article-list--collapsed {
     opacity: 0!important;
-    @include transition(opacity 0.5s ease);
   }
 
-  @include transition(opacity 0.5s ease);
+  @include transition(opacity 0.3s ease);
 }
 
 .article-list-controls {
   position: fixed;
   top: 15px;
   right: 0;
-  width: 300px;
+  width: $article-list-width;
 
   .nd-input-sm {
     height: 20px;
@@ -85,7 +89,7 @@
 
   #article-list-collapse-btn {
     cursor: pointer;
-    color: $mono-darker;
+    color: $mono-dark;
   }
 }
 
@@ -98,8 +102,7 @@
   -moz-box-shadow: $z2-shadow;
 
   .article-card__header {
-    padding: 10px;
-    background: $mono-lighter;
+    background: $white;
     color: $mono-darker;
 
     box-shadow: $z1-shadow;
@@ -108,13 +111,16 @@
   }
 
   .article-card__body {
-    padding: 10px;
     background: $white;
     color: $mono-dark;
 
     > div:not(:last-child) {
       padding-bottom: 10px;
     }
+  }
+
+  .article-link {
+    color: $link-color;
   }
 }
 
@@ -132,6 +138,7 @@ input[type=checkbox] {
   padding-bottom: 20px;
 }
 
+/* Devon's article categories styles */
 span:not(#foo) > input#Science + label {
   background: url('/assets/img/checkbox/science_off.png') 0 0px no-repeat;
   background-size: 40px 40px;
