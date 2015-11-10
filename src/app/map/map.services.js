@@ -138,10 +138,10 @@ angular.module('nd.map')
                 });
 
                 /* update bounding box on drag */
-                // map.on('drag', function () {
-                //     console.log('[drag] event registered on map');
-                //     self.boundMapState();
-                // });
+                map.on('dragend', function () {
+                    console.log('[dragend] event registered on map');
+                    self.boundMapState();
+                });
 
                 /* zooming events */
                 map.on('zoomstart', function () {
