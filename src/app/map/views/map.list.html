@@ -1,13 +1,9 @@
 <div class="article-filters">
-    <span ng-repeat="filter in categoryFilters" nd-s-pr="2">
-        <input type="checkbox"
-               class="article-filter"
-               ng-model="filter.toggled"
-               ng-click="toggleFilter(filter)"
-               ng-attr-id="{{filter.title}}"
-               title="{{filter.title}}"/>
-        <label ng-attr-id="{{filter.title}}" class="custom_label"></label>
-    </span>
+    <div ng-repeat="filter in categoryFilters" nd-s-pr="2">
+        <div class="article-filter"
+             url-background="filter.backgroundUrl()"
+             ng-click="toggleFilter(filter)"></div>
+    </div>
 </div>
 
 <div class="article-list">

@@ -49,40 +49,52 @@ angular.module('nd.map')
                 key: 'science',
                 title: 'Science',
                 toggled: true,
+                backgroundUrl: function () {
+                    return this.toggled
+                        ? '/assets/img/checkbox/science_on.png'
+                        : '/assets/img/checkbox/science_off.png';
+                },
                 toggle: function () {
-//                    this.toggled = !this.toggled;
+                    this.toggled = !this.toggled;
                 }
             },
             'health': {
                 key: 'health',
                 title: 'Health',
                 toggled: true,
+                backgroundUrl: function () {
+                    return this.toggled
+                        ? '/assets/img/checkbox/health_on.png'
+                        : '/assets/img/checkbox/health_off.png';
+                },
                 toggle: function () {
-//                    this.toggled = !this.toggled;
+                    this.toggled = !this.toggled;
                 }
             },
             'economy': {
                 key: 'economy',
                 title: 'Economy',
                 toggled: true,
+                backgroundUrl: function () {
+                    return this.toggled
+                        ? '/assets/img/checkbox/economy_on.png'
+                        : '/assets/img/checkbox/economy_off.png';
+                },
                 toggle: function () {
-//                    this.toggled = !this.toggled;
+                    this.toggled = !this.toggled;
                 }
             },
             'world': {
                 key: 'world',
                 title: 'World',
                 toggled: true,
+                backgroundUrl: function () {
+                    return this.toggled
+                        ? '/assets/img/checkbox/world_on.png'
+                        : '/assets/img/checkbox/world_off.png';
+                },
                 toggle: function () {
                     this.toggled = !this.toggled;
-                }
-            },
-            'conflict': {
-                key: 'conflict',
-                title: 'Conflict',
-                toggled: true,
-                toggle: function () {
-//                    this.toggled = !this.toggled;
                 }
             }
         };
@@ -119,16 +131,22 @@ angular.module('nd.map')
             }
         };
 
-        this.boundMapState = function (bounds) {
-            if (this.map) {
-                bounds = bounds || this.map.getBounds();
+        function _boundMapState(bounds){
+            if (self.map) {
+                bounds = bounds || self.map.getBounds();
 
                 var bbox = bounds._southWest.lat + ',' + bounds._southWest.lng +
                     ',' + bounds._northEast.lat + ',' + bounds._northEast.lng;
 
                 $state.go('app.map.list', {in_bbox: bbox});
             }
+        }
+        var debounceBoundMapState = _.debounce(_boundMapState, 100);
+
+        this.boundMapState = function (bounds) {
+            debounceBoundMapState(bounds)
         };
+
 
         function registerEvents(map) {
             if (map) {

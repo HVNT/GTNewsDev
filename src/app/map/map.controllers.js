@@ -17,7 +17,7 @@ angular.module('nd.map')
 
         /* init map */
         $scope.Article = Article;
-        $scope.activeArticles = Article.articles;
+//        $scope.activeArticles = Article.articles;
 
         $scope.map = {};
 
@@ -92,6 +92,8 @@ angular.module('nd.map')
 
         $scope.applyFilter = function (filter) {
             if (filter) {
+                filter.toggle();
+
                 !!filter.toggled /* add/remove toggled filter from active filters */
                     ? $scope.activeFilters[filter.key] = filter
                     : delete $scope.activeFilters[filter.key];

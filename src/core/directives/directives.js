@@ -20,4 +20,21 @@ angular.module('nd.directives', [])
                 setBackgroundColor();
             }
         }
+    })
+    .directive('urlBackground', function () {
+        return {
+            link: function (scope, element, attrs) {
+                var url = scope.$eval(attrs.urlBackground);
+
+                function setBackgroundUrl() {
+                    if (url) {
+                        element.css({
+                            'background-image': 'url(' + url +')',
+                            'background-size' : '40px 40px'
+                        });
+                    }
+                }
+                setBackgroundUrl();
+            }
+        }
     });

@@ -57,9 +57,17 @@ $article-list-width: 400px;
   position: fixed;
   top: 20px;
   left: 70px;
+  width: 100%;
 
   .article-filter {
+    position: relative;
     cursor: pointer;
+
+    width: 40px;
+    min-width: 40px;
+
+    height: 40px;
+    min-height: 40px;
   }
 }
 
@@ -154,60 +162,60 @@ $article-list-width: 400px;
   }
 }
 
-input[type=checkbox] {
-  opacity: 0;
-  transform: scale(3.2);
-  -webkit-transform: scale(3.2);
-}
-
-.custom_label {
-  padding-left: 50px;
-  margin-left: -30px;
-
-  padding-top: 10px;
-  padding-bottom: 20px;
-}
-
-/* Devon's article categories styles */
-span:not(#foo) > input#Science + label {
-  background: url('/assets/img/checkbox/science_off.png') 0 0px no-repeat;
-  background-size: 40px 40px;
-}
-
-span:not(#foo) > input#Science:checked + label {
-  background: url('/assets/img/checkbox/science_on.png') 0 0px no-repeat;
-  background-size: 40px 40px;
-}
-
-span:not(#foo) > input#Health + label {
-  background: url('/assets/img/checkbox/health_off.png') 0 0px no-repeat;
-  background-size: 40px 40px;
-}
-
-span:not(#foo) > input#Health:checked + label {
-  background: url('/assets/img/checkbox/health_on.png') 0 0px no-repeat;
-  background-size: 40px 40px;
-}
-
-span:not(#foo) > input#Economy + label {
-  background: url('/assets/img/checkbox/economy_off.png') 0 0px no-repeat;
-  background-size: 40px 40px;
-}
-
-span:not(#foo) > input#Economy:checked + label {
-  background: url('/assets/img/checkbox/economy_on.png') 0 0px no-repeat;
-  background-size: 40px 40px;
-}
-
-span:not(#foo) > input#World + label {
-  background: url('/assets/img/checkbox/world_off.png') 0 0px no-repeat;
-  background-size: 40px 40px;
-}
-
-span:not(#foo) > input#World:checked + label {
-  background: url('/assets/img/checkbox/world_on.png') 0 0px no-repeat;
-  background-size: 40px 40px;
-}
+//input[type=checkbox] {
+//  opacity: 0;
+//  transform: scale(3.2);
+//  -webkit-transform: scale(3.2);
+//}
+//
+//.custom_label {
+//  padding-left: 50px;
+//  margin-left: -30px;
+//
+//  padding-top: 10px;
+//  padding-bottom: 20px;
+//}
+//
+///* Devon's article categories styles */
+//span:not(#foo) > input#Science + label {
+//  background: url('/assets/img/checkbox/science_off.png') 0 0px no-repeat;
+//  background-size: 40px 40px;
+//}
+//
+//span:not(#foo) > input#Science:checked + label {
+//  background: url('/assets/img/checkbox/science_on.png') 0 0px no-repeat;
+//  background-size: 40px 40px;
+//}
+//
+//span:not(#foo) > input#Health + label {
+//  background: url('/assets/img/checkbox/health_off.png') 0 0px no-repeat;
+//  background-size: 40px 40px;
+//}
+//
+//span:not(#foo) > input#Health:checked + label {
+//  background: url('/assets/img/checkbox/health_on.png') 0 0px no-repeat;
+//  background-size: 40px 40px;
+//}
+//
+//span:not(#foo) > input#Economy + label {
+//  background: url('/assets/img/checkbox/economy_off.png') 0 0px no-repeat;
+//  background-size: 40px 40px;
+//}
+//
+//span:not(#foo) > input#Economy:checked + label {
+//  background: url('/assets/img/checkbox/economy_on.png') 0 0px no-repeat;
+//  background-size: 40px 40px;
+//}
+//
+//span:not(#foo) > input#World + label {
+//  background: url('/assets/img/checkbox/world_off.png') 0 0px no-repeat;
+//  background-size: 40px 40px;
+//}
+//
+//span:not(#foo) > input#World:checked + label {
+//  background: url('/assets/img/checkbox/world_on.png') 0 0px no-repeat;
+//  background-size: 40px 40px;
+//}
 //
 //span:not(#foo) > input#Conflict + label {
 //  background: url('/assets/img/checkbox/conflict_off.png') 0 0px no-repeat;
