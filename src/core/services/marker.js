@@ -9,9 +9,9 @@ angular.module('nd.services')
     .service('MarkerCategories', function () {
         this.colors = {
             'science': '#B9A8C6',  // purple
-            'health': '#87A5C8',   // blue
+            'health': '#C36D74',   // blue
             'economy': '#A7D2A3',  // green
-            'world': '#C36D74'     // yellow
+            'world': '#87A5C8'     // yellow
         };
 
         this.getColor = function (category) {

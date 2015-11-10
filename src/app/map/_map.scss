@@ -53,10 +53,14 @@ $article-list-width: 400px;
   color: $mono-light;
 }
 
-.article-filters-container {
+.article-filters {
   position: fixed;
-  top: 7px;
+  top: 20px;
   left: 70px;
+
+  .article-filter {
+    cursor: pointer;
+  }
 }
 
 .article-cards {
