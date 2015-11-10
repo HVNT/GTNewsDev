@@ -1,8 +1,12 @@
-<div class="article-filters-container">
+<div class="article-filters-container" style="width: 300px; height: 70px; position: absolute; top: 33px;">
     <span ng-repeat="filter in categoryFilters">
         <input type="checkbox"
                ng-model="filter.toggled"
-               ng-click="toggleFilter(filter)"/>{{filter.title}}</span>
+               ng-click="toggleFilter(filter)"
+               ng-attr-id="{{filter.title}}"
+               title="{{filter.title}}" />
+        <label ng-attr-id="{{filter.title}}" class="custom_label"></label>
+    </span>
 </div>
 
 <div class="article-list-controls" nd-s-py="1">
