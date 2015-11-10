@@ -69,7 +69,7 @@ $article-list-width: 400px;
   width: $article-list-width;
   overflow-y: scroll;
 
-  .article-cards--collapsed {
+  &.article-cards--collapsed {
     opacity: 0 !important;
   }
 
