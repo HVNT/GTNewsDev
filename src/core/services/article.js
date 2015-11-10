@@ -7,6 +7,9 @@
  */
 angular.module('nd.services')
     .factory('Article', function ($http, $q, Environment) {
+        Article.TWTTR_FLOOR = 100;
+        Article.FB_FLOOR = 100;
+
         function Article(data) {
             this.id = data.pk || null;
 
@@ -29,7 +32,13 @@ angular.module('nd.services')
                 ? data.retweetcount
                 : Article.maxRetweetCount;
 
+            Article.maxShareCount = data.sharecount > Article.maxShareCount
+                ? data.sharecount
+                : Article.maxShareCount;
+
             this.retweetCount = data.retweetcount || 0;
+            this.shareCount = data.sharecount;
+
             this.pinSize = data.pinsize || 0;
 
             if (!_.isEmpty(data.coords)) {
@@ -85,7 +94,8 @@ angular.module('nd.services')
             var defer = $q.defer();
 
             if (bboxParam) {
-                var path = Environment.path + '/pins/?in_bbox=' + bboxParam + '&format=json',
+                var path = Environment.path + '/pins/?in_bbox=' + bboxParam +
+                        '&min_retweetcount=' + Article.TWTTR_FLOOR + '&format=json',
                     config = _.extend({}, Environment.config);
 
                 $http.get(path, config).then(
