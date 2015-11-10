@@ -34,19 +34,22 @@
                   nd-t-font="link small-caps right bold h6">(source)</span>
             </div>
 
-            <div class="article-card__body" nd-s-px="sm" nd-s-pb="sm">
+            <div class="article-card__body" nd-s-px="sm" nd-s-pb="4">
                 <!--TODO add dynamic article source-->
                 <div nd-s-row>
                     <span nd-t-font="p small">New York Times - {{::article.dateCreated | date:'MMM d, y'}}</span>
                 </div>
                 <div nd-s-row>
-                    <span nd-t-font="p">{{::article.abstract | ellipsis:60:'end'}}</span>
+                    <span nd-t-font="p">{{::article.abstract | ellipsis:130:'end'}}</span>
                 </div>
-                <div nd-s-row>
-                    <span nd-s-pull="left">{{::article.retweetCount}} retweets</span>
-                    <span nd-s-pull="right" nd-s-pxy="1"
+                <div nd-s-row nd-s-pt="1">
+                    <span nd-s-pull="left"
+                          nd-t-font="p small"
+                          nd-s-pxy="1"
                           fill-background="MarkerCategories.getColor(article.category)"
-                          class="article-category-label">{{::article.category}}</span>
+                          class="article-category-label">{{::article.category | capitalize}}</span>
+                    <span nd-s-pull="right" nd-s-py="1">
+                        <span class="fa fa-twitter" nd-s-pr="1"></span>{{::article.retweetCount}} retweets</span>
                 </div>
             </div>
         </div>
