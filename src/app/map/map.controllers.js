@@ -32,13 +32,10 @@ angular.module('nd.map')
                 Article.queryBBox(toParams.in_bbox).then(function (response) {
                     Article.setPinSizes(); //TODO dylan will support by "next week" (11.9.15)
 
-                    var mapRef = leafletData.getMap('map');
-
                     var markers = {};
                     if (response && response.length > 0) {
                         for (var i = 0; i < response.length; i++) {
                             var marker = new Marker(response[i]);
-                            marker.setSize(mapRef.$$state.value._zoom);
                             $scope.markerModels[marker.id] = marker;
                             markers[marker.id] = marker.getMarker();
                         }
