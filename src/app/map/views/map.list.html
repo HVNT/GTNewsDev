@@ -9,43 +9,44 @@
     </span>
 </div>
 
-<div class="article-list-controls">
-    <div nd-s-row>
-        <input ng-model="articleSearch"
-               class="nd-input" placeholder="Search articles by title." type="text"/>
+<div class="article-list">
+    <div class="article-list-controls">
+        <div nd-s-row>
+            <input ng-model="articleSearch"
+                   class="nd-input" placeholder="Search articles by title." type="text"/>
+        </div>
+        <div nd-s-row nd-s-pxy="sm"
+             class="article-list-collapse-btn"
+             nd-t-font="h6 center small-caps" ng-click="collapseList()"
+             ng-class="{'article-list-collapse-btn--active': listCollapsed}">
+            Viewing {{Article.articles.length || 0}} articles.
+        </div>
     </div>
-    <div nd-s-row nd-s-pxy="sm"
-         id="article-list-collapse-btn"
-         nd-t-font="p" ng-click="collapseList()"
-         ng-class="{'fa-eye': !listCollapsed, 'fa-eye-slash': listCollapsed}">
-        Viewing {{Article.articles.length || 0}} articles.
-    </div>
-</div>
 
-<div class="article-list"
-     ng-class="{'article-list--collapsed': listCollapsed}">
-    <div nd-s-row ng-repeat="article in Article.articles | filter:articleSearch | orderBy:'-retweetCount'"
-         class="article-card">
-        <div class="article-card__header" nd-s-pxy="sm">
+    <div class="article-cards" ng-class="{'article-cards--collapsed': listCollapsed}">
+        <div ng-repeat="article in Article.articles | filter:articleSearch | orderBy:'-retweetCount'"
+             class="article-card" nd-s-row>
+            <div class="article-card__header" nd-s-pxy="sm">
             <span ng-click="centerMap(article)"
                   nd-t-font="{{$index < 3 ? 'h5 link' : 'h6 link'}}">{{::article.headline}}</span>
             <span ng-click="goArticleSource(article.url)"
                   class="article-link"
                   nd-s-pl="2"
                   nd-t-font="link small-caps right bold h6">(source)</span>
-        </div>
+            </div>
 
-        <div class="article-card__body" nd-s-px="sm" nd-s-pb="sm">
-            <!--TODO add dynamic article source-->
-            <div nd-s-row>
-                <span nd-t-font="p small">New York Times - {{::article.dateCreated | date:'MMM d, y'}}</span>
-            </div>
-            <div nd-s-row>
-                <span nd-t-font="p">{{::article.abstract | ellipsis:60:'end'}}</span>
-            </div>
-            <div nd-s-row>
-                <span nd-s-pull="left">{{::article.retweetCount}} retweets</span>
-                <span nd-s-pull="right">{{::article.category}}</span>
+            <div class="article-card__body" nd-s-px="sm" nd-s-pb="sm">
+                <!--TODO add dynamic article source-->
+                <div nd-s-row>
+                    <span nd-t-font="p small">New York Times - {{::article.dateCreated | date:'MMM d, y'}}</span>
+                </div>
+                <div nd-s-row>
+                    <span nd-t-font="p">{{::article.abstract | ellipsis:60:'end'}}</span>
+                </div>
+                <div nd-s-row>
+                    <span nd-s-pull="left">{{::article.retweetCount}} retweets</span>
+                    <span nd-s-pull="right">{{::article.category}}</span>
+                </div>
             </div>
         </div>
     </div>
