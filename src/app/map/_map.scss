@@ -79,12 +79,13 @@ $article-list-width: 400px;
 
 .article-list-controls {
   position: fixed;
-  top: 15px;
+  top: 10px;
   right: 0;
   width: $article-list-width;
 
-  .nd-input-sm {
+  .nd-input {
     height: 20px;
+    width: 85% !important; /* override */
   }
 
   #article-list-collapse-btn {

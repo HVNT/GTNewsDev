@@ -4,18 +4,21 @@
                ng-model="filter.toggled"
                ng-click="toggleFilter(filter)"
                ng-attr-id="{{filter.title}}"
-               title="{{filter.title}}" />
+               title="{{filter.title}}"/>
         <label ng-attr-id="{{filter.title}}" class="custom_label"></label>
     </span>
 </div>
 
-<div class="article-list-controls" nd-s-py="1">
+<div class="article-list-controls">
     <div nd-s-row>
         <input ng-model="articleSearch"
-               class="nd-input-sm" placeholder="Search articles by title." type="text"/>
-        <span id="article-list-collapse-btn" nd-s-px="1"
-              ng-click="collapseList()" nd-t-font="right" class="fa"
-              ng-class="{'fa-eye': !listCollapsed, 'fa-eye-slash': listCollapsed}"></span>
+               class="nd-input" placeholder="Search articles by title." type="text"/>
+    </div>
+    <div nd-s-row nd-s-pxy="sm"
+         id="article-list-collapse-btn"
+         nd-t-font="p" ng-click="collapseList()"
+         ng-class="{'fa-eye': !listCollapsed, 'fa-eye-slash': listCollapsed}">
+        Viewing {{Article.articles.length || 0}} articles.
     </div>
 </div>
 
