@@ -137,6 +137,12 @@ angular.module('nd.map')
 
                 });
 
+                /* update bounding box on drag */
+                // map.on('drag', function () {
+                //     console.log('[drag] event registered on map');
+                //     self.boundMapState();
+                // });
+
                 /* zooming events */
                 map.on('zoomstart', function () {
                     console.log('[zoomstart] event registered on map.');
