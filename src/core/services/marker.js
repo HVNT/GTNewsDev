@@ -8,11 +8,11 @@
 angular.module('nd.services')
     .service('MarkerCategories', function () {
         this.colors = {
-            'science': 'PURPLE',
-            'health': 'BLUE',
-            'economy': 'GREEN',
-            'conflict': 'RED',
-            'world': 'GREY'
+            'science': '#B9A8C6',  // purple
+            'health': '#87A5C8',   // blue
+            'economy': '#A7D2A3',  // green
+            'conflict': '#C36D74', // red
+            'world': '#F6E9A6'     // yellow
         }
     })
     .factory('Marker', function (MapStyles, MarkerCategories) {
@@ -50,10 +50,14 @@ angular.module('nd.services')
                     case 'conflict':
                         return '/assets/img/markers/pin_red.png';
                     case 'world':
-                        return '/assets/img/markers/pin_grey.png';
+                        return '/assets/img/markers/pin_yellow.png';
                 }
             }
         };
+
+
+        //reduce available pin sizes
+        // 
 
         Marker.iconSizes = [[15,17], [17,19], [20,22], [23,26], [26,29], [32,35], [38,42], [45,50], [50,55], [55,61]];
         // Marker.shadowSizes = [[], [], [], [], [], [], [], [], []];
