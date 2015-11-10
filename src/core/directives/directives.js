@@ -17,7 +17,6 @@ angular.module('nd.directives', [])
                 function setBackgroundColor() {
                     if (color) element.css({background: color});
                 }
-
                 setBackgroundColor();
             }
         }

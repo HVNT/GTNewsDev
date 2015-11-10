@@ -143,6 +143,10 @@ $article-list-width: 400px;
   .article-link {
     color: $link-color;
   }
+
+  .article-category-label {
+    @include border-radius($base-border-radius);
+  }
 }
 
 input[type=checkbox] {
@@ -199,13 +203,13 @@ span:not(#foo) > input#World:checked + label {
   background: url('/assets/img/checkbox/world_on.png') 0 0px no-repeat;
   background-size: 40px 40px;
 }
-
-span:not(#foo) > input#Conflict + label {
-  background: url('/assets/img/checkbox/conflict_off.png') 0 0px no-repeat;
-  background-size: 40px 40px;
-}
-
-span:not(#foo) > input#Conflict:checked + label {
-  background: url('/assets/img/checkbox/conflict_on.png') 0 0px no-repeat;
-  background-size: 40px 40px;
-}
+//
+//span:not(#foo) > input#Conflict + label {
+//  background: url('/assets/img/checkbox/conflict_off.png') 0 0px no-repeat;
+//  background-size: 40px 40px;
+//}
+//
+//span:not(#foo) > input#Conflict:checked + label {
+//  background: url('/assets/img/checkbox/conflict_on.png') 0 0px no-repeat;
+//  background-size: 40px 40px;
+//}

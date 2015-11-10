@@ -8,9 +8,13 @@
 //Data
 
 angular.module('nd.map')
-    .controller('MapCtrl', function ($scope, $state, $timeout, $window, $log, leafletData,
-                                     MapStyles, MapEvents, MapFilters, Article, Marker) {
+    .controller('MapCtrl',
+    function ($scope, $state, $timeout, $window, $log, leafletData,
+              MapStyles, MapEvents, MapFilters, Article, Marker, MarkerCategories) {
+
+        $scope.MarkerCategories = MarkerCategories;
         angular.extend($scope, MapStyles.defaultConfig);
+
         /* init map */
         $scope.Article = Article;
         $scope.map = {};
@@ -18,6 +22,7 @@ angular.module('nd.map')
         $scope.markerModels = {};
         $scope.markers = [];
         $scope.$$markers = {};
+
 
         $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             //TODO debounce vs query blocking?

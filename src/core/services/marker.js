@@ -11,8 +11,15 @@ angular.module('nd.services')
             'science': '#B9A8C6',  // purple
             'health': '#87A5C8',   // blue
             'economy': '#A7D2A3',  // green
-            'conflict': '#C36D74', // red
-            'world': '#F6E9A6'     // yellow
+            'world': '#C36D74'     // yellow
+        };
+
+        this.getColor = function (category) {
+            var color = null; //TODO set to default
+            if (category && this.colors[category]) {
+                color = this.colors[category];
+            }
+            return color;
         }
     })
     .factory('Marker', function (MapStyles, MarkerCategories) {
@@ -47,8 +54,6 @@ angular.module('nd.services')
                         return '/assets/img/markers/pin_blue.png';
                     case 'economy':
                         return '/assets/img/markers/pin_green.png';
-                    case 'conflict':
-                        return '/assets/img/markers/pin_red.png';
                     case 'world':
                         return '/assets/img/markers/pin_yellow.png';
                 }

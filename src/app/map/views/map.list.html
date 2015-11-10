@@ -44,7 +44,9 @@
                 </div>
                 <div nd-s-row>
                     <span nd-s-pull="left">{{::article.retweetCount}} retweets</span>
-                    <span nd-s-pull="right">{{::article.category}}</span>
+                    <span nd-s-pull="right" nd-s-pxy="1"
+                          fill-background="MarkerCategories.getColor(article.category)"
+                          class="article-category-label">{{::article.category}}</span>
                 </div>
             </div>
         </div>
