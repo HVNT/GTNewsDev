@@ -51,11 +51,11 @@ angular.module('nd.services')
                     case 'science':
                         return '/assets/img/markers/pin_purple.png';
                     case 'health':
-                        return '/assets/img/markers/pin_blue.png';
+                        return '/assets/img/markers/pin_red.png';
                     case 'economy':
                         return '/assets/img/markers/pin_green.png';
                     case 'world':
-                        return '/assets/img/markers/pin_yellow.png';
+                        return '/assets/img/markers/pin_blue.png';
                 }
             }
         };
