@@ -74,6 +74,7 @@ $article-list-width: 400px;
 }
 
 .article-cards {
+  pointer-events: none;
   position: fixed;
   right: 0;
   bottom: 0;
@@ -91,6 +92,7 @@ $article-list-width: 400px;
 }
 
 .article-list {
+  pointer-events: none;
   position: fixed;
   right: 0;
   bottom: 0;
@@ -133,6 +135,7 @@ $article-list-width: 400px;
 }
 
 .article-card {
+  pointer-events: auto;
   margin-bottom: 10px;
   opacity: .9;
 
