@@ -31,16 +31,9 @@ angular.module('nd.services')
             this.lat = data.lat || null;
             this.lng = data.lng || null;
 
-            this.pinSize = data.pinSize || 1;
-            var iconSizes = Marker.iconSizes[this.pinSize - 1];
-            if (iconSizes) {
-                this.icon = {
-                    iconUrl: Marker.getIconUrl(this.category),
-                    iconSize: iconSizes,
-                    iconAnchor: [iconSizes[0] / 2, iconSizes[1] - 1],
-                    popupAnchor: [0, -iconSizes[1] / 2]
-                };
-            }
+            var sizeBy = "twitter"; // TODO set up a switch in the interface for "twitter", "facebook",  and "both"
+            this.setMarkerSize(data.pinSize, sizeBy);
+
 
             this.$$categoryColor = MarkerCategories.getColor(this.category);
         }
@@ -60,18 +53,40 @@ angular.module('nd.services')
             }
         };
 
-        Marker.iconSizes = [
-            [15, 17],
-            [17, 19],
-            [20, 22],
-            [23, 26],
-            [26, 29],
-            [32, 35],
-            [38, 42],
-            [45, 50],
-            [50, 55],
-            [55, 61]
-        ];
+        Marker.maxSize = [55, 65]; // ratio of base marker image width:height = 1.0 : 1.17
+        // Marker.iconSizes = [
+        //     [15, 17],
+        //     [17, 19],
+        //     [20, 22],
+        //     [23, 26],
+        //     [26, 29],
+        //     [32, 35],
+        //     [38, 42],
+        //     [45, 50],
+        //     [50, 55],
+        //     [55, 61]
+        // ];
+
+        /**
+        *
+        *
+        * pinSizeObject: { "twitter": x, "both": y, "facebook": z } ; x,y,z are numbers between 0 and 1 based on
+        *                 the largest article returned (each key scaled separately)
+        * sizeBy: which key to use
+        */
+        Marker.prototype.setMarkerSize = function (pinSizeObject, sizeBy) {
+            this.pinSize = pinSizeObject || null;
+            // add null check?
+            var iconSize = [this.pinSize[sizeBy] * Marker.maxSize[0], this.pinSize[sizeBy] * Marker.maxSize[1]];
+            if (this.pinSize) {
+                this.icon = {
+                    iconUrl: Marker.getIconUrl(this.category),
+                    iconSize: iconSize,
+                    iconAnchor: [iconSize[0] / 2, iconSize[1] - 1],
+                    popupAnchor: [0, -iconSize[1] / 2]
+                };
+            }
+        }
 
         Marker.prototype.getMarker = function () {
             return {
