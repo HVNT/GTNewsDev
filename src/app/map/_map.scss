@@ -153,8 +153,9 @@ $article-list-width: 400px;
 
 .article-card {
   pointer-events: auto;
-  margin-bottom: 10px;
   opacity: .9;
+
+  border-bottom: 2px solid $mono-lighter;
 
   box-shadow: $z2-shadow;
   -webkit-box-shadow: $z2-shadow;
@@ -162,6 +163,11 @@ $article-list-width: 400px;
 
   .article-card__header {
     background: $white;
+    color: $mono-darker;
+  }
+
+  .article-card__header--active {
+    background: #F6E9A6;
     color: $mono-darker;
   }
 

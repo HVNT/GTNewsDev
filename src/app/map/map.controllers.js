@@ -12,6 +12,7 @@ angular.module('nd.map')
     function ($scope, $state, $timeout, $window, $log, leafletData, MapStyles, MapEvents, MapFilters, Article, Marker, MarkerCategories) {
 
         $scope.Article = Article;
+        $scope.Marker = Marker;
         $scope.MarkerCategories = MarkerCategories;
         angular.extend($scope, MapStyles.defaultConfig);
 

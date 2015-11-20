@@ -42,4 +42,11 @@ angular.module('nd.directives', [])
                 });
             }
         }
+    })
+    .directive('articleList', function (MapEvents) {
+        return {
+            link: function (scope, element, attrs) {
+
+            }
+        }
     });

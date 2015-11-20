@@ -175,7 +175,8 @@ angular.module('nd.map')
                 });
 
                 /* zooming events */
-                map.on('zoomstart', function () {
+                map.on('zoomstart', function (event) {
+                    console.log(event);
                     console.log('[zoomstart] event registered on map.');
                 });
 
@@ -192,7 +193,6 @@ angular.module('nd.map')
                 });
 
                 map.on('popupclose', function (event) {
-                    debugger;
                     console.log('[popupclose] event registered on map.');
                 });
             }
