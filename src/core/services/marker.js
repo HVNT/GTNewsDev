@@ -41,8 +41,13 @@ angular.module('nd.services')
                     popupAnchor: [0, -iconSizes[1] / 2]
                 };
             }
-
             this.$$categoryColor = MarkerCategories.getColor(this.category);
+
+
+            this._buildLeafletMarker();
+
+            Marker.$$markers[this.id] = this;
+            Marker.markers = _.toArray(Marker.$$markers);
         }
 
         Marker.getIconUrl = function (category) {
@@ -51,11 +56,15 @@ angular.module('nd.services')
                     case 'science':
                         return '/assets/img/markers/pin_purple.png';
                     case 'health':
-                        return '/assets/img/markers/pin_blue.png';
+                        return '/assets/img/markers/pin_red.png';
                     case 'economy':
                         return '/assets/img/markers/pin_green.png';
                     case 'world':
-                        return '/assets/img/markers/pin_yellow.png';
+                        return '/assets/img/markers/pin_blue.png';
+                }
+
+                if (category === 'active') {
+                    return '/assets/img/markers/pin_yellow.png'
                 }
             }
         };
@@ -73,22 +82,41 @@ angular.module('nd.services')
             [55, 61]
         ];
 
-        Marker.prototype.getMarker = function () {
-            return {
+        Marker.prototype.updateIconUrl = function (isActive) {
+            if (isActive && this.icon) {
+                this.icon.iconUrl = Marker.getIconUrl('active');
+            }
+            return this.icon;
+        };
+
+
+        Marker.$$leafletMarkers = {};
+        Marker.prototype._buildLeafletMarker = function () {
+            Marker.$$leafletMarkers[this.id] = {
                 lat: this.lat,
                 lng: this.lng,
-                message: "<div class=\"marker-popover\">" +
-                    "<div nd-t-font=\"h6\" class=\"marker-popover--lead\">" + this.article.headline + "</div>" +
-                    "<div>" +
-                    '<span nd-t-font="h6 small-caps">By </span>' + this.article.author +
-                    '<!--<span nd-t-font="h6 small-caps link" nd-s-pull="right">Source</span>-->' +
-                    "</div>" +
-                    "</div>",
                 draggable: false,
                 icon: this.icon
             }
         };
 
+        Marker.setActiveLeafletMarker = function (markerId) {
+            if (Marker.$$prevMarkerId) {
+                var _markerId = Marker.$$prevMarkerId,
+                    marker = Marker.$$markers[_markerId];
+                if (marker) {
+                    Marker.$$leafletMarkers[_markerId].icon.iconUrl = Marker.getIconUrl(marker.category);
+                }
+            }
+
+            if (markerId && Marker.$$leafletMarkers[markerId]) {
+                var leafletMarker = Marker.$$leafletMarkers[markerId];
+                if (leafletMarker && leafletMarker.icon) {
+                    leafletMarker.icon.iconUrl = Marker.getIconUrl('active');
+                }
+                Marker.$$prevMarkerId = markerId;
+            }
+        };
 
         Marker.markers = [];
         Marker.$$markers = {};

@@ -9,6 +9,7 @@ angular.module('nd.services')
     .factory('Article', function ($http, $q, Environment) {
         Article.TWTTR_FLOOR = 100;
         Article.FB_FLOOR = 100;
+        Article.$$fetching = false;
 
         function Article(data) {
             this.id = data.pk || null;
@@ -98,6 +99,7 @@ angular.module('nd.services')
                         '&min_retweetcount=' + Article.TWTTR_FLOOR + '&format=json',
                     config = _.extend({}, Environment.config);
 
+                Article.$$fetching = true;
                 $http.get(path, config).then(
                     function (response) {
                         Article.resetArticles(); //reset articles
@@ -111,13 +113,16 @@ angular.module('nd.services')
                                 }
                             }
                         }
+                        Article.$$fetching = false;
                         defer.resolve(Article.articles);
                     },
                     function (response) {
+                        Article.$$fetching = false;
                         defer.reject(response);
                     }
                 );
             } else {
+                Article.$$fetching = false;
                 defer.reject('Need bounding box to [queryBBox]');
             }
 

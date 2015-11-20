@@ -1,8 +1,8 @@
-<div>
-    <leaflet center="centerMarker"
+<div ng-if="Article" ng-class="{'map-fetching': Article.$$fetching}">
+    <leaflet id="map"
+             center="centerMarker"
              defaults="defaults"
-             markers="markers"
-             id="map"></leaflet>
+             markers="markers"></leaflet>
 
     <!--article list fix pos-->
     <div ui-view></div>

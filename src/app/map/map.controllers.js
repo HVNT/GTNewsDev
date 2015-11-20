@@ -12,15 +12,12 @@ angular.module('nd.map')
     function ($scope, $state, $timeout, $window, $log, leafletData,
               MapStyles, MapEvents, MapFilters, Article, Marker, MarkerCategories) {
 
+        $scope.Article = Article;
         $scope.MarkerCategories = MarkerCategories;
         angular.extend($scope, MapStyles.defaultConfig);
 
-        /* init map */
-        $scope.Article = Article;
-//        $scope.activeArticles = Article.articles;
-
         $scope.map = {};
-
+        $scope.activeMarker = {};
         $scope.markerModels = {};
         $scope.markers = [];
         $scope.$$markers = {};
@@ -29,6 +26,7 @@ angular.module('nd.map')
         $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             //TODO debounce vs query blocking?
             if (toParams) {
+
                 Article.queryBBox(toParams.in_bbox).then(function (response) {
                     Article.setPinSizes(); //TODO dylan will support by "next week" (11.9.15)
 
@@ -36,16 +34,13 @@ angular.module('nd.map')
                     if (response && response.length > 0) {
                         for (var i = 0; i < response.length; i++) {
                             var marker = new Marker(response[i]);
+                            var isActive = $scope.activeMarker.$$id == marker.id;
+
                             $scope.markerModels[marker.id] = marker;
-                            markers[marker.id] = marker.getMarker();
                         }
                     }
-                    $scope.$$markers = markers;
-                    $scope.markers = _.toArray(markers);
-
-                    console.log($scope.activeMarker);
-                    console.log($scope.centerMarker);
-                    $scope.centerMarker = $scope.centerMarker;
+                    $scope.$$markers = Marker.$$leafletMarkers;
+                    $scope.markers = _.toArray($scope.$$markers);
 
                     updateActiveMarkers();
                 });
@@ -72,8 +67,9 @@ angular.module('nd.map')
 
                 var targetMarker = $scope.$$markers[article.id];
                 if (targetMarker) {
+
+                    Marker.setActiveLeafletMarker(article.id);
                     $scope.centering = true;
-                    $scope.activeMarker = targetMarker;
 
                     $scope.centerMarker = {
                         lat: targetMarker.lat,
@@ -90,11 +86,10 @@ angular.module('nd.map')
             } else {
                 $log.debug('Need source url to nav.');
             }
+
+            $scope.$$markers = Marker.$$leafletMarkers;
+            $scope.markers = _.toArray($scope.$$markers);
         };
-        
-//        $scope.$watch('activeMarker', function (newVal, oldVal) {
-//            console.log(newVal, oldVal);
-//        });
 
         $scope.applyFilter = function (filter) {
             if (filter) {

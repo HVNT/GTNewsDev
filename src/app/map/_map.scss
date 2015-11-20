@@ -2,7 +2,6 @@
 
 $article-list-width: 400px;
 
-
 #map {
   position: fixed;
   top: 0;
@@ -26,6 +25,18 @@ $article-list-width: 400px;
   }
 }
 
+.map-fetching {
+  > .leaflet-container {
+    cursor: wait !important;
+    -webkit-cursor: wait !important;
+    -moz-shadow: wait !important;
+    > .leaflet-control-container {
+      cursor: wait !important;
+      -webkit-cursor: wait !important;
+      -moz-shadow: wait !important;
+    }
+  }
+}
 
 .nd-dialogue-container {
   position: absolute;
@@ -105,7 +116,6 @@ $article-list-width: 400px;
   width: $article-list-width;
 
   border-bottom: 2px solid $mono;
-
 
   box-shadow: $z2-shadow;
   -webkit-box-shadow: $z2-shadow;

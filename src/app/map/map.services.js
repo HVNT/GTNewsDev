@@ -178,7 +178,8 @@ angular.module('nd.map')
                     console.log('[popupopen] event registered on map.');
                 });
 
-                map.on('popupclose', function () {
+                map.on('popupclose', function (event) {
+                    debugger;
                     console.log('[popupclose] event registered on map.');
                 });
             }
