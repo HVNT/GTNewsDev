@@ -32,7 +32,7 @@ angular.module('nd.map')
                     if (response && response.length > 0) {
                         for (var i = 0; i < response.length; i++) {
                             var marker = new Marker(response[i]);
-//                            var isActive = $scope.activeMarker.$$id == marker.id;
+                            var isActive = $scope.activeMarker.$$id == marker.id;
 
                             $scope.markerModels[marker.id] = marker;
                         }
