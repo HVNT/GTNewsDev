@@ -27,7 +27,7 @@ angular.module('nd.services')
         Marker.maxSize = [55, 65]; // ratio of base marker image width:height = 1.0 : 1.17
 
         function Marker(data) {
-            this.id = data.id || null; // namespacing?
+            this.id = data.id || null;
             this.article = data || {};
             this.category = data.category || 'world'; //world = misc
 
@@ -99,24 +99,28 @@ angular.module('nd.services')
                 lng: this.lng,
                 draggable: false,
                 icon: this.icon
+            };
+            
+            if (Marker.$$prevMarkerId === this.id) {
+                Marker.setActiveLeafletMarker(this.id);
             }
         };
 
         Marker.setActiveLeafletMarker = function (markerId) {
-            if (Marker.$$prevMarkerId) {
-                var _markerId = Marker.$$prevMarkerId,
-                    marker = Marker.$$markers[_markerId];
-                if (marker) {
-                    Marker.$$leafletMarkers[_markerId].icon.iconUrl = Marker.getIconUrl(marker.category);
+            if (Marker.$$prevMarkerId && Marker.$$prevMarkerId !== markerId) { // reset previous to correct color
+                var prevMarker = Marker.$$leafletMarkers[Marker.$$prevMarkerId],
+                    prevModel = Marker.$$markers[Marker.$$prevMarkerId];
+                if (prevMarker && prevMarker.icon && prevModel) {
+                    prevMarker.icon.iconUrl = Marker.getIconUrl(prevModel.category);
                 }
             }
 
             if (markerId && Marker.$$leafletMarkers[markerId]) {
-                var leafletMarker = Marker.$$leafletMarkers[markerId];
-                if (leafletMarker && leafletMarker.icon) {
-                    leafletMarker.icon.iconUrl = Marker.getIconUrl('active');
+                var marker = Marker.$$leafletMarkers[markerId];
+                if (marker && marker.icon) {
+                    marker.icon.iconUrl = Marker.getIconUrl('active');
+                    Marker.$$prevMarkerId = markerId;
                 }
-                Marker.$$prevMarkerId = markerId;
             }
         };
 

@@ -44,6 +44,19 @@ angular.module('nd.map')
 
     })
     .service('MapFilters', function () {
+        this.socialFilters = {
+            'twitter': {
+                key: 'twitter',
+                title: 'Twitter',
+                icon: 'fa-twitter'
+            },
+            'facebook': {
+                key: 'facebook',
+                title: 'Facebook',
+                icon: 'fa-facebook'
+            }
+        };
+
         this.categoryFilters = {
             'world': {
                 key: 'world',

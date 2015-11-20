@@ -64,7 +64,13 @@ $article-list-width: 400px;
   color: $mono-light;
 }
 
-.article-filters {
+.map-social-filters {
+  position: fixed;
+  left: 50%;
+  top: 10px;
+}
+
+.map-category-filters {
   position: fixed;
   left: 5px;
   top: 110px;
@@ -72,7 +78,7 @@ $article-list-width: 400px;
   width: 50px;
   height: 300px;
 
-  .article-filter {
+  .category-filter {
     position: relative;
     cursor: pointer;
 

@@ -22,24 +22,21 @@ angular.module('nd.map')
         $scope.markers = [];
         $scope.$$markers = {};
 
+        $scope.socialFilters = MapFilters.socialFilters;
 
         $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             //TODO debounce vs query blocking?
             if (toParams) {
                 Article.queryBBox(toParams.in_bbox).then(function (response) {
                     var markers = {};
+                    Marker.$$leafletMarkers = {};
+
                     if (response && response.length > 0) {
                         for (var i = 0; i < response.length; i++) {
-                            var marker = new Marker(response[i]);
-                            var isActive = $scope.activeMarker.$$id == marker.id;
-
-                            $scope.markerModels[marker.id] = marker;
+                            new Marker(response[i]);
                         }
                     }
-                    $scope.$$markers = Marker.$$leafletMarkers;
-                    $scope.markers = _.toArray($scope.$$markers);
-
-                    updateActiveMarkers();
+                    $scope.updateActiveMarkers(Marker.$$leafletMarkers);
                 });
             }
         });
@@ -88,33 +85,6 @@ angular.module('nd.map')
             $scope.markers = _.toArray($scope.$$markers);
         };
 
-        $scope.applyFilter = function (filter) {
-            if (filter) {
-                filter.toggle();
-
-                !!filter.toggled /* add/remove toggled filter from active filters */
-                    ? $scope.activeFilters[filter.key] = filter
-                    : delete $scope.activeFilters[filter.key];
-
-                var markerModels = {};
-                angular.forEach($scope.markerModels, function (markerModel, key) {
-                    if ($scope.activeFilters.hasOwnProperty(markerModel.category)) {
-                        markerModels[key] = markerModel;
-                    }
-                });
-
-                var markers = {};
-                angular.forEach(markerModels, function (markerModel, key) {
-                    markers[key] = markerModel.getMarker();
-                });
-                $scope.$$markers = markers;
-                $scope.markers = _.toArray(markers);
-
-                /* now update activeArticles */
-                updateActiveMarkers();
-            }
-        };
-
         $scope.queryMap = function () {
             leafletData.getMap('map').then(function (map) {
                 $scope.mapQueried = true;
@@ -124,9 +94,14 @@ angular.module('nd.map')
             });
         };
 
-        function updateActiveMarkers() {
+        $scope.updateActiveMarkers = function (markers) {
+            $scope.$$markers = markers;
+            $scope.markers = _.toArray(markers);
+
             $scope.activeArticles = _.filter(Article.articles, function (article) {
                 var keep = false;
+
+                /* if is any of the current active filters keep it */
                 angular.forEach($scope.activeFilters, function (filter, key) {
                     if (article.category === key) {
                         keep = true;
@@ -134,13 +109,13 @@ angular.module('nd.map')
                 });
                 return keep;
             });
-        }
+        };
 
         if (!$scope.mapQueried) {
             $scope.queryMap();
         }
     })
-    .controller('MapListCtrl', function ($scope, leafletData, Article) {
+    .controller('MapListCtrl', function ($scope, leafletData, Article, Marker) {
         $scope.articleSearch = "";
 
         $scope.listCollapsed = false;
@@ -148,11 +123,34 @@ angular.module('nd.map')
             $scope.listCollapsed = !$scope.listCollapsed;
         };
 
-        $scope.toggleFilter = function (filter) {
+        $scope.toggleCategoryFilter = function (filter) {
             if (filter) {
-                $scope.applyFilter(filter);
+                filter.toggle();
+
+                !!filter.toggled /* add/remove toggled filter from active filters */
+                    ? $scope.activeFilters[filter.key] = filter
+                    : delete $scope.activeFilters[filter.key];
+
+                var markerModels = {};
+                angular.forEach(Marker.$$markers, function (markerModel, key) {
+                    if ($scope.activeFilters.hasOwnProperty(markerModel.category)) {
+                        markerModels[key] = markerModel;
+                    }
+                });
+
+                var markers = {};
+                angular.forEach(markerModels, function (markerModel, key) {
+                    markers[key] = Marker.$$leafletMarkers[key];
+                });
+
+                /* now update activeArticles */
+                $scope.updateActiveMarkers(markers);
             }
         };
+
+        $scope.applySocialFilter = function (filter) {
+
+        }
     })
     .controller('MapListArticlesCtrl', function () {
     });

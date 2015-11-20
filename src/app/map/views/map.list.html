@@ -1,9 +1,16 @@
-<div class="article-filters">
+<div class="map-social-filters">
+    <div ng-repeat="filter in socialFilters" class="nd-btn-group">
+        <button class="nd-btn-mono nd-btn--sm">
+            <i class="fa" ng-class="filter.icon"></i>&nbsp;{{filter.title}}</button>
+    </div>
+</div>
+
+<div class="map-category-filters">
     <div ng-repeat="filter in categoryFilters"
          nd-s-mb="1" nd-s-ml="1"
-         class="article-filter"
+         class="category-filter"
          url-background="filter.backgroundUrl()"
-         ng-click="toggleFilter(filter)">
+         ng-click="toggleCategoryFilter(filter)">
     </div>
 </div>
 
