@@ -175,7 +175,8 @@ angular.module('nd.map')
                 });
 
                 /* zooming events */
-                map.on('zoomstart', function () {
+                map.on('zoomstart', function (event) {
+                    console.log(event);
                     console.log('[zoomstart] event registered on map.');
                 });
 
