@@ -16,7 +16,7 @@
              class="article-list-collapse-btn"
              nd-t-font="h6 center small-caps" ng-click="collapseList()"
              ng-class="{'article-list-collapse-btn--active': listCollapsed}">
-            Viewing {{activeArticles.length || 0}} articles.
+            Viewing {{(activeArticles | filter:articleSearch).length || 0}} articles.
         </div>
     </div>
 
