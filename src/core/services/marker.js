@@ -23,6 +23,9 @@ angular.module('nd.services')
         }
     })
     .factory('Marker', function (MapStyles, MarkerCategories) {
+        Marker.sizingBy = "twitter";
+        Marker.maxSize = [55, 65]; // ratio of base marker image width:height = 1.0 : 1.17
+
         function Marker(data) {
             this.id = data.id || null; // namespacing?
             this.article = data || {};
@@ -31,23 +34,10 @@ angular.module('nd.services')
             this.lat = data.lat || null;
             this.lng = data.lng || null;
 
-            this.pinSize = data.pinSize || 1;
-            var iconSizes = Marker.iconSizes[this.pinSize - 1];
-            if (iconSizes) {
-                this.icon = {
-                    iconUrl: Marker.getIconUrl(this.category),
-                    iconSize: iconSizes,
-                    iconAnchor: [iconSizes[0] / 2, iconSizes[1] - 1],
-                    popupAnchor: [0, -iconSizes[1] / 2]
-                };
-            }
-
-            var sizeBy = "twitter"; // TODO set up a switch in the interface for "twitter", "facebook",  and "both"
-            this.setMarkerSize(data.pinSize, sizeBy);
-
+            this.pinSize = data.pinSize || {};
+            this.setMarkerSize(this.pinSize);
 
             this.$$categoryColor = MarkerCategories.getColor(this.category);
-
 
             this._buildLeafletMarker();
 
@@ -74,32 +64,18 @@ angular.module('nd.services')
             }
         };
 
-        Marker.maxSize = [55, 65]; // ratio of base marker image width:height = 1.0 : 1.17
-        // Marker.iconSizes = [
-        //     [15, 17],
-        //     [17, 19],
-        //     [20, 22],
-        //     [23, 26],
-        //     [26, 29],
-        //     [32, 35],
-        //     [38, 42],
-        //     [45, 50],
-        //     [50, 55],
-        //     [55, 61]
-        // ];
-
         /**
-        *
-        *
-        * pinSizeObject: { "twitter": x, "both": y, "facebook": z } ; x,y,z are numbers between 0 and 1 based on
-        *                 the largest article returned (each key scaled separately)
-        * sizeBy: which key to use
-        */
-        Marker.prototype.setMarkerSize = function (pinSizeObject, sizeBy) {
-            this.pinSize = pinSizeObject || null;
-            // add null check?
-            var iconSize = [this.pinSize[sizeBy] * Marker.maxSize[0], this.pinSize[sizeBy] * Marker.maxSize[1]];
-            if (this.pinSize) {
+         * pinSizeObject: { "twitter": x, "both": y, "facebook": z } ; x,y,z are numbers between 0 and 1 based on
+         *                 the largest article returned (each key scaled separately)
+         * sizeBy: which key to use
+         */
+        Marker.prototype.setMarkerSize = function (pinSizeObject) {
+            if (!_.isEmpty(this.pinSize) && this.pinSize[Marker.sizingBy]) {
+                var iconSize = [
+                        this.pinSize[Marker.sizingBy] * Marker.maxSize[0],
+                        this.pinSize[Marker.sizingBy] * Marker.maxSize[1]
+                ];
+
                 this.icon = {
                     iconUrl: Marker.getIconUrl(this.category),
                     iconSize: iconSize,
@@ -107,7 +83,7 @@ angular.module('nd.services')
                     popupAnchor: [0, -iconSize[1] / 2]
                 };
             }
-        }
+        };
 
         Marker.prototype.updateIconUrl = function (isActive) {
             if (isActive && this.icon) {
@@ -115,7 +91,6 @@ angular.module('nd.services')
             }
             return this.icon;
         };
-
 
         Marker.$$leafletMarkers = {};
         Marker.prototype._buildLeafletMarker = function () {
