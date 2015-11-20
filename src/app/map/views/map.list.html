@@ -2,7 +2,7 @@
     <div ng-repeat="filter in socialFilters" class="nd-btn-group">
         <button class="nd-btn--sm"
                 ng-class="{'nd-btn-mono': !activeSocialFilters[filter.key],
-                'nd-btn-primary': activeSocialFilters[filter.key]}"
+                'nd-btn-success': activeSocialFilters[filter.key]}"
                 ng-click="togglePinSizing(filter)">
             <i class="fa" ng-class="filter.icon"></i>&nbsp;{{filter.title}}
         </button>
