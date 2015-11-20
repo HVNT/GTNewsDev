@@ -166,6 +166,11 @@ $article-list-width: 400px;
     color: $mono-darker;
   }
 
+  .article-card__header--active {
+    background: #F6E9A6;
+    color: $mono-darker;
+  }
+
   .article-card__body {
     background: $white;
     color: $mono-dark;

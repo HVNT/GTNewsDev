@@ -193,7 +193,6 @@ angular.module('nd.map')
                 });
 
                 map.on('popupclose', function (event) {
-                    debugger;
                     console.log('[popupclose] event registered on map.');
                 });
             }
