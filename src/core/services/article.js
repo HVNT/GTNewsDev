@@ -95,7 +95,6 @@ angular.module('nd.services')
                 $http.get(path, config).then(
                     function (response) {
                         Article.resetArticles(); //reset articles
-
                         if (response.data.length > 0) {
                             for (var i = 0; i < response.data.length; i++) {
                                 if (response.data[i]) {

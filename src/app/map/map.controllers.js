@@ -26,7 +26,6 @@ angular.module('nd.map')
         $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             //TODO debounce vs query blocking?
             if (toParams) {
-
                 Article.queryBBox(toParams.in_bbox).then(function (response) {
                     var markers = {};
                     if (response && response.length > 0) {
