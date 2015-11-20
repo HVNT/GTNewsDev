@@ -22,6 +22,10 @@ angular.module('nd.map')
         $scope.$$markers = {};
 
         $scope.socialFilters = MapFilters.socialFilters;
+        $scope.activeSocialFilters = {'twitter': MapFilters.socialFilters['twitter']}; //twitter by default
+
+        $scope.categoryFilters = _.toArray(MapFilters.categoryFilters);
+        $scope.activeCategoryFilters = MapFilters.categoryFilters;
 
         $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             //TODO debounce vs query blocking?
@@ -39,9 +43,6 @@ angular.module('nd.map')
                 });
             }
         });
-        /* for populating view */
-        $scope.categoryFilters = _.toArray(MapFilters.categoryFilters);
-        $scope.activeFilters = MapFilters.categoryFilters;
 
         $scope.goArticleSource = function (articleUrl) {
             if (articleUrl && articleUrl.length > 0) {
@@ -109,7 +110,7 @@ angular.module('nd.map')
                 var keep = false;
 
                 /* if is any of the current active filters keep it */
-                angular.forEach($scope.activeFilters, function (filter, key) {
+                angular.forEach($scope.activeCategoryFilters, function (filter, key) {
                     if (article.category === key) {
                         keep = true;
                     }
@@ -135,12 +136,12 @@ angular.module('nd.map')
                 filter.toggle();
 
                 !!filter.toggled /* add/remove toggled filter from active filters */
-                    ? $scope.activeFilters[filter.key] = filter
-                    : delete $scope.activeFilters[filter.key];
+                    ? $scope.activeCategoryFilters[filter.key] = filter
+                    : delete $scope.activeCategoryFilters[filter.key];
 
                 var markerModels = {};
                 angular.forEach(Marker.$$markers, function (markerModel, key) {
-                    if ($scope.activeFilters.hasOwnProperty(markerModel.category)) {
+                    if ($scope.activeCategoryFilters.hasOwnProperty(markerModel.category)) {
                         markerModels[key] = markerModel;
                     }
                 });
@@ -155,8 +156,16 @@ angular.module('nd.map')
             }
         };
 
-        $scope.applySocialFilter = function (filter) {
+        $scope.togglePinSizing = function (filter) {
+            if (filter && filter.key) {
+                !$scope.activeSocialFilters[filter.key]
+                    ? $scope.activeSocialFilters[filter.key] = filter
+                    : delete $scope.activeSocialFilters[filter.key];
 
+                Marker.updateSizingBy($scope.activeSocialFilters);
+                $scope.$$markers = Marker.$$leafletMarkers;
+                $scope.markers = _.toArray($scope.$$markers);
+            }
         }
     })
     .controller('MapListArticlesCtrl', function () {

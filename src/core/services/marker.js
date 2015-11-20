@@ -35,11 +35,9 @@ angular.module('nd.services')
             this.lng = data.lng || null;
 
             this.pinSize = data.pinSize || {};
-            this.setMarkerSize(this.pinSize);
 
             this.$$categoryColor = MarkerCategories.getColor(this.category);
-
-            this._buildLeafletMarker();
+            this.buildLeafletMarker();
 
             Marker.$$markers[this.id] = this;
             Marker.markers = _.toArray(Marker.$$markers);
@@ -69,7 +67,7 @@ angular.module('nd.services')
          *                 the largest article returned (each key scaled separately)
          * sizeBy: which key to use
          */
-        Marker.prototype.setMarkerSize = function (pinSizeObject) {
+        Marker.prototype.setIcon = function () {
             if (!_.isEmpty(this.pinSize) && this.pinSize[Marker.sizingBy]) {
                 var iconSize = [
                         this.pinSize[Marker.sizingBy] * Marker.maxSize[0],
@@ -85,22 +83,17 @@ angular.module('nd.services')
             }
         };
 
-        Marker.prototype.updateIconUrl = function (isActive) {
-            if (isActive && this.icon) {
-                this.icon.iconUrl = Marker.getIconUrl('active');
-            }
-            return this.icon;
-        };
-
         Marker.$$leafletMarkers = {};
-        Marker.prototype._buildLeafletMarker = function () {
+        Marker.prototype.buildLeafletMarker = function () {
+            this.setIcon(this.pinSize);
+
             Marker.$$leafletMarkers[this.id] = {
                 lat: this.lat,
                 lng: this.lng,
                 draggable: false,
                 icon: this.icon
             };
-            
+
             if (Marker.$$prevMarkerId === this.id) {
                 Marker.setActiveLeafletMarker(this.id);
             }
@@ -122,6 +115,18 @@ angular.module('nd.services')
                     Marker.$$prevMarkerId = markerId;
                 }
             }
+        };
+
+        Marker.updateSizingBy = function (activeSizings) {
+            Marker.sizingBy = _.keys(activeSizings).length == 2
+                ? 'both'
+                : _.keys(activeSizings)[0];
+
+            angular.forEach(Marker.$$leafletMarkers, function (marker, key) {
+                if (Marker.$$markers[key]) {
+                    Marker.$$markers[key].buildLeafletMarker();
+                }
+            });
         };
 
         Marker.markers = [];
