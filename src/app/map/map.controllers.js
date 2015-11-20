@@ -30,7 +30,7 @@ angular.module('nd.map')
             //TODO debounce vs query blocking?
             if (toParams) {
                 Article.queryBBox(toParams.in_bbox).then(function (response) {
-                    Article.setPinSizes(); //TODO dylan will support by "next week" (11.9.15)
+                    //Article.setPinSizes(); //TODO dylan will support by "next week" (11.9.15)
 
                     var markers = {};
                     if (response && response.length > 0) {

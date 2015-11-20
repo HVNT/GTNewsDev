@@ -38,8 +38,7 @@ angular.module('nd.services')
 
             this.retweetCount = data.retweetcount || 0;
             this.shareCount = data.sharecount;
-
-            this.pinSize = data.pinsize || 0;
+            this.pinSize = data.pinsize || null;
 
             if (!_.isEmpty(data.coords)) {
                 if (data.coords.coordinates && data.coords.coordinates.length == 2) {
@@ -54,12 +53,12 @@ angular.module('nd.services')
         }
 
         Article.setPinSizes = function () {
-            for (var i = 0; i < Article.articles.length; i++) {
-                var article = Article.articles[i];
-                if (article) {
-                    article.pinSize = +((article.retweetCount * 10) / Article.maxRetweetCount).toFixed(0);
-                }
-            }
+            // for (var i = 0; i < Article.articles.length; i++) {
+            //     var article = Article.articles[i];
+            //     if (article) {
+            //         article.pinSize = +((article.retweetCount * 10) / Article.maxRetweetCount).toFixed(0);
+            //     }
+            // }
         };
 
         Article.maxRetweetCount = 0;
@@ -101,7 +100,6 @@ angular.module('nd.services')
                 $http.get(path, config).then(
                     function (response) {
                         Article.resetArticles(); //reset articles
-
                         if (response.data.length > 0) {
                             for (var i = 0; i < response.data.length; i++) {
                                 if (response.data[i]) {
