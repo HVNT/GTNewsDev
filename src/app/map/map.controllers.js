@@ -9,8 +9,7 @@
 
 angular.module('nd.map')
     .controller('MapCtrl',
-    function ($scope, $state, $timeout, $window, $log, leafletData,
-              MapStyles, MapEvents, MapFilters, Article, Marker, MarkerCategories) {
+    function ($scope, $state, $timeout, $window, $log, leafletData, MapStyles, MapEvents, MapFilters, Article, Marker, MarkerCategories) {
 
         $scope.Article = Article;
         $scope.MarkerCategories = MarkerCategories;
@@ -77,12 +76,20 @@ angular.module('nd.map')
                     }, 200);
                 }
 
+                // this logic safely puts the pin you are trying to center around to the front of the map
+                var _markers = _.extend({}, Marker.$$leafletMarkers);
+                if (Marker.$$prevMarkerId) {
+                    var activeMarker = _.extend({}, _markers[Marker.$$prevMarkerId]);
+                    delete _markers[Marker.$$prevMarkerId];
+                }
+                var markers = _.toArray(_markers);
+                if (activeMarker) markers.push(activeMarker);
+                $scope.$$markers = Marker.$$leafletMarkers;
+                $scope.markers = markers;
             } else {
                 $log.debug('Need source url to nav.');
             }
 
-            $scope.$$markers = Marker.$$leafletMarkers;
-            $scope.markers = _.toArray($scope.$$markers);
         };
 
         $scope.queryMap = function () {
