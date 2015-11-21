@@ -40,7 +40,7 @@ angular.module('nd.map')
                             new Marker(response[i]);
                         }
                     }
-                    $scope.updateActiveMarkers(Marker.$$leafletMarkers);
+                    $scope.updateActiveMarkers();
                 });
             }
         });
@@ -103,7 +103,20 @@ angular.module('nd.map')
             });
         };
 
-        $scope.updateActiveMarkers = function (markers) {
+        $scope.updateActiveMarkers = function (uMarkers) {
+            var _markers = uMarkers
+                ? _.extend({}, uMarkers)
+                : _.extend({}, Marker.$$leafletMarkers);
+
+            if (Marker.$$prevMarkerId) {
+                var activeMarker = _.extend({}, _markers[Marker.$$prevMarkerId]);
+                delete _markers[Marker.$$prevMarkerId];
+            }
+            var markers = _.toArray(_markers);
+            if (activeMarker) markers.push(activeMarker);
+            $scope.$$markers = Marker.$$leafletMarkers;
+            $scope.markers = markers;
+
             $scope.$$markers = markers;
             $scope.markers = _.toArray(markers);
 
