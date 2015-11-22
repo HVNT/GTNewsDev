@@ -113,7 +113,13 @@ angular.module('nd.map')
                 leafletData.getMarkers().then(function (response) {
                     angular.forEach(response, function (value, key) {
                         value.on('click', function (event) {
-                            console.log('Marker clicked :', event);
+                            if (event.target && event.target.options) {
+                                var targetId = event.target.options.$$id;
+                                console.log(targetId);
+                                if (targetId && Article.$$articles[targetId]) {
+                                    $scope.centerMap(Article.$$articles[targetId]);
+                                }
+                            }
                         });
                     });
                 });
