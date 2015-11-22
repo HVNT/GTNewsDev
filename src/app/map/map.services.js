@@ -48,12 +48,14 @@ angular.module('nd.map')
             'twitter': {
                 key: 'twitter',
                 title: 'Twitter',
-                icon: 'fa-twitter'
+                icon: 'fa-twitter',
+                btn: 'nd-btn-twitter'
             },
             'facebook': {
                 key: 'facebook',
                 title: 'Facebook',
-                icon: 'fa-facebook'
+                icon: 'fa-facebook',
+                btn: 'nd-btn-facebook'
             }
         };
 

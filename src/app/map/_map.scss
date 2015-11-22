@@ -64,11 +64,11 @@ $article-list-width: 400px;
   color: $mono-light;
 }
 
-.map-social-filters {
-  position: fixed;
-  left: 50%;
-  top: 10px;
-}
+//.map-social-filters {
+//  position: fixed;
+//  left: 50%;
+//  top: 10px;
+//}
 
 .map-category-filters {
   position: fixed;
@@ -95,7 +95,7 @@ $article-list-width: 400px;
   position: fixed;
   right: 0;
   bottom: 0;
-  top: 90px;
+  top: 130px;
   opacity: 100%;
 
   width: $article-list-width;
@@ -123,6 +123,7 @@ $article-list-width: 400px;
   position: fixed;
   right: 0;
   width: $article-list-width;
+  background: $mono;
 
   border-bottom: 2px solid $mono;
 

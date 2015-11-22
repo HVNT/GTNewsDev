@@ -1,13 +1,12 @@
-<div class="map-social-filters">
-    <div ng-repeat="filter in socialFilters" class="nd-btn-group">
-        <button class="nd-btn--sm"
-                ng-class="{'nd-btn-mono': !activeSocialFilters[filter.key],
-                'nd-btn-success': activeSocialFilters[filter.key]}"
-                ng-click="togglePinSizing(filter)">
-            <i class="fa" ng-class="filter.icon"></i>&nbsp;{{filter.title}}
-        </button>
-    </div>
-</div>
+<!--<div class="map-social-filters">-->
+<!--<div ng-repeat="filter in socialFilters" class="nd-btn-group">-->
+<!--<button class="nd-btn--sm"-->
+<!--ng-class="activeSocialFilters[filter.key] ? filter.btn : 'nd-btn-mono'"-->
+<!--ng-click="togglePinSizing(filter)">-->
+<!--<i class="fa" ng-class="filter.icon"></i>-->
+<!--</button>-->
+<!--</div>-->
+<!--</div>-->
 
 <div class="map-category-filters">
     <div ng-repeat="filter in categoryFilters"
@@ -20,6 +19,20 @@
 
 <div article-list class="article-list">
     <div class="article-list-controls">
+        <div nd-s-row>
+            <div nd-s-col="7" nd-t-font="h6 small-caps"  nd-s-pt="2">
+                <span nd-s-pl="2">Currently sizing pens by: </span>
+            </div>
+            <div nd-s-col="5">
+                <div ng-repeat="filter in socialFilters" class="nd-btn-group" nd-s-pull="right">
+                    <button class="nd-btn--sm"
+                            ng-class="activeSocialFilters[filter.key] ? filter.btn : 'nd-btn-mono'"
+                            ng-click="togglePinSizing(filter, $event)">
+                        <i class="fa" ng-class="filter.icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
         <div nd-s-row>
             <input ng-model="articleSearch" class="nd-input" placeholder="Search articles by title." type="text"/>
         </div>
@@ -34,7 +47,8 @@
     <div class="article-cards" ng-class="{'article-cards--collapsed': listCollapsed}">
         <div ng-repeat="article in activeArticles | filter:articleSearch | orderBy:'-retweetCount'"
              class="article-card" nd-s-row>
-            <div class="article-card__header" ng-class="{'article-card__header--active': article.id == Marker.$$prevMarkerId}" nd-s-pxy="sm">
+            <div class="article-card__header"
+                 ng-class="{'article-card__header--active': article.id == Marker.$$prevMarkerId}" nd-s-pxy="sm">
                 <span ng-click="centerMap(article)"
                       nd-t-font="{{$index < 3 ? 'h5 link' : 'h6 link'}}">{{::article.headline}}</span>
                 <span ng-click="goArticleSource(article.url)"

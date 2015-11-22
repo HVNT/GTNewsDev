@@ -22,9 +22,11 @@ angular.module('nd.map')
         $scope.markers = [];
         $scope.$$markers = {};
 
+        /* social metrics filters */
         $scope.socialFilters = MapFilters.socialFilters;
         $scope.activeSocialFilters = {'twitter': MapFilters.socialFilters['twitter']}; //twitter by default
 
+        /* article category filters */
         $scope.categoryFilters = _.toArray(MapFilters.categoryFilters);
         $scope.activeCategoryFilters = MapFilters.categoryFilters;
 
@@ -116,8 +118,6 @@ angular.module('nd.map')
                     });
                 });
             }, 100);
-
-            /* sort articles based on category */
         };
 
         $scope.updateArticles = function () {
@@ -149,9 +149,6 @@ angular.module('nd.map')
                     ? $scope.activeCategoryFilters[filter.key] = filter
                     : delete $scope.activeCategoryFilters[filter.key];
 
-                /* update article list */
-                $scope.updateArticles();
-
                 /* update map markers */
                 var markerModels = {};
                 angular.forEach(Marker.$$markers, function (markerModel, key) {
@@ -164,10 +161,15 @@ angular.module('nd.map')
                     markers[key] = Marker.$$leafletMarkers[key];
                 });
                 $scope.updateMarkers(markers);
+
+                /* update article list */
+                $scope.updateArticles();
             }
         };
 
-        $scope.togglePinSizing = function (filter) {
+        $scope.togglePinSizing = function (filter, $event) {
+            event.stopPropagation();
+
             if (filter && filter.key) {
                 !$scope.activeSocialFilters[filter.key]
                     ? $scope.activeSocialFilters[filter.key] = filter
