@@ -63,14 +63,14 @@ angular.module('nd.map')
 
                 var targetMarker = $scope.$$markers[article.id];
                 if (targetMarker) {
-
+                    var currZoom = MapArchitect.map.getZoom();
                     Marker.setActiveLeafletMarker(article.id);
                     $scope.centering = true;
 
                     $scope.centerMarker = {
                         lat: targetMarker.lat,
                         lng: targetMarker.lng,
-                        zoom: MapArchitect.map.getZoom() || 4
+                        zoom: currZoom < 4 ? 4 : currZoom
                     };
 
                     $timeout(function () {
@@ -115,7 +115,6 @@ angular.module('nd.map')
                         value.on('click', function (event) {
                             if (event.target && event.target.options) {
                                 var targetId = event.target.options.$$id;
-                                console.log(targetId);
                                 if (targetId && Article.$$articles[targetId]) {
                                     $scope.centerMap(Article.$$articles[targetId]);
                                 }
