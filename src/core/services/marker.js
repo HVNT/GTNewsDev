@@ -88,6 +88,7 @@ angular.module('nd.services')
             this.setIcon(this.pinSize);
 
             Marker.$$leafletMarkers[this.id] = {
+                $$id: this.id,
                 lat: this.lat,
                 lng: this.lng,
                 draggable: false,
