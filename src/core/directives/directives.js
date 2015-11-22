@@ -43,7 +43,7 @@ angular.module('nd.directives', [])
             }
         }
     })
-    .directive('articleList', function (MapEvents) {
+    .directive('articleList', function () {
         return {
             link: function (scope, element, attrs) {
 

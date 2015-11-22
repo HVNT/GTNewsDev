@@ -9,7 +9,7 @@
 
 angular.module('nd.map')
     .controller('MapCtrl',
-    function ($scope, $state, $timeout, $window, $log, leafletData, MapStyles, MapEvents, MapFilters, Article, Marker, MarkerCategories) {
+    function ($scope, $state, $timeout, $window, $log, leafletData, MapStyles, MapArchitect, MapFilters, Article, Marker, MarkerCategories) {
 
         $scope.Article = Article;
         $scope.Marker = Marker;
@@ -49,7 +49,7 @@ angular.module('nd.map')
         $scope.queryMap = function () {
             leafletData.getMap('map').then(function (map) {
                 $scope.mapQueried = true;
-                MapEvents.register(map);
+                MapArchitect.register(map);
             }, function (err) {
                 $log.debug(err);
             });
@@ -70,7 +70,7 @@ angular.module('nd.map')
                     $scope.centerMarker = {
                         lat: targetMarker.lat,
                         lng: targetMarker.lng,
-                        zoom: 4
+                        zoom: MapArchitect.map.getZoom() || 4
                     };
 
                     $timeout(function () {

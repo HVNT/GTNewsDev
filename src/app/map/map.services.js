@@ -134,7 +134,7 @@ angular.module('nd.map')
             }
         }
     })
-    .service('MapEvents', function ($state, leafletData) {
+    .service('MapArchitect', function ($state, leafletData) {
         var self = this;
         this.map = {};
 
