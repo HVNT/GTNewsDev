@@ -163,6 +163,7 @@ angular.module('nd.map')
 
         function registerEvents(map) {
             if (map) {
+
                 map.on('click', function () {
                     console.log('[click] event registered on map.');
 
@@ -188,7 +189,8 @@ angular.module('nd.map')
 
 
                 /* popup events */
-                map.on('popupopen', function () {
+                map.on('popupopen', function (event) {
+                    debugger;
                     console.log('[popupopen] event registered on map.');
                 });
 

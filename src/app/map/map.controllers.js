@@ -117,8 +117,15 @@ angular.module('nd.map')
             $scope.$$markers = Marker.$$leafletMarkers;
             $scope.markers = markers;
 
-            $scope.$$markers = markers;
-            $scope.markers = _.toArray(markers);
+            //need to $timeout this because marker initialization is done asynchronously by leafletjs
+            $timeout(function () {
+                leafletData.getMarkers().then(function (response) {
+                    angular.forEach(response, function (value, key) {
+                        value.on('click', function (event) {
+                        });
+                    });
+                });
+            } ,100);
 
             $scope.activeArticles = _.filter(Article.articles, function (article) {
                 var keep = false;
@@ -136,6 +143,12 @@ angular.module('nd.map')
         if (!$scope.mapQueried) {
             $scope.queryMap();
         }
+
+        $scope.$on('leafletDirectiveMap.click', function(e, args) {
+            debugger;
+            // Args will contain the marker name and other relevant information
+            console.log("Leaflet Click");
+        });
     })
     .controller('MapListCtrl', function ($scope, leafletData, Article, Marker) {
         $scope.articleSearch = "";
@@ -180,7 +193,7 @@ angular.module('nd.map')
                 $scope.$$markers = Marker.$$leafletMarkers;
                 $scope.markers = _.toArray($scope.$$markers);
             }
-        }
+        };
     })
     .controller('MapListArticlesCtrl', function () {
     });
