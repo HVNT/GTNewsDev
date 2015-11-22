@@ -28,32 +28,31 @@ angular.module('nd.map')
         $scope.categoryFilters = _.toArray(MapFilters.categoryFilters);
         $scope.activeCategoryFilters = MapFilters.categoryFilters;
 
+
         $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            //TODO debounce vs query blocking?
             if (toParams) {
                 Article.queryBBox(toParams.in_bbox).then(function (response) {
-                    var markers = {};
                     Marker.$$leafletMarkers = {};
-
                     if (response && response.length > 0) {
                         for (var i = 0; i < response.length; i++) {
                             new Marker(response[i]);
                         }
                     }
                     $scope.updateMarkers();
+                    $scope.updateArticles();
                 });
             }
         });
 
-        $scope.goArticleSource = function (articleUrl) {
-            if (articleUrl && articleUrl.length > 0) {
-                $window.open(articleUrl, '_blank');
-            } else {
-                $log.debug('Need source url to nav.');
-            }
+        $scope.queryMap = function () {
+            leafletData.getMap('map').then(function (map) {
+                $scope.mapQueried = true;
+                MapEvents.register(map);
+            }, function (err) {
+                $log.debug(err);
+            });
         };
 
-        $scope.centering = false;
         $scope.centerMap = function (article) {
             if (article && !$scope.centering) {
                 if ($scope.activeMarker) {
@@ -91,16 +90,6 @@ angular.module('nd.map')
             } else {
                 $log.debug('Need source url to nav.');
             }
-
-        };
-
-        $scope.queryMap = function () {
-            leafletData.getMap('map').then(function (map) {
-                $scope.mapQueried = true;
-                MapEvents.register(map);
-            }, function (err) {
-                $log.debug(err);
-            });
         };
 
         $scope.updateMarkers = function (uMarkers) {
@@ -131,18 +120,9 @@ angular.module('nd.map')
             /* sort articles based on category */
         };
 
-        /* filters articles by category */
-        $scope.filterArticlesByCategory = function () {
+        $scope.updateArticles = function () {
             $scope.activeArticles = _.filter(Article.articles, function (article) {
-                var keep = false;
-
-                /* if is any of the current active filters keep it */
-                angular.forEach($scope.activeCategoryFilters, function (filter, key) {
-                    if (article.category === key) {
-                        keep = true;
-                    }
-                });
-                return keep;
+                return $scope.activeCategoryFilters.hasOwnProperty(article.category);
             });
         };
 
@@ -151,10 +131,11 @@ angular.module('nd.map')
             $scope.queryMap();
         }
     })
-    .controller('MapListCtrl', function ($scope, leafletData, Article, Marker) {
+    .controller('MapListCtrl', function ($scope, $window, $log, leafletData, Article, Marker) {
         $scope.articleSearch = "";
-
         $scope.listCollapsed = false;
+
+
         $scope.collapseList = function () {
             $scope.listCollapsed = !$scope.listCollapsed;
         };
@@ -163,20 +144,21 @@ angular.module('nd.map')
             if (filter) {
                 filter.toggle();
 
-                !!filter.toggled /* add/remove toggled filter from active filters */
+                /* add/delete toggled filter from active filters */
+                !!filter.toggled
                     ? $scope.activeCategoryFilters[filter.key] = filter
                     : delete $scope.activeCategoryFilters[filter.key];
 
-                $scope.filterArticlesByCategory();
+                /* update article list */
+                $scope.updateArticles();
 
-                /* now update activeArticles */
+                /* update map markers */
                 var markerModels = {};
                 angular.forEach(Marker.$$markers, function (markerModel, key) {
                     if ($scope.activeCategoryFilters.hasOwnProperty(markerModel.category)) {
                         markerModels[key] = markerModel;
                     }
                 });
-
                 var markers = {};
                 angular.forEach(markerModels, function (markerModel, key) {
                     markers[key] = Marker.$$leafletMarkers[key];
@@ -196,6 +178,12 @@ angular.module('nd.map')
                 $scope.markers = _.toArray($scope.$$markers);
             }
         };
-    })
-    .controller('MapListArticlesCtrl', function () {
+
+        $scope.goArticleSource = function (articleUrl) {
+            if (articleUrl && articleUrl.length > 0) {
+                $window.open(articleUrl, '_blank');
+            } else {
+                $log.debug('Need source url to nav.');
+            }
+        };
     });
