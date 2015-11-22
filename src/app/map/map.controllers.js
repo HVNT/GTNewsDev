@@ -40,7 +40,7 @@ angular.module('nd.map')
                             new Marker(response[i]);
                         }
                     }
-                    $scope.updateActiveMarkers();
+                    $scope.updateMarkers();
                 });
             }
         });
@@ -103,7 +103,7 @@ angular.module('nd.map')
             });
         };
 
-        $scope.updateActiveMarkers = function (uMarkers) {
+        $scope.updateMarkers = function (uMarkers) {
             var _markers = uMarkers
                 ? _.extend({}, uMarkers)
                 : _.extend({}, Marker.$$leafletMarkers);
@@ -117,16 +117,22 @@ angular.module('nd.map')
             $scope.$$markers = Marker.$$leafletMarkers;
             $scope.markers = markers;
 
-            //need to $timeout this because marker initialization is done asynchronously by leafletjs
+            /* need to $timeout this because marker initialization is done asynchronously by leafletjs */
             $timeout(function () {
                 leafletData.getMarkers().then(function (response) {
                     angular.forEach(response, function (value, key) {
                         value.on('click', function (event) {
+                            console.log('Marker clicked :', event);
                         });
                     });
                 });
-            } ,100);
+            }, 100);
 
+            /* sort articles based on category */
+        };
+
+        /* filters articles by category */
+        $scope.filterArticlesByCategory = function () {
             $scope.activeArticles = _.filter(Article.articles, function (article) {
                 var keep = false;
 
@@ -140,15 +146,10 @@ angular.module('nd.map')
             });
         };
 
+
         if (!$scope.mapQueried) {
             $scope.queryMap();
         }
-
-        $scope.$on('leafletDirectiveMap.click', function(e, args) {
-            debugger;
-            // Args will contain the marker name and other relevant information
-            console.log("Leaflet Click");
-        });
     })
     .controller('MapListCtrl', function ($scope, leafletData, Article, Marker) {
         $scope.articleSearch = "";
@@ -166,6 +167,9 @@ angular.module('nd.map')
                     ? $scope.activeCategoryFilters[filter.key] = filter
                     : delete $scope.activeCategoryFilters[filter.key];
 
+                $scope.filterArticlesByCategory();
+
+                /* now update activeArticles */
                 var markerModels = {};
                 angular.forEach(Marker.$$markers, function (markerModel, key) {
                     if ($scope.activeCategoryFilters.hasOwnProperty(markerModel.category)) {
@@ -177,9 +181,7 @@ angular.module('nd.map')
                 angular.forEach(markerModels, function (markerModel, key) {
                     markers[key] = Marker.$$leafletMarkers[key];
                 });
-
-                /* now update activeArticles */
-                $scope.updateActiveMarkers(markers);
+                $scope.updateMarkers(markers);
             }
         };
 

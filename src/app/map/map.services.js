@@ -163,7 +163,6 @@ angular.module('nd.map')
 
         function registerEvents(map) {
             if (map) {
-
                 map.on('click', function () {
                     console.log('[click] event registered on map.');
 
@@ -185,17 +184,6 @@ angular.module('nd.map')
                     console.log('[zoomend] event registered on map.');
                     self.boundMapState();
                     //TIMEOUT BEFORE REQUEST
-                });
-
-
-                /* popup events */
-                map.on('popupopen', function (event) {
-                    debugger;
-                    console.log('[popupopen] event registered on map.');
-                });
-
-                map.on('popupclose', function (event) {
-                    console.log('[popupclose] event registered on map.');
                 });
             }
         }
