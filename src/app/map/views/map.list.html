@@ -1,14 +1,38 @@
-<div class="article-filters">
+<!--<div class="map-social-filters">-->
+<!--<div ng-repeat="filter in socialFilters" class="nd-btn-group">-->
+<!--<button class="nd-btn--sm"-->
+<!--ng-class="activeSocialFilters[filter.key] ? filter.btn : 'nd-btn-mono'"-->
+<!--ng-click="togglePinSizing(filter)">-->
+<!--<i class="fa" ng-class="filter.icon"></i>-->
+<!--</button>-->
+<!--</div>-->
+<!--</div>-->
+
+<div class="map-category-filters">
     <div ng-repeat="filter in categoryFilters"
          nd-s-mb="1" nd-s-ml="1"
-         class="article-filter"
+         class="category-filter"
          url-background="filter.backgroundUrl()"
-         ng-click="toggleFilter(filter)">
+         ng-click="toggleCategoryFilter(filter)">
     </div>
 </div>
 
-<div class="article-list">
+<div article-list class="article-list">
     <div class="article-list-controls">
+        <div nd-s-row>
+            <div nd-s-col="7" nd-t-font="h6 small-caps"  nd-s-pt="2" class="text-inverse">
+                <span nd-s-pl="2">Currently sizing pens by: </span>
+            </div>
+            <div nd-s-col="5">
+                <div ng-repeat="filter in socialFilters" class="nd-btn-group" nd-s-pull="right">
+                    <button class="nd-btn--sm"
+                            ng-class="activeSocialFilters[filter.key] ? filter.btn : 'nd-btn-mono'"
+                            ng-click="togglePinSizing(filter, $event)">
+                        <i class="fa" ng-class="filter.icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
         <div nd-s-row>
             <input ng-model="articleSearch" class="nd-input" placeholder="Search articles by title." type="text"/>
         </div>
@@ -23,13 +47,14 @@
     <div class="article-cards" ng-class="{'article-cards--collapsed': listCollapsed}">
         <div ng-repeat="article in activeArticles | filter:articleSearch | orderBy:'-retweetCount'"
              class="article-card" nd-s-row>
-            <div class="article-card__header" nd-s-pxy="sm">
-            <span ng-click="centerMap(article)"
-                  nd-t-font="{{$index < 3 ? 'h5 link' : 'h6 link'}}">{{::article.headline}}</span>
-            <span ng-click="goArticleSource(article.url)"
-                  class="article-link"
-                  nd-s-pl="2"
-                  nd-t-font="link small-caps right bold h6">(source)</span>
+            <div class="article-card__header"
+                 ng-class="{'article-card__header--active': article.id == Marker.$$prevMarkerId}" nd-s-pxy="sm">
+                <span ng-click="centerMap(article)"
+                      nd-t-font="{{$index < 3 ? 'h5 link' : 'h6 link'}}">{{::article.headline}}</span>
+                <span ng-click="goArticleSource(article.url)"
+                      class="article-link"
+                      nd-s-pl="2"
+                      nd-t-font="link small-caps right bold h6">(source)</span>
             </div>
 
             <div class="article-card__body" nd-s-px="sm" nd-s-pb="4">
@@ -47,7 +72,8 @@
                           fill-background="MarkerCategories.getColor(article.category)"
                           class="article-category-label">{{::article.category | capitalize}}</span>
                     <span nd-s-pull="right" nd-s-py="1">
-                        <span class="fa fa-twitter" nd-s-pr="1"></span>{{::article.retweetCount | number}} retweets</span>
+                        <span class="fa fa-twitter"
+                              nd-s-pr="1"></span>{{::article.retweetCount | number}} retweets</span>
                     <span nd-s-pull="right" nd-s-py="1" nd-s-pr="2">
                         <span class="fa fa-facebook" nd-s-pr="1"></span>{{::article.shareCount | number}} shares</span>
                 </div>

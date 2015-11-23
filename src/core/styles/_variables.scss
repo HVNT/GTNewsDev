@@ -9,11 +9,17 @@ $white: #F7F9F9;
 // -------------------------
 $brand-primary: #62a9b3 !default;
 $brand-accent: #4d577b !default;
-$brand-success: #9ccc65 !default;
+$brand-success: #a7d2a3 !default; //9ccc65
 $brand-warning: #edcc3e !default;
 $brand-danger: #ef5c48 !default;
 $brand-info: #B0DDF2 !default;
 $link-color: #0c5e86 !default;
+
+// twitter & facebook colors
+$brand-twitter: #55ACEE !default;
+$brand-facebook: #395489 !default;
+$brand-twitter-shadow: darken(adjust_hue($brand-twitter, 6%), 15%) !default;
+$brand-facebook-shadow: darken(adjust_hue($brand-facebook, 6%), 15%) !default;
 
 $brand-fallback: #7d5c45;
 // brown

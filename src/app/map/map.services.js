@@ -44,6 +44,21 @@ angular.module('nd.map')
 
     })
     .service('MapFilters', function () {
+        this.socialFilters = {
+            'twitter': {
+                key: 'twitter',
+                title: 'Twitter',
+                icon: 'fa-twitter',
+                btn: 'nd-btn-twitter'
+            },
+            'facebook': {
+                key: 'facebook',
+                title: 'Facebook',
+                icon: 'fa-facebook',
+                btn: 'nd-btn-facebook'
+            }
+        };
+
         this.categoryFilters = {
             'world': {
                 key: 'world',
@@ -119,7 +134,7 @@ angular.module('nd.map')
             }
         }
     })
-    .service('MapEvents', function ($state, leafletData) {
+    .service('MapArchitect', function ($state, leafletData) {
         var self = this;
         this.map = {};
 
@@ -162,7 +177,8 @@ angular.module('nd.map')
                 });
 
                 /* zooming events */
-                map.on('zoomstart', function () {
+                map.on('zoomstart', function (event) {
+                    console.log(event);
                     console.log('[zoomstart] event registered on map.');
                 });
 
@@ -170,17 +186,6 @@ angular.module('nd.map')
                     console.log('[zoomend] event registered on map.');
                     self.boundMapState();
                     //TIMEOUT BEFORE REQUEST
-                });
-
-
-                /* popup events */
-                map.on('popupopen', function () {
-                    console.log('[popupopen] event registered on map.');
-                });
-
-                map.on('popupclose', function (event) {
-                    debugger;
-                    console.log('[popupclose] event registered on map.');
                 });
             }
         }

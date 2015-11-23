@@ -9,10 +9,10 @@
 
 angular.module('nd.map')
     .controller('MapCtrl',
-    function ($scope, $state, $timeout, $window, $log, leafletData,
-              MapStyles, MapEvents, MapFilters, Article, Marker, MarkerCategories) {
+    function ($scope, $state, $timeout, $window, $log, leafletData, MapStyles, MapArchitect, MapFilters, Article, Marker, MarkerCategories) {
 
         $scope.Article = Article;
+        $scope.Marker = Marker;
         $scope.MarkerCategories = MarkerCategories;
         angular.extend($scope, MapStyles.defaultConfig);
 
@@ -22,40 +22,39 @@ angular.module('nd.map')
         $scope.markers = [];
         $scope.$$markers = {};
 
+        /* social metrics filters */
+        $scope.socialFilters = MapFilters.socialFilters;
+        $scope.activeSocialFilters = {'twitter': MapFilters.socialFilters['twitter']}; //twitter by default
+
+        /* article category filters */
+        $scope.categoryFilters = _.toArray(MapFilters.categoryFilters);
+        $scope.activeCategoryFilters = MapFilters.categoryFilters;
+
 
         $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            //TODO debounce vs query blocking?
             if (toParams) {
                 Article.queryBBox(toParams.in_bbox).then(function (response) {
-                    var markers = {};
+                    Marker.$$leafletMarkers = {};
                     if (response && response.length > 0) {
                         for (var i = 0; i < response.length; i++) {
-                            var marker = new Marker(response[i]);
-                            var isActive = $scope.activeMarker.$$id == marker.id;
-
-                            $scope.markerModels[marker.id] = marker;
+                            new Marker(response[i]);
                         }
                     }
-                    $scope.$$markers = Marker.$$leafletMarkers;
-                    $scope.markers = _.toArray($scope.$$markers);
-
-                    updateActiveMarkers();
+                    $scope.updateMarkers();
+                    $scope.updateArticles();
                 });
             }
         });
-        /* for populating view */
-        $scope.categoryFilters = _.toArray(MapFilters.categoryFilters);
-        $scope.activeFilters = MapFilters.categoryFilters;
 
-        $scope.goArticleSource = function (articleUrl) {
-            if (articleUrl && articleUrl.length > 0) {
-                $window.open(articleUrl, '_blank');
-            } else {
-                $log.debug('Need source url to nav.');
-            }
+        $scope.queryMap = function () {
+            leafletData.getMap('map').then(function (map) {
+                $scope.mapQueried = true;
+                MapArchitect.register(map);
+            }, function (err) {
+                $log.debug(err);
+            });
         };
 
-        $scope.centering = false;
         $scope.centerMap = function (article) {
             if (article && !$scope.centering) {
                 if ($scope.activeMarker) {
@@ -64,14 +63,14 @@ angular.module('nd.map')
 
                 var targetMarker = $scope.$$markers[article.id];
                 if (targetMarker) {
-
+                    var currZoom = MapArchitect.map.getZoom();
                     Marker.setActiveLeafletMarker(article.id);
                     $scope.centering = true;
 
                     $scope.centerMarker = {
                         lat: targetMarker.lat,
                         lng: targetMarker.lng,
-                        zoom: 4
+                        zoom: currZoom < 4 ? 4 : currZoom
                     };
 
                     $timeout(function () {
@@ -80,79 +79,118 @@ angular.module('nd.map')
                     }, 200);
                 }
 
+                // this logic safely puts the pin you are trying to center around to the front of the map
+                var _markers = _.extend({}, Marker.$$leafletMarkers);
+                if (Marker.$$prevMarkerId) {
+                    var activeMarker = _.extend({}, _markers[Marker.$$prevMarkerId]);
+                    delete _markers[Marker.$$prevMarkerId];
+                }
+                var markers = _.toArray(_markers);
+                if (activeMarker) markers.push(activeMarker);
+                $scope.$$markers = Marker.$$leafletMarkers;
+                $scope.markers = markers;
             } else {
                 $log.debug('Need source url to nav.');
             }
-
-            $scope.$$markers = Marker.$$leafletMarkers;
-            $scope.markers = _.toArray($scope.$$markers);
         };
 
-        $scope.applyFilter = function (filter) {
-            if (filter) {
-                filter.toggle();
+        $scope.updateMarkers = function (uMarkers) {
+            var _markers = uMarkers
+                ? _.extend({}, uMarkers)
+                : _.extend({}, Marker.$$leafletMarkers);
 
-                !!filter.toggled /* add/remove toggled filter from active filters */
-                    ? $scope.activeFilters[filter.key] = filter
-                    : delete $scope.activeFilters[filter.key];
-
-                var markerModels = {};
-                angular.forEach($scope.markerModels, function (markerModel, key) {
-                    if ($scope.activeFilters.hasOwnProperty(markerModel.category)) {
-                        markerModels[key] = markerModel;
-                    }
-                });
-
-                var markers = {};
-                angular.forEach(markerModels, function (markerModel, key) {
-                    markers[key] = markerModel.getMarker();
-                });
-                $scope.$$markers = markers;
-                $scope.markers = _.toArray(markers);
-
-                /* now update activeArticles */
-                updateActiveMarkers();
+            if (Marker.$$prevMarkerId) {
+                var activeMarker = _.extend({}, _markers[Marker.$$prevMarkerId]);
+                delete _markers[Marker.$$prevMarkerId];
             }
-        };
+            var markers = _.toArray(_markers);
+            if (activeMarker) markers.push(activeMarker);
+            $scope.$$markers = Marker.$$leafletMarkers;
+            $scope.markers = markers;
 
-        $scope.queryMap = function () {
-            leafletData.getMap('map').then(function (map) {
-                $scope.mapQueried = true;
-                MapEvents.register(map);
-            }, function (err) {
-                $log.debug(err);
-            });
-        };
-
-        function updateActiveMarkers() {
-            $scope.activeArticles = _.filter(Article.articles, function (article) {
-                var keep = false;
-                angular.forEach($scope.activeFilters, function (filter, key) {
-                    if (article.category === key) {
-                        keep = true;
-                    }
+            /* need to $timeout this because marker initialization is done asynchronously by leafletjs */
+            $timeout(function () {
+                leafletData.getMarkers().then(function (response) {
+                    angular.forEach(response, function (value, key) {
+                        value.on('click', function (event) {
+                            if (event.target && event.target.options) {
+                                var targetId = event.target.options.$$id;
+                                if (targetId && Article.$$articles[targetId]) {
+                                    $scope.centerMap(Article.$$articles[targetId]);
+                                }
+                            }
+                        });
+                    });
                 });
-                return keep;
+            }, 100);
+        };
+
+        $scope.updateArticles = function () {
+            $scope.activeArticles = _.filter(Article.articles, function (article) {
+                return $scope.activeCategoryFilters.hasOwnProperty(article.category);
             });
-        }
+        };
+
 
         if (!$scope.mapQueried) {
             $scope.queryMap();
         }
     })
-    .controller('MapListCtrl', function ($scope, leafletData, Article) {
+    .controller('MapListCtrl', function ($scope, $window, $log, leafletData, Article, Marker) {
         $scope.articleSearch = "";
-
         $scope.listCollapsed = false;
+
+
         $scope.collapseList = function () {
             $scope.listCollapsed = !$scope.listCollapsed;
         };
 
-        $scope.toggleFilter = function (filter) {
+        $scope.toggleCategoryFilter = function (filter) {
             if (filter) {
-                $scope.applyFilter(filter);
+                filter.toggle();
+
+                /* add/delete toggled filter from active filters */
+                !!filter.toggled
+                    ? $scope.activeCategoryFilters[filter.key] = filter
+                    : delete $scope.activeCategoryFilters[filter.key];
+
+                /* update map markers */
+                var markerModels = {};
+                angular.forEach(Marker.$$markers, function (markerModel, key) {
+                    if ($scope.activeCategoryFilters.hasOwnProperty(markerModel.category)) {
+                        markerModels[key] = markerModel;
+                    }
+                });
+                var markers = {};
+                angular.forEach(markerModels, function (markerModel, key) {
+                    markers[key] = Marker.$$leafletMarkers[key];
+                });
+                $scope.updateMarkers(markers);
+
+                /* update article list */
+                $scope.updateArticles();
             }
         };
-    })
-    .controller('MapListArticlesCtrl', function () {
+
+        $scope.togglePinSizing = function (filter, $event) {
+            event.stopPropagation();
+
+            if (filter && filter.key) {
+                !$scope.activeSocialFilters[filter.key]
+                    ? $scope.activeSocialFilters[filter.key] = filter
+                    : delete $scope.activeSocialFilters[filter.key];
+
+                Marker.updateSizingBy($scope.activeSocialFilters);
+                $scope.$$markers = Marker.$$leafletMarkers;
+                $scope.markers = _.toArray($scope.$$markers);
+            }
+        };
+
+        $scope.goArticleSource = function (articleUrl) {
+            if (articleUrl && articleUrl.length > 0) {
+                $window.open(articleUrl, '_blank');
+            } else {
+                $log.debug('Need source url to nav.');
+            }
+        };
     });

@@ -68,6 +68,17 @@
   @include btn-color($brand-accent, $brand-accent-shadow);
 }
 
+// twitter & facebook btn
+.#{$ns}btn-twitter {
+  @extend %btn;
+  @include btn-color($brand-twitter, $brand-twitter-shadow);
+}
+
+.#{$ns}btn-facebook {
+  @extend %btn;
+  @include btn-color($brand-facebook, $brand-facebook-shadow);
+}
+
 .#{$ns}btn-success {
   @extend %btn;
   @include btn-color($brand-success, $brand-success-shadow);

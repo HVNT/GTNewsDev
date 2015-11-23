@@ -7,8 +7,8 @@
  */
 angular.module('nd.services')
     .factory('Article', function ($http, $q, Environment) {
-        Article.TWTTR_FLOOR = 100;
-        Article.FB_FLOOR = 100;
+        Article.TWTTR_FLOOR = 300;
+        Article.FB_FLOOR = 300;
         Article.$$fetching = false;
 
         function Article(data) {
