@@ -153,14 +153,11 @@ angular.module('nd.map')
                     markers[key] = Marker.$$leafletMarkers[key];
                 });
                 $scope.updateMarkers(markers);
-
-                /* update article list */
                 $scope.updateArticles();
             }
         };
 
         $scope.togglePinSizing = function (filter, $event) {
-//            $event.stopPropagation();
             if (filter && filter.key) {
                 !$scope.activeSocialFilters[filter.key]
                     ? $scope.activeSocialFilters[filter.key] = filter
@@ -168,7 +165,6 @@ angular.module('nd.map')
 
                 Marker.updateSizingBy($scope.activeSocialFilters);
                 $scope.updateMarkers();
-//                $scope.markers = Marker.$$leafletMarkers;
             }
         };
 

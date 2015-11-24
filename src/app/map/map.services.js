@@ -49,13 +49,15 @@ angular.module('nd.map')
                 key: 'twitter',
                 title: 'Twitter',
                 icon: 'fa-twitter',
-                btn: 'nd-btn-twitter'
+                btn: 'nd-btn-twitter',
+                weight: 10
             },
             'facebook': {
                 key: 'facebook',
                 title: 'Facebook',
                 icon: 'fa-facebook',
-                btn: 'nd-btn-facebook'
+                btn: 'nd-btn-facebook',
+                weight: 9
             }
         };
 
@@ -183,14 +185,12 @@ angular.module('nd.map')
 
                 /* zooming events */
                 map.on('zoomstart', function (event) {
-                    console.log(event);
                     console.log('[zoomstart] event registered on map.');
                 });
 
                 map.on('zoomend', function (event) {
                     console.log('[zoomend] event registered on map.');
                     self.boundMapState();
-                    //TIMEOUT BEFORE REQUEST
                 });
             }
         }
