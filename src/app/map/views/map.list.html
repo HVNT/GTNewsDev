@@ -44,8 +44,9 @@
         </div>
     </div>
 
-    <div class="article-cards" ng-class="{'article-cards--collapsed': listCollapsed}">
+    <div article-cards class="article-cards" ng-class="{'article-cards--collapsed': listCollapsed}">
         <div ng-repeat="article in activeArticles | filter:articleSearch | orderBy:'-retweetCount'"
+             ng-attr-id="{{article.id}}"
              class="article-card" nd-s-row>
             <div class="article-card__header"
                  ng-class="{'article-card__header--active': article.id == Marker.$$prevMarkerId}" nd-s-pxy="sm">

@@ -56,6 +56,7 @@ angular.module('nd.map')
         };
 
         $scope.centerMap = function (article) {
+            console.log('centering map');
             if (article && !$scope.centering) {
                 //TODO set old marker to focus=false
 
@@ -75,11 +76,14 @@ angular.module('nd.map')
 
                     $scope.markers = Marker.$$leafletMarkers;
                     $scope.centerMarker = {
+                        $$id: targetMarker.$$id,
                         lat: targetMarker.lat,
                         lng: targetMarker.lng,
                         zoom: currZoom < 4 ? 4 : currZoom
                     };
+                    $scope.activeMarker = _.extend({}, $scope.centerMarker);
                     targetMarker.focus = true;
+                    $scope.$broadcast('NDCenteringMarker')
                 }
             } else {
                 $log.debug('Need source url to nav.');
@@ -115,7 +119,7 @@ angular.module('nd.map')
         $scope.$on('leafletDirectiveMarkersClick', function(event, args){
             var articleIdx = +args;
             if (articleIdx >= 0 && Article.$$articles[articleIdx]) {
-                $scope.centerMap(Article.$$articles[articleIdx])
+                $scope.centerMap(Article.$$articles[articleIdx]);
             }
         });
     })
@@ -156,15 +160,15 @@ angular.module('nd.map')
         };
 
         $scope.togglePinSizing = function (filter, $event) {
-            event.stopPropagation();
-
+//            $event.stopPropagation();
             if (filter && filter.key) {
                 !$scope.activeSocialFilters[filter.key]
                     ? $scope.activeSocialFilters[filter.key] = filter
                     : delete $scope.activeSocialFilters[filter.key];
 
                 Marker.updateSizingBy($scope.activeSocialFilters);
-                $scope.markers = Marker.$$leafletMarkers;
+                $scope.updateMarkers();
+//                $scope.markers = Marker.$$leafletMarkers;
             }
         };
 

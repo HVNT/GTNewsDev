@@ -43,10 +43,13 @@ angular.module('nd.directives', [])
             }
         }
     })
-    .directive('articleList', function () {
+    .directive('articleCards', function (Article) {
         return {
             link: function (scope, element, attrs) {
-
+                scope.$on('NDCenteringMarker', function (event, value) {
+//                    console.log(scope);
+//                    console.log(elementj);
+                });
             }
         }
     });
