@@ -85,10 +85,11 @@ angular.module('nd.services')
 
         Marker.$$leafletMarkers = {};
         Marker.prototype.buildLeafletMarker = function () {
+            var self = this;
             this.setIcon(this.pinSize);
 
             Marker.$$leafletMarkers[this.id] = {
-                $$id: this.id,
+                $$id: self.id,
                 lat: this.lat,
                 lng: this.lng,
                 draggable: false,

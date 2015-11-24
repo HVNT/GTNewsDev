@@ -115,6 +115,10 @@ angular.module('nd.map')
         };
     })
     .service('MapStyles', function (CenterMarker) {
+        var MAX_SW = new L.LatLng(-80, -180);
+        var MAX_NE = new L.LatLng(80, 180);
+        var MAX_BOUNDS = new L.LatLngBounds(MAX_SW, MAX_NE);
+
         this.icons = {
             default: {
                 iconUrl: 'assets/img/markers/leaflet-default-marker.png',
@@ -130,7 +134,8 @@ angular.module('nd.map')
                 minZoom: 2,
                 maxZoom: 9,
                 zoomAnimation: true,
-                scrollWheelZoom: true
+                scrollWheelZoom: true,
+                maxbounds: MAX_BOUNDS
             }
         }
     })
