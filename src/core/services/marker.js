@@ -47,17 +47,17 @@ angular.module('nd.services')
             if (category) {
                 switch (category) {
                     case 'science':
-                        return '/assets/img/markers/pin_purple.png';
+                        return '/assets/img/markers/pin_purple.svg';
                     case 'health':
-                        return '/assets/img/markers/pin_red.png';
+                        return '/assets/img/markers/pin_red.svg';
                     case 'economy':
-                        return '/assets/img/markers/pin_green.png';
+                        return '/assets/img/markers/pin_green.svg';
                     case 'world':
-                        return '/assets/img/markers/pin_blue.png';
+                        return '/assets/img/markers/pin_blue.svg';
                 }
 
                 if (category === 'active') {
-                    return '/assets/img/markers/pin_yellow.png'
+                    return '/assets/img/markers/pin_yellow.svg'
                 }
             }
         };
