@@ -68,11 +68,17 @@ angular.module('nd.services')
          * sizeBy: which key to use
          */
         Marker.prototype.setIcon = function () {
-            if (!_.isEmpty(this.pinSize) && this.pinSize[Marker.sizingBy]) {
-                var iconSize = [
-                        this.pinSize[Marker.sizingBy] * Marker.maxSize[0],
-                        this.pinSize[Marker.sizingBy] * Marker.maxSize[1]
-                ];
+            if (!_.isEmpty(this.pinSize)) {
+                var iconSize = [];
+
+                if (Marker.sizingBy) {
+                    iconSize = [
+                            this.pinSize[Marker.sizingBy] * Marker.maxSize[0],
+                            this.pinSize[Marker.sizingBy] * Marker.maxSize[1]
+                    ];
+                } else {
+                    iconSize = [0.4 * Marker.maxSize[0], 0.4 * Marker.maxSize[1]]
+                }
 
                 this.icon = {
                     iconUrl: Marker.getIconUrl(this.category),
@@ -85,10 +91,11 @@ angular.module('nd.services')
 
         Marker.$$leafletMarkers = {};
         Marker.prototype.buildLeafletMarker = function () {
+            var self = this;
             this.setIcon(this.pinSize);
 
             Marker.$$leafletMarkers[this.id] = {
-                $$id: this.id,
+                $$id: self.id,
                 lat: this.lat,
                 lng: this.lng,
                 draggable: false,

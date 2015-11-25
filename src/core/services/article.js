@@ -7,9 +7,13 @@
  */
 angular.module('nd.services')
     .factory('Article', function ($http, $q, Environment) {
-        Article.TWTTR_FLOOR = 300;
+        Article.TWTTR_FLOOR = 500;
         Article.FB_FLOOR = 300;
         Article.$$fetching = false;
+
+        Article.maxRetweetCount = 0;
+        Article.articles = [];
+        Article.$$articles = {};
 
         function Article(data) {
             this.id = data.pk || null;
@@ -39,8 +43,6 @@ angular.module('nd.services')
 
             this.retweetCount = data.retweetcount || 0;
             this.shareCount = data.sharecount;
-
-            if (!data.pinsize) debugger;
             this.pinSize = data.pinsize || {};
 
             if (!_.isEmpty(data.coords)) {
@@ -54,10 +56,6 @@ angular.module('nd.services')
                 this.lng = null;
             }
         }
-
-        Article.maxRetweetCount = 0;
-        Article.articles = [];
-        Article.$$articles = {};
 
         Article.query = function () {
             var defer = $q.defer(),

@@ -24,7 +24,7 @@
                 <span nd-s-pl="2">Currently sizing pens by: </span>
             </div>
             <div nd-s-col="5">
-                <div ng-repeat="filter in socialFilters" class="nd-btn-group" nd-s-pull="right">
+                <div ng-repeat="filter in socialFilters | orderBy:'-weight'" class="nd-btn-group" nd-s-pull="right">
                     <button class="nd-btn--sm"
                             ng-class="activeSocialFilters[filter.key] ? filter.btn : 'nd-btn-mono'"
                             ng-click="togglePinSizing(filter, $event)">
@@ -44,8 +44,9 @@
         </div>
     </div>
 
-    <div class="article-cards" ng-class="{'article-cards--collapsed': listCollapsed}">
+    <div article-cards class="article-cards" ng-class="{'article-cards--collapsed': listCollapsed}">
         <div ng-repeat="article in activeArticles | filter:articleSearch | orderBy:'-retweetCount'"
+             ng-attr-id="{{article.id}}"
              class="article-card" nd-s-row>
             <div class="article-card__header"
                  ng-class="{'article-card__header--active': article.id == Marker.$$prevMarkerId}" nd-s-pxy="sm">

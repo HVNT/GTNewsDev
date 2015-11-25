@@ -49,13 +49,15 @@ angular.module('nd.map')
                 key: 'twitter',
                 title: 'Twitter',
                 icon: 'fa-twitter',
-                btn: 'nd-btn-twitter'
+                btn: 'nd-btn-twitter',
+                weight: 10
             },
             'facebook': {
                 key: 'facebook',
                 title: 'Facebook',
                 icon: 'fa-facebook',
-                btn: 'nd-btn-facebook'
+                btn: 'nd-btn-facebook',
+                weight: 9
             }
         };
 
@@ -115,6 +117,10 @@ angular.module('nd.map')
         };
     })
     .service('MapStyles', function (CenterMarker) {
+        var MAX_SW = new L.LatLng(-80, -180);
+        var MAX_NE = new L.LatLng(80, 180);
+        var MAX_BOUNDS = new L.LatLngBounds(MAX_SW, MAX_NE);
+
         this.icons = {
             default: {
                 iconUrl: 'assets/img/markers/leaflet-default-marker.png',
@@ -130,7 +136,8 @@ angular.module('nd.map')
                 minZoom: 2,
                 maxZoom: 9,
                 zoomAnimation: true,
-                scrollWheelZoom: true
+                scrollWheelZoom: true,
+                maxbounds: MAX_BOUNDS
             }
         }
     })
@@ -178,14 +185,12 @@ angular.module('nd.map')
 
                 /* zooming events */
                 map.on('zoomstart', function (event) {
-                    console.log(event);
                     console.log('[zoomstart] event registered on map.');
                 });
 
                 map.on('zoomend', function (event) {
                     console.log('[zoomend] event registered on map.');
                     self.boundMapState();
-                    //TIMEOUT BEFORE REQUEST
                 });
             }
         }

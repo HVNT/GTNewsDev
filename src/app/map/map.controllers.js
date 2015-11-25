@@ -9,7 +9,7 @@
 
 angular.module('nd.map')
     .controller('MapCtrl',
-    function ($scope, $state, $timeout, $window, $log, leafletData, MapStyles, MapArchitect, MapFilters, Article, Marker, MarkerCategories) {
+    function ($scope, $state, $timeout, $window, $log, leafletData, leafletMarkerEvents, MapStyles, MapArchitect, MapFilters, Article, Marker, MarkerCategories) {
 
         $scope.Article = Article;
         $scope.Marker = Marker;
@@ -56,73 +56,53 @@ angular.module('nd.map')
         };
 
         $scope.centerMap = function (article) {
+            console.log('centering map');
             if (article && !$scope.centering) {
-                if ($scope.activeMarker) {
-                    $scope.activeMarker.focus = false;
-                }
+                //TODO set old marker to focus=false
 
-                var targetMarker = $scope.$$markers[article.id];
+                var targetMarker = $scope.markers[article.id];
                 if (targetMarker) {
                     var currZoom = MapArchitect.map.getZoom();
                     Marker.setActiveLeafletMarker(article.id);
-                    $scope.centering = true;
 
+                    // this logic safely puts the pin you are trying to center around to the front of the map
+//                    var _markers = _.extend({}, Marker.$$leafletMarkers);
+//                    if (Marker.$$prevMarkerId) {
+//                        var activeMarker = _.extend({}, _markers[Marker.$$prevMarkerId]);
+//                        delete _markers[Marker.$$prevMarkerId];
+//                    }
+//                    var markers = _.toArray(_markers);
+//                    if (activeMarker) markers.push(activeMarker);
+
+                    $scope.markers = Marker.$$leafletMarkers;
                     $scope.centerMarker = {
+                        $$id: targetMarker.$$id,
                         lat: targetMarker.lat,
                         lng: targetMarker.lng,
                         zoom: currZoom < 4 ? 4 : currZoom
                     };
-
-                    $timeout(function () {
-                        targetMarker.focus = true;
-                        $scope.centering = false;
-                    }, 200);
+                    $scope.activeMarker = _.extend({}, $scope.centerMarker);
+                    targetMarker.focus = true;
+                    $scope.$broadcast('NDCenteringMarker')
                 }
-
-                // this logic safely puts the pin you are trying to center around to the front of the map
-                var _markers = _.extend({}, Marker.$$leafletMarkers);
-                if (Marker.$$prevMarkerId) {
-                    var activeMarker = _.extend({}, _markers[Marker.$$prevMarkerId]);
-                    delete _markers[Marker.$$prevMarkerId];
-                }
-                var markers = _.toArray(_markers);
-                if (activeMarker) markers.push(activeMarker);
-                $scope.$$markers = Marker.$$leafletMarkers;
-                $scope.markers = markers;
             } else {
                 $log.debug('Need source url to nav.');
             }
         };
 
+        $scope.markerEventsRegistered = false;
         $scope.updateMarkers = function (uMarkers) {
             var _markers = uMarkers
                 ? _.extend({}, uMarkers)
                 : _.extend({}, Marker.$$leafletMarkers);
 
-            if (Marker.$$prevMarkerId) {
-                var activeMarker = _.extend({}, _markers[Marker.$$prevMarkerId]);
-                delete _markers[Marker.$$prevMarkerId];
-            }
-            var markers = _.toArray(_markers);
-            if (activeMarker) markers.push(activeMarker);
-            $scope.$$markers = Marker.$$leafletMarkers;
-            $scope.markers = markers;
-
-            /* need to $timeout this because marker initialization is done asynchronously by leafletjs */
-            $timeout(function () {
-                leafletData.getMarkers().then(function (response) {
-                    angular.forEach(response, function (value, key) {
-                        value.on('click', function (event) {
-                            if (event.target && event.target.options) {
-                                var targetId = event.target.options.$$id;
-                                if (targetId && Article.$$articles[targetId]) {
-                                    $scope.centerMap(Article.$$articles[targetId]);
-                                }
-                            }
-                        });
-                    });
-                });
-            }, 100);
+//            if (Marker.$$prevMarkerId) {
+//                var activeMarker = _.extend({}, _markers[Marker.$$prevMarkerId]);
+//                delete _markers[Marker.$$prevMarkerId];
+//            }
+//            var markers = _.toArray(_markers);
+//            if (activeMarker) markers.push(activeMarker);
+            $scope.markers = _markers;
         };
 
         $scope.updateArticles = function () {
@@ -135,6 +115,13 @@ angular.module('nd.map')
         if (!$scope.mapQueried) {
             $scope.queryMap();
         }
+
+        $scope.$on('leafletDirectiveMarkersClick', function(event, args){
+            var articleIdx = +args;
+            if (articleIdx >= 0 && Article.$$articles[articleIdx]) {
+                $scope.centerMap(Article.$$articles[articleIdx]);
+            }
+        });
     })
     .controller('MapListCtrl', function ($scope, $window, $log, leafletData, Article, Marker) {
         $scope.articleSearch = "";
@@ -166,23 +153,18 @@ angular.module('nd.map')
                     markers[key] = Marker.$$leafletMarkers[key];
                 });
                 $scope.updateMarkers(markers);
-
-                /* update article list */
                 $scope.updateArticles();
             }
         };
 
         $scope.togglePinSizing = function (filter, $event) {
-            event.stopPropagation();
-
             if (filter && filter.key) {
                 !$scope.activeSocialFilters[filter.key]
                     ? $scope.activeSocialFilters[filter.key] = filter
                     : delete $scope.activeSocialFilters[filter.key];
 
                 Marker.updateSizingBy($scope.activeSocialFilters);
-                $scope.$$markers = Marker.$$leafletMarkers;
-                $scope.markers = _.toArray($scope.$$markers);
+                $scope.updateMarkers();
             }
         };
 
