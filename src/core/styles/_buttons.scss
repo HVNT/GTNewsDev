@@ -68,6 +68,29 @@
   @include btn-color($brand-accent, $brand-accent-shadow);
 }
 
+
+// category btns
+.#{$ns}btn-science {
+  @extend %btn;
+  @include btn-color($brand-science, $brand-science-shadow);
+}
+
+.#{$ns}btn-health {
+  @extend %btn;
+  @include btn-color($brand-health, $brand-health-shadow);
+}
+
+.#{$ns}btn-economy {
+  @extend %btn;
+  @include btn-color($brand-economy, $brand-economy-shadow);
+}
+
+.#{$ns}btn-world {
+  @extend %btn;
+  @include btn-color($brand-world, $brand-world-shadow);
+}
+
+
 // twitter & facebook btn
 .#{$ns}btn-twitter {
   @extend %btn;

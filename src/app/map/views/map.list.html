@@ -9,11 +9,12 @@
 <!--</div>-->
 
 <div class="map-category-filters">
-    <div ng-repeat="filter in categoryFilters"
-         nd-s-mb="1" nd-s-ml="1"
-         class="category-filter"
-         url-background="filter.backgroundUrl()"
-         ng-click="toggleCategoryFilter(filter)">
+    <div ng-repeat="filter in categoryFilters | orderBy:'-weight'" class="nd-btn-group">
+        <button class="nd-btn--sm"
+                ng-class="filter.toggled ? filter.btn : 'nd-btn-mono'"
+                ng-click="toggleCategoryFilter(filter, $event)">
+            <i class="fa" ng-class="filter.icon"></i>
+        </button>
     </div>
 </div>
 

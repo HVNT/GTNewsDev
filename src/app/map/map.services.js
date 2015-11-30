@@ -66,6 +66,8 @@ angular.module('nd.map')
                 key: 'world',
                 title: 'World',
                 toggled: true,
+                icon: 'fa-globe',
+                btn: 'nd-btn-world',
                 backgroundUrl: function () {
                     return this.toggled
                         ? '/assets/img/checkbox/world_on.png'
@@ -79,6 +81,8 @@ angular.module('nd.map')
                 key: 'science',
                 title: 'Science',
                 toggled: true,
+                icon: 'fa-flask',
+                btn: 'nd-btn-science',
                 backgroundUrl: function () {
                     return this.toggled
                         ? '/assets/img/checkbox/science_on.png'
@@ -92,6 +96,8 @@ angular.module('nd.map')
                 key: 'health',
                 title: 'Health',
                 toggled: true,
+                icon: 'fa-heartbeat',
+                btn: 'nd-btn-health',
                 backgroundUrl: function () {
                     return this.toggled
                         ? '/assets/img/checkbox/health_on.png'
@@ -105,6 +111,8 @@ angular.module('nd.map')
                 key: 'economy',
                 title: 'Economy',
                 toggled: true,
+                icon: 'fa-money',
+                btn: 'nd-btn-economy',
                 backgroundUrl: function () {
                     return this.toggled
                         ? '/assets/img/checkbox/economy_on.png'
