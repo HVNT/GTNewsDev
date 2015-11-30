@@ -16,7 +16,7 @@ angular.module('nd.config', [])
         var url = {
             dev: '',
             remote: '',
-            test: ''
+            test: '/geonewsapi'
         };
 
         return {
