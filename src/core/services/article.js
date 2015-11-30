@@ -6,7 +6,7 @@
  * File:
  */
 angular.module('nd.services')
-    .factory('Article', function ($http, $q, $log, Environment) {
+    .factory('Article', function ($http, $q, $log, Environment, MapFilters) {
         Article.TWTTR_FLOOR = 500;
         Article.FB_FLOOR = 300;
         Article.$$fetching = false;
@@ -101,14 +101,17 @@ angular.module('nd.services')
             }
         }
 
-        Article.queryBBox = function (bboxParam, dateStart) {
+        Article.queryBBox = function (bboxParam) {
+            if (!MapFilters) throw new Error('no MapFilters, cannot request');
+
             var defer = $q.defer();
-            var _dateStart = getDateJSON(dateStart);
+            var _dateStart = getDateJSON(MapFilters.activeDateFilter.key),
+                _noiseFloor = MapFilters.activeNoiseFilter.floor;
 
             if (bboxParam && _dateStart) {
                 var path = Environment.path + '/pins/?in_bbox=' + bboxParam +
                         '&start_date=' + _dateStart +
-                        '&min_retweetcount=' + Article.TWTTR_FLOOR +
+                        '&min_sharecount=' + _noiseFloor +
                         '&format=json',
                     config = _.extend({}, Environment.config);
 

@@ -17,6 +17,7 @@ angular.module('nd.map')
         $scope.Article = Article;
         $scope.Marker = Marker;
         $scope.MarkerCategories = MarkerCategories;
+        $scope.MapFilters = MapFilters;
         angular.extend($scope, MapStyles.defaultConfig);
 
         $scope.map = {};
@@ -27,15 +28,13 @@ angular.module('nd.map')
 
         /* noise filters */
         $scope.noiseFilters = _.toArray(MapFilters.noiseFilters);
-        $scope.activeNoiseFilter = $scope.noiseFilters[0];
 
         /* date filters */
         $scope.dateFilters = _.toArray(MapFilters.dateFilters);
-        $scope.activeDateFilter = $scope.dateFilters[0];
 
         /* social metrics filters */
-        $scope.socialFilters = MapFilters.socialFilters;
-        $scope.activeSocialFilters = {'twitter': MapFilters.socialFilters['twitter']}; //twitter by default
+        $scope.socialFilters = _.toArray(MapFilters.socialFilters);
+        $scope.activeSocialFilters = {'facebook': MapFilters.socialFilters['facebook']}; //twitter by default
 
         /* article category filters */
         $scope.categoryFilters = _.toArray(MapFilters.categoryFilters);
@@ -43,11 +42,7 @@ angular.module('nd.map')
 
         $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             if (toParams) {
-                var activeDateKey = $scope.activeDateFilter
-                    ? $scope.activeDateFilter.key
-                    : 'lastWeek';
-
-                Article.queryBBox(toParams.in_bbox, activeDateKey).then(function (response) {
+                Article.queryBBox(toParams.in_bbox).then(function (response) {
                     Marker.$$leafletMarkers = {};
                     if (response && response.length > 0) {
                         for (var i = 0; i < response.length; i++) {
@@ -119,7 +114,8 @@ angular.module('nd.map')
         });
     })
     .controller('MapListCtrl', function ($scope, $state, $window, $log,
-                                         leafletData, Article, Marker) {
+                                         leafletData,
+                                         MapFilters, Article, Marker) {
         $scope.articleSearch = "";
         $scope.listCollapsed = false;
 
@@ -130,9 +126,10 @@ angular.module('nd.map')
         $scope.toggleDateFilter = function (filter) {
             if (filter && $state.params) {
                 var currBBox = $state.params.in_bbox;
+                MapFilters.setDateFilter(filter);
+
                 if (currBBox) {
-                    $scope.activeDateFilter = filter;
-                    Article.queryBBox(currBBox, filter.key).then(function (response) {
+                    Article.queryBBox(currBBox).then(function (response) {
                         Marker.$$leafletMarkers = {};
                         if (response && response.length > 0) {
                             for (var i = 0; i < response.length; i++) {
@@ -172,8 +169,22 @@ angular.module('nd.map')
         };
 
         $scope.toggleNoiseFilter = function (filter) {
-            if (filter) {
-                $scope.activeNoiseFilter = filter;
+            if (filter && $state.params) {
+                var currBBox = $state.params.in_bbox;
+                MapFilters.setNoiseFilter(filter);
+
+                if (currBBox) {
+                    Article.queryBBox(currBBox).then(function (response) {
+                        Marker.$$leafletMarkers = {};
+                        if (response && response.length > 0) {
+                            for (var i = 0; i < response.length; i++) {
+                                new Marker(response[i]);
+                            }
+                        }
+                        $scope.updateMarkers();
+                        $scope.updateArticles();
+                    });
+                }
             }
         };
 

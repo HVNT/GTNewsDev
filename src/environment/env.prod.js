@@ -14,6 +14,7 @@ angular.module('nd.config', [])
     })
     .factory('Environment', function () {
         var url = {
+            prod: '/geonewsapi',
             dev: '',
             remote: '',
             test: '/geonewsapi'
@@ -21,7 +22,7 @@ angular.module('nd.config', [])
 
         return {
             name: 'prod',
-            path: url.test,
+            path: url.prod,
             config: {}
         };
     });
