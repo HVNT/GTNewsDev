@@ -45,18 +45,25 @@ angular.module('nd.map')
     })
     .service('MapFilters', function () {
         this.noiseFilters = {
-            low: {
-                key: 'low',
-                icon: 'fa-map-marker fa-3x'
+            high: {
+                key: 'high',
+                icon: 'fa-map-marker fa-3x',
+                floor: 1000
             },
             medium: {
                 key: 'medium',
-                icon: 'fa-map-marker fa-2x'
+                icon: 'fa-map-marker fa-2x',
+                floor: 100
             },
-            high: {
-                key: 'high',
-                icon: 'fa-map-marker'
+            low: {
+                key: 'low',
+                icon: 'fa-map-marker',
+                floor: 1
             }
+        };
+        this.activeNoiseFilter = this.noiseFilters['high'];
+        this.setNoiseFilter = function (filter) {
+            this.activeNoiseFilter = filter;
         };
 
         this.dateFilters = {
@@ -76,21 +83,23 @@ angular.module('nd.map')
                 weight: 1
             }
         };
+        this.activeDateFilter = this.dateFilters['lastWeek'];
+        this.setDateFilter = function (filter) {
+            this.activeDateFilter = filter;
+        };
 
         this.socialFilters = {
             'twitter': {
                 key: 'twitter',
                 title: 'Twitter',
                 icon: 'fa-twitter',
-                btn: 'nd-btn-twitter',
-                weight: 2
+                btn: 'nd-btn-twitter'
             },
             'facebook': {
                 key: 'facebook',
                 title: 'Facebook',
                 icon: 'fa-facebook',
-                btn: 'nd-btn-facebook',
-                weight: 1
+                btn: 'nd-btn-facebook'
             }
         };
 

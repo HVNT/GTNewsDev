@@ -1,7 +1,7 @@
 <div class="map-date-filters">
     <div ng-repeat="filter in dateFilters" class="nd-btn-group">
         <button class="nd-btn--sm"
-                ng-class="filter.key == activeDateFilter.key ? 'nd-btn-white' : 'nd-btn-mono'"
+                ng-class="filter.key == MapFilters.activeDateFilter.key ? 'nd-btn-white' : 'nd-btn-mono'"
                 ng-click="toggleDateFilter(filter, $event)">
             {{filter.title}}
         </button>
@@ -21,7 +21,7 @@
 <div class="map-noise-filters">
     <div ng-repeat="filter in noiseFilters" class="nd-btn-group">
         <button class="nd-btn--sm"
-                ng-class="filter.key == activeNoiseFilter.key ? 'nd-btn-white' : 'nd-btn-mono'"
+                ng-class="filter.key == MapFilters.activeNoiseFilter.key ? 'nd-btn-white' : 'nd-btn-mono'"
                 ng-click="toggleNoiseFilter(filter, $event)">
             <i class="fa" ng-class="filter.icon"></i>
         </button>
@@ -35,7 +35,7 @@
                 <span nd-s-pl="2">Currently sizing pens by: </span>
             </div>
             <div nd-s-col="5">
-                <div ng-repeat="filter in socialFilters | orderBy:'-weight'" class="nd-btn-group" nd-s-pull="right">
+                <div ng-repeat="filter in socialFilters" class="nd-btn-group" nd-s-pull="right">
                     <button class="nd-btn--sm"
                             ng-class="activeSocialFilters[filter.key] ? filter.btn : 'nd-btn-mono'"
                             ng-click="togglePinSizing(filter, $event)">
@@ -56,7 +56,7 @@
     </div>
 
     <div article-cards class="article-cards" ng-class="{'article-cards--collapsed': listCollapsed}">
-        <div ng-repeat="article in activeArticles | filter:articleSearch | orderBy:'-retweetCount'"
+        <div ng-repeat="article in activeArticles | filter:articleSearch | orderBy:'-shareCount'"
              ng-attr-id="{{article.id}}"
              class="article-card" nd-s-row>
             <div class="article-card__header"
