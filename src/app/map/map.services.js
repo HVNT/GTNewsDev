@@ -51,11 +51,11 @@ angular.module('nd.map')
             },
             medium: {
                 key: 'medium',
-                icon: 'fa-map-marker fa-1.5x'
+                icon: 'fa-map-marker fa-2x'
             },
             high: {
                 key: 'high',
-                icon: 'fa-map-marker fa-2x'
+                icon: 'fa-map-marker fa-3x'
             }
         };
 
