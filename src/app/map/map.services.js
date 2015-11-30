@@ -47,7 +47,7 @@ angular.module('nd.map')
         this.noiseFilters = {
             low: {
                 key: 'low',
-                icon: 'fa-map-marker'
+                icon: 'fa-map-marker fa-3x'
             },
             medium: {
                 key: 'medium',
@@ -55,7 +55,7 @@ angular.module('nd.map')
             },
             high: {
                 key: 'high',
-                icon: 'fa-map-marker fa-3x'
+                icon: 'fa-map-marker'
             }
         };
 
@@ -101,11 +101,6 @@ angular.module('nd.map')
                 toggled: true,
                 icon: 'fa-globe',
                 btn: 'nd-btn-world',
-//                backgroundUrl: function () {
-//                    return this.toggled
-//                        ? '/assets/img/checkbox/world_on.png'
-//                        : '/assets/img/checkbox/world_off.png';
-//                },
                 toggle: function () {
                     this.toggled = !this.toggled;
                 }
@@ -116,11 +111,6 @@ angular.module('nd.map')
                 toggled: true,
                 icon: 'fa-flask',
                 btn: 'nd-btn-science',
-//                backgroundUrl: function () {
-//                    return this.toggled
-//                        ? '/assets/img/checkbox/science_on.png'
-//                        : '/assets/img/checkbox/science_off.png';
-//                },
                 toggle: function () {
                     this.toggled = !this.toggled;
                 }
@@ -131,11 +121,6 @@ angular.module('nd.map')
                 toggled: true,
                 icon: 'fa-heartbeat',
                 btn: 'nd-btn-health',
-//                backgroundUrl: function () {
-//                    return this.toggled
-//                        ? '/assets/img/checkbox/health_on.png'
-//                        : '/assets/img/checkbox/health_off.png';
-//                },
                 toggle: function () {
                     this.toggled = !this.toggled;
                 }
@@ -146,11 +131,6 @@ angular.module('nd.map')
                 toggled: true,
                 icon: 'fa-money',
                 btn: 'nd-btn-economy',
-//                backgroundUrl: function () {
-//                    return this.toggled
-//                        ? '/assets/img/checkbox/economy_on.png'
-//                        : '/assets/img/checkbox/economy_off.png';
-//                },
                 toggle: function () {
                     this.toggled = !this.toggled;
                 }
@@ -178,7 +158,8 @@ angular.module('nd.map')
                 maxZoom: 9,
                 zoomAnimation: true,
                 scrollWheelZoom: true,
-                maxbounds: MAX_BOUNDS
+                maxbounds: MAX_BOUNDS,
+                zoomControlPosition: 'bottomleft'
             }
         }
     })
