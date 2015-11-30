@@ -205,13 +205,17 @@ angular.module('nd.map')
             if (map) {
                 map.on('click', function () {
                     console.log('[click] event registered on map.');
-
                 });
 
-                /* update bounding box on drag */
+                /* update bounding box on any map move */
+                map.on('moveend', function () {
+                    console.log('[moveend] event registered on map');
+                    self.boundMapState();
+                });
+
+                /* drag events */
                 map.on('dragend', function () {
                     console.log('[dragend] event registered on map');
-                    self.boundMapState();
                 });
 
                 /* zooming events */
@@ -221,7 +225,6 @@ angular.module('nd.map')
 
                 map.on('zoomend', function (event) {
                     console.log('[zoomend] event registered on map.');
-                    self.boundMapState();
                 });
             }
         }
