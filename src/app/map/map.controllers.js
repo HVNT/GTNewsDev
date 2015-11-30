@@ -25,6 +25,10 @@ angular.module('nd.map')
         $scope.markers = [];
         $scope.$$markers = {};
 
+        /* noise filters */
+        $scope.noiseFilters = _.toArray(MapFilters.noiseFilters);
+        $scope.activeNoiseFilter = $scope.noiseFilters[0];
+
         /* date filters */
         $scope.dateFilters = _.toArray(MapFilters.dateFilters);
         $scope.activeDateFilter = $scope.dateFilters[0];
@@ -164,6 +168,12 @@ angular.module('nd.map')
                 });
                 $scope.updateMarkers(markers);
                 $scope.updateArticles();
+            }
+        };
+
+        $scope.toggleNoiseFilter = function (filter) {
+            if (filter) {
+                $scope.activeNoiseFilter = filter;
             }
         };
 

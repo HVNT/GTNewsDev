@@ -8,12 +8,21 @@
     </div>
 </div>
 
-
 <div class="map-category-filters">
     <div ng-repeat="filter in categoryFilters | orderBy:'-weight'" class="nd-btn-group">
         <button class="nd-btn--sm"
                 ng-class="filter.toggled ? filter.btn : 'nd-btn-mono'"
                 ng-click="toggleCategoryFilter(filter, $event)">
+            <i class="fa" ng-class="filter.icon"></i>
+        </button>
+    </div>
+</div>
+
+<div class="map-noise-filters">
+    <div ng-repeat="filter in noiseFilters" class="nd-btn-group">
+        <button class="nd-btn--sm"
+                ng-class="filter.key == activeNoiseFilter.key ? 'nd-btn-white' : 'nd-btn-mono'"
+                ng-click="toggleNoiseFilter(filter, $event)">
             <i class="fa" ng-class="filter.icon"></i>
         </button>
     </div>
