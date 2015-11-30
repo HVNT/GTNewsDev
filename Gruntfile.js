@@ -184,7 +184,7 @@ module.exports = function (grunt) {
                 ],
                 dest: '<%= config.app %>/app/app.templates.js',
                 options: {
-                    module: 'rv.app',
+                    module: 'nd.app',
                     prefix: '/',
                     htmlmin: {
                         collapseBooleanAttributes:      true,
