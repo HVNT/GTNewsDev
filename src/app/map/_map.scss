@@ -103,15 +103,17 @@ $article-list-width: 400px;
   bottom: 0;
   top: 130px;
   opacity: 100%;
+  visibility: visible;
 
   width: $article-list-width;
   overflow-y: scroll;
 
   &.article-cards--collapsed {
     opacity: 0 !important;
+    visibility: hidden;
   }
 
-  @include transition(opacity 0.2s ease);
+  @include transition(all 0.2s ease);
 }
 
 .article-list {
