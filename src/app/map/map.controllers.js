@@ -9,7 +9,10 @@
 
 angular.module('nd.map')
     .controller('MapCtrl',
-    function ($scope, $state, $timeout, $window, $log, leafletData, leafletMarkerEvents, MapStyles, MapArchitect, MapFilters, Article, Marker, MarkerCategories) {
+    function ($scope, $state, $timeout, $window, $log,
+              leafletData, leafletMarkerEvents,
+              MapArchitect, MapStyles, MapFilters,
+              Article, Marker, MarkerCategories) {
 
         $scope.Article = Article;
         $scope.Marker = Marker;
@@ -33,7 +36,6 @@ angular.module('nd.map')
         /* article category filters */
         $scope.categoryFilters = _.toArray(MapFilters.categoryFilters);
         $scope.activeCategoryFilters = MapFilters.categoryFilters;
-
 
         $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             if (toParams) {
@@ -90,7 +92,7 @@ angular.module('nd.map')
         };
 
         $scope.updateMarkers = function (uMarkers) {
-            $scope.markers =  uMarkers
+            $scope.markers = uMarkers
                 ? _.extend({}, uMarkers)
                 : _.extend({}, Marker.$$leafletMarkers);
         };
@@ -101,22 +103,21 @@ angular.module('nd.map')
             });
         };
 
-
         if (!$scope.mapQueried) {
             $scope.queryMap();
         }
 
-        $scope.$on('leafletDirectiveMarkersClick', function(event, args){
+        $scope.$on('leafletDirectiveMarkersClick', function (event, args) {
             var articleIdx = +args;
             if (articleIdx >= 0 && Article.$$articles[articleIdx]) {
                 $scope.centerMap(Article.$$articles[articleIdx]);
             }
         });
     })
-    .controller('MapListCtrl', function ($scope, $state, $window, $log, leafletData, Article, Marker) {
+    .controller('MapListCtrl', function ($scope, $state, $window, $log,
+                                         leafletData, Article, Marker) {
         $scope.articleSearch = "";
         $scope.listCollapsed = false;
-
 
         $scope.collapseList = function () {
             $scope.listCollapsed = !$scope.listCollapsed;
