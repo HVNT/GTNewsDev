@@ -6,7 +6,7 @@
  * File:
  */
 angular.module('nd.services')
-    .factory('Article', function ($http, $q, Environment) {
+    .factory('Article', function ($http, $q, $log, Environment) {
         Article.TWTTR_FLOOR = 500;
         Article.FB_FLOOR = 300;
         Article.$$fetching = false;
@@ -80,13 +80,36 @@ angular.module('nd.services')
             return defer.promise;
         };
 
-        //TODO add date
-        Article.queryBBox = function (bboxParam) {
-            var defer = $q.defer();
+        function getDateJSON(dateKey) {
+            if (dateKey) {
+                var d = new Date();
+                switch(dateKey) {
+                    case 'lastWeek':
+                        d.setDate(d.getDate() - 7);
+                        d = new Date(d);
+                        return d.toJSON();
+                    case 'lastMonth':
+                        d.setMonth(d.getMonth() - 1);
+                        d = new Date(d);
+                        return d.toJSON();
+                    case 'all':
+                        d.setDate(0);
+                        return d.toJSON();
+                }
+            } else {
+                $log.debug('No date key provided');
+            }
+        }
 
-            if (bboxParam) {
+        Article.queryBBox = function (bboxParam, dateStart) {
+            var defer = $q.defer();
+            var _dateStart = getDateJSON(dateStart);
+
+            if (bboxParam && _dateStart) {
                 var path = Environment.path + '/pins/?in_bbox=' + bboxParam +
-                        '&min_retweetcount=' + Article.TWTTR_FLOOR + '&format=json',
+                        '&start_date=' + _dateStart +
+                        '&min_retweetcount=' + Article.TWTTR_FLOOR +
+                        '&format=json',
                     config = _.extend({}, Environment.config);
 
                 Article.$$fetching = true;

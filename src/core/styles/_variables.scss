@@ -15,6 +15,21 @@ $brand-danger: #ef5c48 !default;
 $brand-info: #B0DDF2 !default;
 $link-color: #0c5e86 !default;
 
+
+// active color
+$brand-active: #F6E9A6 !default;
+$brand-active-shadow: darken(adjust_hue($brand-active, 6%), 15%) !default;
+
+// category colors
+$brand-science: #B9A8C6 !default;
+$brand-science-shadow: darken(adjust_hue($brand-science, 6%), 15%) !default;
+$brand-health: #C36D74 !default;
+$brand-health-shadow: darken(adjust_hue($brand-health, 6%), 15%) !default;
+$brand-economy: #A7D2A3 !default;
+$brand-economy-shadow: darken(adjust_hue($brand-economy, 6%), 15%) !default;
+$brand-world: #87A5C8 !default;
+$brand-world-shadow: darken(adjust_hue($brand-world, 6%), 15%) !default;
+
 // twitter & facebook colors
 $brand-twitter: #55ACEE !default;
 $brand-facebook: #395489 !default;
