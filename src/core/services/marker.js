@@ -23,7 +23,7 @@ angular.module('nd.services')
         }
     })
     .factory('Marker', function (MapStyles, MarkerCategories) {
-        Marker.sizingBy = "twitter";
+        Marker.sizingBy = "facebook";
         Marker.maxSize = [55, 65]; // ratio of base marker image width:height = 1.0 : 1.17
 
         function Marker(data) {
