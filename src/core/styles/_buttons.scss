@@ -90,7 +90,6 @@
   @include btn-color($brand-world, $brand-world-shadow);
 }
 
-
 // twitter & facebook btn
 .#{$ns}btn-twitter {
   @extend %btn;
@@ -126,6 +125,13 @@
   @extend %btn;
   @include btn-color($white, $mono, $mono);
 }
+
+.#{$ns}btn-active {
+  @extend %btn;
+  @include btn-color($brand-active, $brand-active-shadow);
+}
+
+
 
 /**
 *

@@ -44,20 +44,53 @@ angular.module('nd.map')
 
     })
     .service('MapFilters', function () {
+        this.noiseFilters = {
+            low: {
+                key: 'low',
+                icon: 'fa-map-marker'
+            },
+            medium: {
+                key: 'medium',
+                icon: 'fa-map-marker fa-1.5x'
+            },
+            high: {
+                key: 'high',
+                icon: 'fa-map-marker fa-2x'
+            }
+        };
+
+        this.dateFilters = {
+            lastWeek: {
+                key: 'lastWeek',
+                title: 'Last Week',
+                weight: 3
+            },
+            lastMonth: {
+                key: 'lastMonth',
+                title: 'Last Month',
+                weight: 2
+            },
+            all: {
+                key: 'all',
+                title: 'All',
+                weight: 1
+            }
+        };
+
         this.socialFilters = {
             'twitter': {
                 key: 'twitter',
                 title: 'Twitter',
                 icon: 'fa-twitter',
                 btn: 'nd-btn-twitter',
-                weight: 10
+                weight: 2
             },
             'facebook': {
                 key: 'facebook',
                 title: 'Facebook',
                 icon: 'fa-facebook',
                 btn: 'nd-btn-facebook',
-                weight: 9
+                weight: 1
             }
         };
 
@@ -68,11 +101,11 @@ angular.module('nd.map')
                 toggled: true,
                 icon: 'fa-globe',
                 btn: 'nd-btn-world',
-                backgroundUrl: function () {
-                    return this.toggled
-                        ? '/assets/img/checkbox/world_on.png'
-                        : '/assets/img/checkbox/world_off.png';
-                },
+//                backgroundUrl: function () {
+//                    return this.toggled
+//                        ? '/assets/img/checkbox/world_on.png'
+//                        : '/assets/img/checkbox/world_off.png';
+//                },
                 toggle: function () {
                     this.toggled = !this.toggled;
                 }
@@ -83,11 +116,11 @@ angular.module('nd.map')
                 toggled: true,
                 icon: 'fa-flask',
                 btn: 'nd-btn-science',
-                backgroundUrl: function () {
-                    return this.toggled
-                        ? '/assets/img/checkbox/science_on.png'
-                        : '/assets/img/checkbox/science_off.png';
-                },
+//                backgroundUrl: function () {
+//                    return this.toggled
+//                        ? '/assets/img/checkbox/science_on.png'
+//                        : '/assets/img/checkbox/science_off.png';
+//                },
                 toggle: function () {
                     this.toggled = !this.toggled;
                 }
@@ -98,11 +131,11 @@ angular.module('nd.map')
                 toggled: true,
                 icon: 'fa-heartbeat',
                 btn: 'nd-btn-health',
-                backgroundUrl: function () {
-                    return this.toggled
-                        ? '/assets/img/checkbox/health_on.png'
-                        : '/assets/img/checkbox/health_off.png';
-                },
+//                backgroundUrl: function () {
+//                    return this.toggled
+//                        ? '/assets/img/checkbox/health_on.png'
+//                        : '/assets/img/checkbox/health_off.png';
+//                },
                 toggle: function () {
                     this.toggled = !this.toggled;
                 }
@@ -113,11 +146,11 @@ angular.module('nd.map')
                 toggled: true,
                 icon: 'fa-money',
                 btn: 'nd-btn-economy',
-                backgroundUrl: function () {
-                    return this.toggled
-                        ? '/assets/img/checkbox/economy_on.png'
-                        : '/assets/img/checkbox/economy_off.png';
-                },
+//                backgroundUrl: function () {
+//                    return this.toggled
+//                        ? '/assets/img/checkbox/economy_on.png'
+//                        : '/assets/img/checkbox/economy_off.png';
+//                },
                 toggle: function () {
                     this.toggled = !this.toggled;
                 }

@@ -22,6 +22,10 @@ angular.module('nd.map')
         $scope.markers = [];
         $scope.$$markers = {};
 
+        /* date filters */
+        $scope.dateFilters = _.toArray(MapFilters.dateFilters);
+        $scope.activeDateFilter = $scope.dateFilters[0];
+
         /* social metrics filters */
         $scope.socialFilters = MapFilters.socialFilters;
         $scope.activeSocialFilters = {'twitter': MapFilters.socialFilters['twitter']}; //twitter by default
@@ -33,7 +37,11 @@ angular.module('nd.map')
 
         $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             if (toParams) {
-                Article.queryBBox(toParams.in_bbox).then(function (response) {
+                var activeDateKey = $scope.activeDateFilter
+                    ? $scope.activeDateFilter.key
+                    : 'lastWeek';
+
+                Article.queryBBox(toParams.in_bbox, activeDateKey).then(function (response) {
                     Marker.$$leafletMarkers = {};
                     if (response && response.length > 0) {
                         for (var i = 0; i < response.length; i++) {
@@ -58,21 +66,12 @@ angular.module('nd.map')
         $scope.centerMap = function (article) {
             console.log('centering map');
             if (article && !$scope.centering) {
-                //TODO set old marker to focus=false
+                //TODO set old marker to focus=false (done implicitly by leaflet??)
 
                 var targetMarker = $scope.markers[article.id];
                 if (targetMarker) {
                     var currZoom = MapArchitect.map.getZoom();
                     Marker.setActiveLeafletMarker(article.id);
-
-                    // this logic safely puts the pin you are trying to center around to the front of the map
-//                    var _markers = _.extend({}, Marker.$$leafletMarkers);
-//                    if (Marker.$$prevMarkerId) {
-//                        var activeMarker = _.extend({}, _markers[Marker.$$prevMarkerId]);
-//                        delete _markers[Marker.$$prevMarkerId];
-//                    }
-//                    var markers = _.toArray(_markers);
-//                    if (activeMarker) markers.push(activeMarker);
 
                     $scope.markers = Marker.$$leafletMarkers;
                     $scope.centerMarker = {
@@ -90,19 +89,10 @@ angular.module('nd.map')
             }
         };
 
-        $scope.markerEventsRegistered = false;
         $scope.updateMarkers = function (uMarkers) {
-            var _markers = uMarkers
+            $scope.markers =  uMarkers
                 ? _.extend({}, uMarkers)
                 : _.extend({}, Marker.$$leafletMarkers);
-
-//            if (Marker.$$prevMarkerId) {
-//                var activeMarker = _.extend({}, _markers[Marker.$$prevMarkerId]);
-//                delete _markers[Marker.$$prevMarkerId];
-//            }
-//            var markers = _.toArray(_markers);
-//            if (activeMarker) markers.push(activeMarker);
-            $scope.markers = _markers;
         };
 
         $scope.updateArticles = function () {
@@ -123,13 +113,32 @@ angular.module('nd.map')
             }
         });
     })
-    .controller('MapListCtrl', function ($scope, $window, $log, leafletData, Article, Marker) {
+    .controller('MapListCtrl', function ($scope, $state, $window, $log, leafletData, Article, Marker) {
         $scope.articleSearch = "";
         $scope.listCollapsed = false;
 
 
         $scope.collapseList = function () {
             $scope.listCollapsed = !$scope.listCollapsed;
+        };
+
+        $scope.toggleDateFilter = function (filter) {
+            if (filter && $state.params) {
+                var currBBox = $state.params.in_bbox;
+                if (currBBox) {
+                    $scope.activeDateFilter = filter;
+                    Article.queryBBox(currBBox, filter.key).then(function (response) {
+                        Marker.$$leafletMarkers = {};
+                        if (response && response.length > 0) {
+                            for (var i = 0; i < response.length; i++) {
+                                new Marker(response[i]);
+                            }
+                        }
+                        $scope.updateMarkers();
+                        $scope.updateArticles();
+                    });
+                }
+            }
         };
 
         $scope.toggleCategoryFilter = function (filter) {

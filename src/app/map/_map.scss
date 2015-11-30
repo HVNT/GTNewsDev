@@ -64,15 +64,15 @@ $article-list-width: 400px;
   color: $mono-light;
 }
 
-//.map-social-filters {
-//  position: fixed;
-//  left: 50%;
-//  top: 10px;
-//}
+.map-date-filters {
+  position: fixed;
+  top: 10px;
+  left: 68px;
+}
 
 .map-category-filters {
   position: fixed;
-  left: 5px;
+  left: 10px;
   top: 110px;
 
   width: 50px;
