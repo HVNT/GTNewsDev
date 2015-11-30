@@ -1,19 +1,21 @@
-<!--<div class="map-social-filters">-->
-<!--<div ng-repeat="filter in socialFilters" class="nd-btn-group">-->
-<!--<button class="nd-btn--sm"-->
-<!--ng-class="activeSocialFilters[filter.key] ? filter.btn : 'nd-btn-mono'"-->
-<!--ng-click="togglePinSizing(filter)">-->
-<!--<i class="fa" ng-class="filter.icon"></i>-->
-<!--</button>-->
-<!--</div>-->
-<!--</div>-->
+<div class="map-date-filters">
+    <div ng-repeat="filter in dateFilters" class="nd-btn-group">
+        <button class="nd-btn--sm"
+                ng-class="filter.key == activeDateFilter.key ? 'nd-btn-white' : 'nd-btn-mono'"
+                ng-click="toggleDateFilter(filter, $event)">
+            {{filter.title}}
+        </button>
+    </div>
+</div>
+
 
 <div class="map-category-filters">
-    <div ng-repeat="filter in categoryFilters"
-         nd-s-mb="1" nd-s-ml="1"
-         class="category-filter"
-         url-background="filter.backgroundUrl()"
-         ng-click="toggleCategoryFilter(filter)">
+    <div ng-repeat="filter in categoryFilters | orderBy:'-weight'" class="nd-btn-group">
+        <button class="nd-btn--sm"
+                ng-class="filter.toggled ? filter.btn : 'nd-btn-mono'"
+                ng-click="toggleCategoryFilter(filter, $event)">
+            <i class="fa" ng-class="filter.icon"></i>
+        </button>
     </div>
 </div>
 
