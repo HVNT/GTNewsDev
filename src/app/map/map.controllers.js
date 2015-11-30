@@ -51,6 +51,7 @@ angular.module('nd.map')
                     }
                     $scope.updateMarkers();
                     $scope.updateArticles();
+                    $scope.filterMarkers();
                 });
             }
         });
@@ -106,6 +107,23 @@ angular.module('nd.map')
             $scope.queryMap();
         }
 
+        $scope.filterMarkers = function () {
+            /* update map markers */
+            var markerModels = {};
+            angular.forEach(Marker.$$markers, function (markerModel, key) {
+                if ($scope.activeCategoryFilters.hasOwnProperty(markerModel.category)) {
+                    markerModels[key] = markerModel;
+                }
+            });
+            var markers = {};
+            angular.forEach(markerModels, function (markerModel, key) {
+                markers[key] = Marker.$$leafletMarkers[key];
+            });
+
+            $scope.updateMarkers(markers);
+            $scope.updateArticles();
+        };
+
         $scope.$on('leafletDirectiveMarkersClick', function (event, args) {
             var articleIdx = +args;
             if (articleIdx >= 0 && Article.$$articles[articleIdx]) {
@@ -138,6 +156,7 @@ angular.module('nd.map')
                         }
                         $scope.updateMarkers();
                         $scope.updateArticles();
+                        $scope.filterMarkers();
                     });
                 }
             }
@@ -183,6 +202,7 @@ angular.module('nd.map')
                         }
                         $scope.updateMarkers();
                         $scope.updateArticles();
+                        $scope.filterMarkers();
                     });
                 }
             }
