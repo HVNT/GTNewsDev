@@ -29,7 +29,6 @@ angular.module('nd.services')
             } else {
                 this.category = 'world';
             }
-//            this.category = data.category || 'world'; //world = misc
 
             this.authors = data.authors || [];
             if (this.authors.length > 0) {

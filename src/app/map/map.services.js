@@ -76,12 +76,12 @@ angular.module('nd.map')
                 key: 'lastMonth',
                 title: 'Last Month',
                 weight: 2
-            },
-            all: {
-                key: 'all',
-                title: 'All',
-                weight: 1
             }
+//            all: {
+//                key: 'all',
+//                title: 'All',
+//                weight: 1
+//            }
         };
         this.activeDateFilter = this.dateFilters['lastWeek'];
         this.setDateFilter = function (filter) {
