@@ -204,7 +204,7 @@ angular.module('nd.map')
         function registerEvents(map) {
             if (map) {
                 map.on('click', function () {
-                    $log.debug('[click] event registered on map.');
+                    $log.debug('[click] event registered on map');
                 });
 
                 /* update bounding box on any map move */
@@ -220,11 +220,11 @@ angular.module('nd.map')
 
                 /* zooming events */
                 map.on('zoomstart', function (event) {
-                    $log.debug('[zoomstart] event registered on map.');
+                    $log.debug('[zoomstart] event registered on map');
                 });
 
                 map.on('zoomend', function (event) {
-                    $log.debug('[zoomend] event registered on map.');
+                    $log.debug('[zoomend] event registered on map');
                 });
             }
         }
