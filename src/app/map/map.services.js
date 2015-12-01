@@ -9,8 +9,8 @@ angular.module('nd.map')
     .service('CenterMarker', function ($log) {
         /* America centered by default */
         this.lat = 30;
-        this.lng = 50;
-        this.zoom = 2;
+        this.lng = -10;
+        this.zoom = 3;
 
         this.get = function () {
             return {
@@ -61,7 +61,7 @@ angular.module('nd.map')
                 floor: 1
             }
         };
-        this.activeNoiseFilter = this.noiseFilters['high'];
+        this.activeNoiseFilter = this.noiseFilters['medium'];
         this.setNoiseFilter = function (filter) {
             this.activeNoiseFilter = filter;
         };
@@ -164,7 +164,7 @@ angular.module('nd.map')
             centerMarker: this.centerMarker,
             defaults: {
                 minZoom: 2,
-                maxZoom: 9,
+                maxZoom: 11,
                 zoomAnimation: true,
                 scrollWheelZoom: true,
                 maxbounds: MAX_BOUNDS,
