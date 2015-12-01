@@ -21,6 +21,14 @@ angular.module('nd.services')
             this.headline = data.headline || '';
             this.subtitle = data.subtitle || '';
             this.abstract = data.abstract || '';
+
+            if (data.category === 'health'
+                || data.category === 'science'
+                || data.category === 'economy') {
+                this.category = data.category;
+            } else {
+                this.category = 'world';
+            }
             this.category = data.category || 'world'; //world = misc
 
             this.authors = data.authors || [];
