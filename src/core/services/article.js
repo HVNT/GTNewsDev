@@ -94,7 +94,7 @@ angular.module('nd.services')
                         return d.toJSON();
                     case 'all':
                         d.setDate(0);
-                        return d.toJSON();
+                        return null;
                 }
             } else {
                 $log.debug('No date key provided');
@@ -110,7 +110,7 @@ angular.module('nd.services')
 
             if (bboxParam && _dateStart) {
                 var path = Environment.path + '/pins/?in_bbox=' + bboxParam +
-                        '&start_date=' + _dateStart +
+                        (_dateStart ? '&start_date=' + _dateStart : '') +
                         (searchParam ? '&search=' + searchParam : '') +
                         '&min_sharecount=' + _noiseFloor +
                         '&format=json',
