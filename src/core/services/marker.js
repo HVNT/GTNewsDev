@@ -89,7 +89,6 @@ angular.module('nd.services')
             }
         };
 
-        Marker.$$leafletMarkers = {};
         Marker.prototype.buildLeafletMarker = function () {
             var self = this;
             this.setIcon(this.pinSize);
@@ -139,6 +138,13 @@ angular.module('nd.services')
 
         Marker.markers = [];
         Marker.$$markers = {};
+        Marker.$$leafletMarkers = {};
+
+        Marker.reset = function () {
+            Marker.$$markers = {};
+            Marker.markers = [];
+            Marker.$$leafletMarkers = {};
+        };
 
         return Marker;
     });

@@ -172,7 +172,7 @@ angular.module('nd.map')
             }
         }
     })
-    .service('MapArchitect', function ($state, leafletData) {
+    .service('MapArchitect', function ($state, $log, leafletData) {
         var self = this;
         this.map = {};
 
@@ -204,27 +204,27 @@ angular.module('nd.map')
         function registerEvents(map) {
             if (map) {
                 map.on('click', function () {
-                    console.log('[click] event registered on map.');
+                    $log.debug('[click] event registered on map');
                 });
 
                 /* update bounding box on any map move */
                 map.on('moveend', function () {
-                    console.log('[moveend] event registered on map');
+                    $log.debug('[moveend] event registered on map');
                     self.boundMapState();
                 });
 
                 /* drag events */
                 map.on('dragend', function () {
-                    console.log('[dragend] event registered on map');
+                    $log.debug('[dragend] event registered on map');
                 });
 
                 /* zooming events */
                 map.on('zoomstart', function (event) {
-                    console.log('[zoomstart] event registered on map.');
+                    $log.debug('[zoomstart] event registered on map');
                 });
 
                 map.on('zoomend', function (event) {
-                    console.log('[zoomend] event registered on map.');
+                    $log.debug('[zoomend] event registered on map');
                 });
             }
         }
