@@ -94,14 +94,14 @@ angular.module('nd.services')
                         return d.toJSON();
                     case 'all':
                         d.setDate(0);
-                        return d.toJSON();
+                        return null;
                 }
             } else {
                 $log.debug('No date key provided');
             }
         }
 
-        Article.queryBBox = function (bboxParam) {
+        Article.queryBBox = function (bboxParam, searchParam) {
             if (!MapFilters) throw new Error('no MapFilters, cannot request');
 
             var defer = $q.defer();
@@ -110,7 +110,8 @@ angular.module('nd.services')
 
             if (bboxParam && _dateStart) {
                 var path = Environment.path + '/pins/?in_bbox=' + bboxParam +
-                        '&start_date=' + _dateStart +
+                        (_dateStart ? '&start_date=' + _dateStart : '') +
+                        (searchParam ? '&search=' + searchParam : '') +
                         '&min_sharecount=' + _noiseFloor +
                         '&format=json',
                     config = _.extend({}, Environment.config);

@@ -9,10 +9,7 @@
 
 angular.module('nd.map')
     .controller('MapCtrl',
-    function ($scope, $state, $timeout, $window, $log,
-              leafletData, leafletMarkerEvents,
-              MapArchitect, MapStyles, MapFilters,
-              Article, Marker, MarkerCategories) {
+    function ($scope, $state, $timeout, $window, $log, leafletData, leafletMarkerEvents, MapArchitect, MapStyles, MapFilters, Article, Marker, MarkerCategories) {
 
         $scope.Article = Article;
         $scope.Marker = Marker;
@@ -40,19 +37,26 @@ angular.module('nd.map')
         $scope.categoryFilters = _.toArray(MapFilters.categoryFilters);
         $scope.activeCategoryFilters = MapFilters.categoryFilters;
 
+        $scope.requestPins = _.debounce(
+            function () {
+                Article.queryBBox($scope.bbox, $scope.articleSearch)
+                    .then(function (response) {
+                        Marker.$$leafletMarkers = {};
+                        if (response && response.length > 0) {
+                            for (var i = 0; i < response.length; i++) {
+                                new Marker(response[i]);
+                            }
+                        }
+                        $scope.updateMarkers();
+                        $scope.updateArticles();
+                        $scope.filterMarkers();
+                    });
+            }, 50);
+
         $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             if (toParams) {
-                Article.queryBBox(toParams.in_bbox).then(function (response) {
-                    Marker.$$leafletMarkers = {};
-                    if (response && response.length > 0) {
-                        for (var i = 0; i < response.length; i++) {
-                            new Marker(response[i]);
-                        }
-                    }
-                    $scope.updateMarkers();
-                    $scope.updateArticles();
-                    $scope.filterMarkers();
-                });
+                $scope.bbox = toParams.in_bbox;
+                $scope.requestPins();
             }
         });
 
@@ -103,6 +107,11 @@ angular.module('nd.map')
             });
         };
 
+        $scope.search = function (predicate) {
+            $scope.articleSearch = predicate;
+            $scope.requestPins();
+        };
+
         if (!$scope.mapQueried) {
             $scope.queryMap();
         }
@@ -131,9 +140,7 @@ angular.module('nd.map')
             }
         });
     })
-    .controller('MapListCtrl', function ($scope, $state, $window, $log,
-                                         leafletData,
-                                         MapFilters, Article, Marker) {
+    .controller('MapListCtrl', function ($scope, $state, $window, $log, leafletData, MapFilters, Article, Marker) {
         $scope.articleSearch = "";
         $scope.listCollapsed = false;
 
@@ -143,22 +150,17 @@ angular.module('nd.map')
 
         $scope.toggleDateFilter = function (filter) {
             if (filter && $state.params) {
-                var currBBox = $state.params.in_bbox;
+                $scope.bbox = $state.params.in_bbox;
                 MapFilters.setDateFilter(filter);
+                $scope.requestPins();
+            }
+        };
 
-                if (currBBox) {
-                    Article.queryBBox(currBBox).then(function (response) {
-                        Marker.$$leafletMarkers = {};
-                        if (response && response.length > 0) {
-                            for (var i = 0; i < response.length; i++) {
-                                new Marker(response[i]);
-                            }
-                        }
-                        $scope.updateMarkers();
-                        $scope.updateArticles();
-                        $scope.filterMarkers();
-                    });
-                }
+        $scope.toggleNoiseFilter = function (filter) {
+            if (filter && $state.params) {
+                $scope.bbox = $state.params.in_bbox;
+                MapFilters.setNoiseFilter(filter);
+                $scope.requestPins();
             }
         };
 
@@ -184,27 +186,6 @@ angular.module('nd.map')
                 });
                 $scope.updateMarkers(markers);
                 $scope.updateArticles();
-            }
-        };
-
-        $scope.toggleNoiseFilter = function (filter) {
-            if (filter && $state.params) {
-                var currBBox = $state.params.in_bbox;
-                MapFilters.setNoiseFilter(filter);
-
-                if (currBBox) {
-                    Article.queryBBox(currBBox).then(function (response) {
-                        Marker.$$leafletMarkers = {};
-                        if (response && response.length > 0) {
-                            for (var i = 0; i < response.length; i++) {
-                                new Marker(response[i]);
-                            }
-                        }
-                        $scope.updateMarkers();
-                        $scope.updateArticles();
-                        $scope.filterMarkers();
-                    });
-                }
             }
         };
 
