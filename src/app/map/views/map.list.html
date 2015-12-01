@@ -51,13 +51,13 @@
              class="article-list-collapse-btn"
              nd-t-font="h6 center small-caps" ng-click="collapseList()"
              ng-class="{'article-list-collapse-btn--active': listCollapsed}">
-            Viewing {{(activeArticles | filter:articleSearch).length || 0}} articles.
+            Viewing {{activeArticles.length || 0}} articles.
         </div>
     </div>
 
     <div article-cards class="article-cards" ng-class="{'article-cards--collapsed': listCollapsed}">
         <!--active article-->
-        <div class="article-card" nd-s-row ng-if="centerMarker.$$id">
+        <div class="article-card" nd-s-row ng-if="centerMarker.$$id && Article.$$articles[centerMarker.$$id]">
             <div class="article-card__header article-card__header--active" nd-s-pxy="sm">
                 <span ng-click="centerMap(Article.$$articles[centerMarker.$$id])"
                       nd-t-font="h4 link">{{Article.$$articles[centerMarker.$$id].headline}}</span>

@@ -22,6 +22,7 @@ angular.module('nd.map')
         $scope.markerModels = {};
         $scope.markers = [];
         $scope.$$markers = {};
+        $scope.articleSearch = "";
 
         /* noise filters */
         $scope.noiseFilters = _.toArray(MapFilters.noiseFilters);
@@ -51,7 +52,7 @@ angular.module('nd.map')
                         $scope.updateArticles();
                         $scope.filterMarkers();
                     });
-            }, 50);
+            }, 0);
 
         $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             if (toParams) {
@@ -141,7 +142,6 @@ angular.module('nd.map')
         });
     })
     .controller('MapListCtrl', function ($scope, $state, $window, $log, leafletData, MapFilters, Article, Marker) {
-        $scope.articleSearch = "";
         $scope.listCollapsed = false;
 
         $scope.collapseList = function () {
