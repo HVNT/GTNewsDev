@@ -45,7 +45,7 @@
             </div>
         </div>
         <div nd-s-row>
-            <input ng-model="articleSearch" class="nd-input" placeholder="Search articles by title." type="text"/>
+            <input ng-model="articleSearch" class="nd-input" placeholder="Search articles by title." ng-change="search(articleSearch)" type="text"/>
         </div>
         <div nd-s-row nd-s-pxy="sm"
              class="article-list-collapse-btn"
@@ -56,7 +56,7 @@
     </div>
 
     <div article-cards class="article-cards" ng-class="{'article-cards--collapsed': listCollapsed}">
-        <div ng-repeat="article in activeArticles | filter:articleSearch | orderBy:'-shareCount'"
+        <div ng-repeat="article in activeArticles | orderBy:'-shareCount'"
              ng-attr-id="{{article.id}}"
              class="article-card" nd-s-row>
             <div class="article-card__header"

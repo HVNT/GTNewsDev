@@ -101,7 +101,7 @@ angular.module('nd.services')
             }
         }
 
-        Article.queryBBox = function (bboxParam) {
+        Article.queryBBox = function (bboxParam, searchParam) {
             if (!MapFilters) throw new Error('no MapFilters, cannot request');
 
             var defer = $q.defer();
@@ -111,6 +111,7 @@ angular.module('nd.services')
             if (bboxParam && _dateStart) {
                 var path = Environment.path + '/pins/?in_bbox=' + bboxParam +
                         '&start_date=' + _dateStart +
+                        (searchParam ? '&search=' + searchParam : '') +
                         '&min_sharecount=' + _noiseFloor +
                         '&format=json',
                     config = _.extend({}, Environment.config);
