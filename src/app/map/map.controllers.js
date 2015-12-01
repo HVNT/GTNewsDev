@@ -42,7 +42,6 @@ angular.module('nd.map')
             function () {
                 Article.queryBBox($scope.bbox, $scope.articleSearch)
                     .then(function (response) {
-                        Marker.$$leafletMarkers = {};
                         if (response && response.length > 0) {
                             for (var i = 0; i < response.length; i++) {
                                 new Marker(response[i]);
@@ -71,7 +70,7 @@ angular.module('nd.map')
         };
 
         $scope.centerMap = function (article) {
-            console.log('centering map');
+            $log.debug('centering map..');
             if (article && !$scope.centering) {
                 //TODO set old marker to focus=false (done implicitly by leaflet??)
 
@@ -89,7 +88,6 @@ angular.module('nd.map')
                     };
                     $scope.activeMarker = _.extend({}, $scope.centerMarker);
                     targetMarker.focus = true;
-                    $scope.$broadcast('NDCenteringMarker')
                 }
             } else {
                 $log.debug('Need source url to nav.');
@@ -141,7 +139,10 @@ angular.module('nd.map')
             }
         });
     })
-    .controller('MapListCtrl', function ($scope, $state, $window, $log, leafletData, MapFilters, Article, Marker) {
+    .controller('MapListCtrl', function ($scope, $state, $window, $log,
+                                         leafletData,
+                                         MapFilters, Article, Marker) {
+
         $scope.listCollapsed = false;
 
         $scope.collapseList = function () {
